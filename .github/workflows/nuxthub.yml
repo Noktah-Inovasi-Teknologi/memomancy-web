@@ -11,6 +11,9 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    defaults:
+      run:
+        working-directory: ./app/
 
     steps:
       - uses: actions/checkout@v4
@@ -29,15 +32,12 @@ jobs:
           cache-dependency-path: "app/pnpm-lock.yaml"
 
       - name: Install dependencies
-        working-directory: memomancy-web/app
         run: pnpm install
 
       - name: Ensure NuxtHub module is installed
-        working-directory: memomancy-web/app
         run: pnpx nuxthub@latest ensure
 
       - name: Build application
-        working-directory: memomancy-web/app
         run: pnpm build
 
       - name: Deploy to NuxtHub
