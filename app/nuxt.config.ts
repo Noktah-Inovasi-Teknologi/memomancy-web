@@ -1,3 +1,4 @@
+import Aura from "@primeuix/themes/aura";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   colorMode: {
@@ -10,6 +11,10 @@ export default defineNuxtConfig({
   hub: {
     blob: true,
     database: true,
+  },
+  icon: {
+    mode: "css",
+    cssLayer: "base",
   },
   kinde: {
     debug: true,
@@ -27,10 +32,31 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
     "@nuxtjs/kinde",
+    "@primevue/nuxt-module",
+    "@pinia/nuxt",
+    "@nuxt/fonts",
+    "@nuxtjs/robots",
+    "nuxt-viewport",
   ],
   nitro: {
     experimental: {
       openAPI: true,
+    },
+  },
+  primevue: {
+    options: {
+      theme: {
+        preset: Aura,
+      },
+    },
+  },
+  viewport: {
+    breakpoints: {
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      "2xl": 1536,
     },
   },
 });
