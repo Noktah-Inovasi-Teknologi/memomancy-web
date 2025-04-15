@@ -19,20 +19,25 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 9
+          run_install: false
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: "pnpm"
+          cache-dependency-path: memomancy-web/app/pnpm-lock.yaml
 
       - name: Install dependencies
+        working-directory: memomancy-web/app
         run: pnpm install
 
       - name: Ensure NuxtHub module is installed
+        working-directory: memomancy-web/app
         run: pnpx nuxthub@latest ensure
 
       - name: Build application
+        working-directory: memomancy-web/app
         run: pnpm build
 
       - name: Deploy to NuxtHub
