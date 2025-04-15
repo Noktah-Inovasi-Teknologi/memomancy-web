@@ -45,3 +45,4 @@ jobs:
         id: deploy
         with:
           project-key: memomancy-6d63
+          directory: app/dist
