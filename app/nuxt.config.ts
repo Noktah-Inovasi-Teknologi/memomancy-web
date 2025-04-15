@@ -45,6 +45,7 @@ export default defineNuxtConfig({
   },
   primevue: {
     options: {
+      ripple: true,
       theme: {
         preset: Aura,
       },
@@ -54,6 +55,7 @@ export default defineNuxtConfig({
     breakpoints: {
       sm: 640,
       md: 768,
+      mtl: 960,
       lg: 1024,
       xl: 1280,
       "2xl": 1536,

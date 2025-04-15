@@ -5,6 +5,9 @@ const colorMode = useColorMode()
 
 <template>
   <div>
+    <p>Test</p>
+  </div>
+  <!-- <div>
     <NuxtRouteAnnouncer />
     <NuxtWelcome />
     <NuxtLink to="/api/login" external>
@@ -15,5 +18,5 @@ const colorMode = useColorMode()
     </NuxtLink>
     <InputText pt:root="!bg-red-500" />
     <Icon name="uil:github" size="2xl" class="text-red-500" />
-  </div>
+  </div> -->
 </template>
