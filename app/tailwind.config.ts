@@ -6,9 +6,14 @@ export default {
     "./layouts/**/*.{vue,js,ts}",
     "./pages/**/*.{vue,js,ts}",
     "./app.vue",
+    "./nuxt.config.{js,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        han: ["Hanuman", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };

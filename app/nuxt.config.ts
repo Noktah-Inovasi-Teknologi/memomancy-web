@@ -1,4 +1,5 @@
 import Aura from "@primeuix/themes/aura";
+import { definePreset } from "@primevue/themes";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   colorMode: {
@@ -7,6 +8,7 @@ export default defineNuxtConfig({
     fallback: "light",
   },
   compatibilityDate: "2024-11-01",
+  css: ["@/assets/css/tailwind.css"],
   devtools: { enabled: true },
   hub: {
     blob: true,
@@ -47,9 +49,28 @@ export default defineNuxtConfig({
     options: {
       ripple: true,
       theme: {
-        preset: Aura,
+        preset: definePreset(Aura, {
+          semantic: {
+            primary: {
+              50: "#FCFFE5",
+              100: "#F5FFB3",
+              200: "#ECFF73",
+              300: "#E6FF3A",
+              400: "#E5FF0F",
+              500: "#E3FE01", // your main base
+              600: "#BADA01",
+              700: "#91B501",
+              800: "#6B8F00",
+              900: "#4E6A00",
+              950: "#2E4100",
+            },
+          },
+        }),
       },
     },
+  },
+  tailwindcss: {
+    cssPath: "~/assets/css/tailwind.css",
   },
   viewport: {
     breakpoints: {

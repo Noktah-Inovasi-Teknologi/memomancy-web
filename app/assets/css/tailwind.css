@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .heading-1 {
+    @apply text-3xl font-han font-semibold text-[#1F1F1F];
+    @apply sm:font-normal;
+    @apply md:text-4xl md:font-semibold;
+    @apply lg:text-5xl;
+    @apply xl:text-6xl;
+    @apply 2xl:text-8xl;
+  }
+  .heading-2 {
+    @apply text-2xl font-han font-semibold text-[#1F1F1F];
+    @apply sm:font-normal;
+    @apply md:text-3xl md:font-semibold;
+    @apply lg:text-4xl;
+    @apply xl:text-5xl;
+    @apply 2xl:text-7xl;
+  }
+  .heading-3 {
+    @apply text-xl font-han font-semibold text-[#1F1F1F];
+    @apply sm:font-normal;
+    @apply md:text-2xl md:font-semibold;
+    @apply lg:text-3xl;
+    @apply xl:text-4xl;
+    @apply 2xl:text-6xl;
+  }
+  .heading-4 {
+    @apply text-lg font-han font-semibold text-[#1F1F1F];
+    @apply sm:font-normal;
+    @apply md:text-xl md:font-semibold;
+    @apply lg:text-2xl;
+    @apply xl:text-3xl;
+    @apply 2xl:text-5xl;
+  }
+  .heading-5 {
+    @apply text-base font-han font-semibold text-[#1F1F1F];
+    @apply sm:font-normal;
+    @apply md:text-lg md:font-semibold;
+    @apply lg:text-xl;
+    @apply xl:text-2xl;
+    @apply 2xl:text-4xl;
+  }
+
+  .bg-color-alternating {
+    @apply bg-[#F5F2EB] dark:bg-[#1F1F1F];
+  }
+  .bg-color-alternating-inverted {
+    @apply bg-[#1F1F1F] dark:bg-[#F5F2EB];
+  }
+
+  .border-color-alternating {
+    @apply border-[#F5F2EB] dark:border-[#1F1F1F];
+  }
+  .border-color-alternating-inverted {
+    @apply border-[#1F1F1F] dark:border-[#F5F2EB];
+  }
+
+  .text-color-alternating {
+    @apply text-[#1F1F1F] dark:text-[#F5F2EB];
+  }
+  .text-color-alternating-inverted {
+    @apply text-[#F5F2EB] dark:text-[#1F1F1F];
+  }
+}
