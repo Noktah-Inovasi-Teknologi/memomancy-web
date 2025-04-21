@@ -75,28 +75,28 @@ const reservationSteps = ref([
   {
     title: "Tentukan waktu dan tempat",
     description:
-      "Tentukan waktu dan tempat yang kamu mau, beserta detail lainnya",
+      "Tentukan waktu dan tempat yang kamu mau, beserta detail lainnya.",
     number: 2,
     emojis: ["📍", "🗓️", "⏰"],
   },
   {
     title: "Lakukan pembayaran",
     description:
-      "Lakukan pembayaran sesuai dengan metode yang tersedia, QRIS juga bisa",
+      "Lakukan pembayaran sesuai dengan metode yang tersedia, QRIS juga bisa.",
     number: 3,
     emojis: ["💳", "💵", "💰"],
   },
   {
     title: "Tunggu konfirmasi",
     description:
-      "Tunggu konfirmasi dari staff kami lewat Whatsapp, biasanya tidak lebih dari 1x24 jam",
+      "Tunggu konfirmasi dari staff kami lewat Whatsapp, biasanya tidak lebih dari 1x24 jam.",
     number: 4,
     emojis: ["⏳", "📩", "📬"],
   },
   {
     title: "Nikmati momenmu",
     description:
-      "Kami akan datang sesuai dengan waktu dan tempat yang sudah ditentukan, untuk mengabadikan momenmu",
+      "Kami akan datang sesuai dengan waktu dan tempat yang sudah ditentukan, untuk mengabadikan momenmu.",
     number: 5,
     emojis: ["🎉", "🎊", "🎈"],
   },
@@ -104,6 +104,32 @@ const reservationSteps = ref([
 const emoticonLoopers = reservationSteps.value.map((step) =>
   useEmoticonLooper(step.emojis, 1000)
 );
+const whyUs = ref([
+  {
+    title: "Kualitas Terjamin & Terstandarisasi",
+    description:
+      "Sudah coba macem-macem foto-videografer dan hasilnya beda semua? Pilih Memomancy kalo kamu pengen hasil yang konsisten dimana aja kapan aja momenmu direkam.",
+    icons: ["uil:camera", "uil:check-circle", "uil:star"],
+  },
+  {
+    title: "Fleksibel & Bisa Custom Request",
+    description:
+      "Butuh 3 kru? Gass. Butuh 2 angle kamera? Gass. Butuh edit video yang ada narasinya? Gass. Apapun yang kamu butuhin, tambahin aja toppingnya.",
+    icons: ["uil:setting", "uil:edit-alt", "uil:icons"],
+  },
+  {
+    title: "Ada di Banyak Kota & Tempat",
+    description:
+      "Lagi di surabaya nyari foto-videografer? Ada Memomancy. Lagi di Gili Labak Sumenep? Ada Memomancy. Pokoknya kalo lagi di Surabaya, Gresik, dan Madura, langsung kontak Memomancy.",
+    icons: ["uil:map-marker", "uil:location-arrow", "uil:home"],
+  },
+  {
+    title: "Murah Luar Biasa, Serius",
+    description:
+      "Kalo kamu udah liat harga di halaman reservasi, kamu pasti setuju kalo Memomancy itu murah luar biasa. Murahnya bukan berarti murahan, tapi karena kami percaya semua orang berhak ngeabadikan momennya.",
+    icons: ["uil:money-bill", "uil:money-withdrawal", "uil:money-stack"],
+  },
+]);
 
 function useEmoticonLooper(emojis: string[], interval = 2000) {
   const current = ref(emojis[0]);
@@ -131,14 +157,25 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
   <div class="flex flex-col w-full bg-color-alternating">
     <div class="flex flex-col m-8 gap-uniform-4" id="hero">
       <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div class="flex flex-col items-start">
+        <div class="flex flex-col items-center md:items-start">
           <p class="heading-1 main-tagline top-tagline">Abadikan Hari Ini</p>
           <p class="heading-1 main-tagline bottom-tagline">
             Ceritakan Selamanya
           </p>
-          <p class="heading-4 mt-6 text-color-alternating">
+          <p
+            class="heading-4 mt-6 text-color-alternating text-center md:text-start"
+          >
             Kami foto dan rekam momenmu tanpa ribet
           </p>
+          <Button class="mt-4 lg:mt-12">
+            <NuxtLink
+              to="/reservation"
+              class="flex items-center gap-8 paragraph-3 text-[#1F1F1F] font-semibold"
+            >
+              <p>Reservasi Sekarang</p>
+              <Icon name="uil:arrow-up-right" class="icon-size-5" />
+            </NuxtLink>
+          </Button>
         </div>
         <div>
           <transition name="fade" mode="out-in">
@@ -150,49 +187,12 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
       </div>
       <div class="w-full flex flex-col gap-8">
         <div class="w-full mt-8">
-          <div class="relative image-container">
+          <div class="image-container">
             <img
               src="/images/blue_beach.png"
               alt="Blue Beach"
               class="main-image"
             />
-            <div
-              class="flex flex-col absolute bottom-0 left-0 w-full padding-1 gap-uniform-1"
-            >
-              <div class="w-full">
-                <p class="heading-2 text-center md:text-start">
-                  Mending Pake Jasa Kami
-                </p>
-              </div>
-              <div
-                class="w-full flex flex-col md:flex-row items-center md:items-stretch justify-between gap-4"
-              >
-                <p
-                  class="secondary-list paragraph-3 padding-4 bg-color-alternating text-color-alternating"
-                >
-                  🗺️ Ada di banyak kota dan tempat
-                </p>
-                <p
-                  class="secondary-list paragraph-3 padding-4 bg-color-alternating text-color-alternating"
-                >
-                  🛠️ Fleksibel dan dapat dikustomisasi
-                </p>
-                <p
-                  class="secondary-list paragraph-3 padding-4 bg-color-alternating text-color-alternating"
-                >
-                  ⏱️ Reservasi waktu & tempat gampang anti ribet
-                </p>
-                <Button>
-                  <NuxtLink
-                    to="/reservation"
-                    class="flex items-center gap-8 paragraph-3 text-[#1F1F1F] font-semibold"
-                  >
-                    <p>Reservasi Sekarang</p>
-                    <Icon name="uil:arrow-up-right" class="icon-size-5" />
-                  </NuxtLink>
-                </Button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -337,6 +337,36 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col m-8 gap-uniform-4" id="why-us">
+      <div class="flex flex-col gap-uniform-1">
+        <p class="paragraph-2">
+          Sampe sini kamu pasti mikir, "foto-videografer kan banyak, apa yang
+          bikin Memomancy ini beda?". Nah, ini alasannya
+        </p>
+        <p class="heading-1 text-color-alternating">
+          Kenapa Mending Pake Memomancy
+        </p>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-uniform-0 bg-color-alternating-inverted padding-uniform-4 rounded-[3rem]"
+      >
+        <div
+          class="flex flex-col gap-uniform-4 text-color-alternating-inverted items-center text-center"
+          v-for="(item, index) in whyUs"
+          :key="index"
+        >
+          <div class="flex gap-uniform-1">
+            <Icon :name="item.icons[1]" class="icon-size-1" />
+          </div>
+          <p class="heading-5 text-color-alternating-inverted">
+            {{ item.title }}
+          </p>
+          <p class="paragraph-4">
+            {{ item.description }}
+          </p>
         </div>
       </div>
     </div>
