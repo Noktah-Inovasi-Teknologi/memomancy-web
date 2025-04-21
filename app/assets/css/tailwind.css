@@ -44,6 +44,134 @@
     @apply 2xl:text-4xl;
   }
 
+  .paragraph-1 {
+    @apply text-sm;
+    @apply sm:text-base;
+    @apply md:text-lg;
+    @apply lg:text-xl;
+    @apply xl:text-2xl;
+    @apply 2xl:text-3xl;
+  }
+  .paragraph-2 {
+    @apply text-xs;
+    @apply sm:text-sm;
+    @apply md:text-base;
+    @apply lg:text-lg;
+    @apply xl:text-xl;
+    @apply 2xl:text-2xl;
+  }
+  .paragraph-3 {
+    @apply text-[0.5rem];
+    @apply sm:text-[0.625rem];
+    @apply md:text-xs;
+    @apply lg:text-sm;
+    @apply xl:text-base;
+    @apply 2xl:text-lg;
+  }
+  .paragraph-4 {
+    @apply text-[0.25rem];
+    @apply sm:text-[0.375rem];
+    @apply md:text-[0.5rem];
+    @apply lg:text-[0.625rem];
+    @apply xl:text-xs;
+    @apply 2xl:text-sm;
+  }
+
+  /* Padding Classes */
+  .padding-uniform-1 {
+    @apply p-8;
+    @apply sm:p-9;
+    @apply lg:p-11;
+  }
+  .padding-uniform-2 {
+    @apply p-7;
+    @apply sm:p-8;
+    @apply lg:p-10;
+  }
+  .padding-uniform-3 {
+    @apply p-6;
+    @apply sm:p-7;
+    @apply lg:p-9;
+  }
+  .padding-uniform-4 {
+    @apply p-5;
+    @apply sm:p-6;
+    @apply lg:p-8;
+  }
+  .padding-uniform-5 {
+    @apply p-4;
+    @apply sm:p-5;
+    @apply lg:p-7;
+  }
+  .padding-uniform-6 {
+    @apply p-3;
+    @apply sm:p-4;
+    @apply lg:p-6;
+  }
+
+  .padding-1 {
+    @apply !px-8 !py-4;
+    @apply sm:!px-9 sm:!py-[1.125rem];
+    @apply lg:!px-10 lg:!py-6;
+  }
+  .padding-2 {
+    @apply !px-7 !py-[0.875rem];
+    @apply sm:!px-8 sm:!py-4;
+    @apply lg:!px-9 lg:!py-[1.625rem];
+  }
+  .padding-3 {
+    @apply !px-6 !py-2;
+    @apply sm:!px-7 sm:!py-[0.875rem];
+    @apply lg:!px-8 lg:!py-4;
+  }
+  .padding-4 {
+    @apply !px-5 !py-[0.625rem];
+    @apply sm:!px-6 sm:!py-3;
+    @apply lg:!px-7 lg:!py-[0.875rem];
+  }
+  .padding-5 {
+    @apply !px-4 !py-2;
+    @apply sm:!px-5 sm:!py-[0.625rem];
+    @apply lg:!px-6 lg:!py-3;
+  }
+  .padding-6 {
+    @apply !px-3 !py-[0.375rem];
+    @apply sm:!px-4 sm:!py-2;
+    @apply lg:!px-5 lg:!py-[0.625rem];
+  }
+
+  /* Gap Classes */
+  .gap-uniform-1 {
+    @apply gap-8;
+    @apply sm:gap-9;
+    @apply lg:gap-11;
+  }
+  .gap-uniform-2 {
+    @apply gap-7;
+    @apply sm:gap-8;
+    @apply lg:gap-10;
+  }
+  .gap-uniform-3 {
+    @apply gap-6;
+    @apply sm:gap-7;
+    @apply lg:gap-9;
+  }
+  .gap-uniform-4 {
+    @apply gap-5;
+    @apply sm:gap-6;
+    @apply lg:gap-8;
+  }
+  .gap-uniform-5 {
+    @apply gap-4;
+    @apply sm:gap-5;
+    @apply lg:gap-7;
+  }
+  .gap-uniform-6 {
+    @apply gap-3;
+    @apply sm:gap-4;
+    @apply lg:gap-6;
+  }
+
   .bg-color-alternating {
     @apply bg-[#F5F2EB] dark:bg-[#1F1F1F];
   }

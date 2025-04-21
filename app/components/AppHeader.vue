@@ -14,7 +14,7 @@ const navbarMenu = [
       <Menubar
         class="flex justify-between items-center"
         :model="navbarMenu"
-        pt:root:class="!px-6 !bg-[#F5F2EB] dark:!bg-[#1F1F1F] !border-[#1F1F1F] dark:!border-[#F5F2EB] !rounded-full"
+        pt:root:class="!px-6 !bg-[#F5F2EB] dark:!bg-[#1F1F1F] !border-[#1F1F1F] dark:!border-[#F5F2EB] !rounded-[3rem]"
         pt:end:class="flex !ml-0"
         :pt="{
           end: {
@@ -26,11 +26,11 @@ const navbarMenu = [
             ],
           },
           itemContent: {
-            class: '!bg-transparent !rounded-full',
+            class: '!bg-transparent !rounded-[3rem]',
           },
           rootList: {
             class:
-              '!bg-[#F5F2EB] dark:!bg-[#1F1F1F] !border-[#1F1F1F] !rounded-3xl ',
+              '!bg-[#F5F2EB] dark:!bg-[#1F1F1F] !border-[#1F1F1F] !rounded-[3rem]',
           },
         }"
       >

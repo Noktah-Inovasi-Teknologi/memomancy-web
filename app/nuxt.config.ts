@@ -67,6 +67,17 @@ export default defineNuxtConfig({
           },
         }),
       },
+      pt: {
+        button: {
+          root: {
+            class:
+              "!border-0 !rounded-[3rem] hover:!border-0 hover:!bg-primary-600 !px-5 !py-[0.625rem] sm:!px-6 sm:!py-3 lg:!px-7 lg:!py-[0.875rem]",
+          },
+          label: {
+            class: "!font-semibold",
+          },
+        },
+      },
     },
   },
   tailwindcss: {
