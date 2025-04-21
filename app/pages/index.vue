@@ -62,6 +62,48 @@ const galleryImages2 = ref([
     title: "Urban ape samurai hobbyist",
   },
 ]);
+const reservationSteps = ref([
+  {
+    title: "Pergi ke halaman reservasi",
+    number: 1,
+    emojis: ["🗺️", "📅", "📝"],
+    button: {
+      text: "Reservasi",
+      link: "/reservation",
+    },
+  },
+  {
+    title: "Tentukan waktu dan tempat",
+    description:
+      "Tentukan waktu dan tempat yang kamu mau, beserta detail lainnya",
+    number: 2,
+    emojis: ["📍", "🗓️", "⏰"],
+  },
+  {
+    title: "Lakukan pembayaran",
+    description:
+      "Lakukan pembayaran sesuai dengan metode yang tersedia, QRIS juga bisa",
+    number: 3,
+    emojis: ["💳", "💵", "💰"],
+  },
+  {
+    title: "Tunggu konfirmasi",
+    description:
+      "Tunggu konfirmasi dari staff kami lewat Whatsapp, biasanya tidak lebih dari 1x24 jam",
+    number: 4,
+    emojis: ["⏳", "📩", "📬"],
+  },
+  {
+    title: "Nikmati momenmu",
+    description:
+      "Kami akan datang sesuai dengan waktu dan tempat yang sudah ditentukan, untuk mengabadikan momenmu",
+    number: 5,
+    emojis: ["🎉", "🎊", "🎈"],
+  },
+]);
+const emoticonLoopers = reservationSteps.value.map((step) =>
+  useEmoticonLooper(step.emojis, 1000)
+);
 
 function useEmoticonLooper(emojis: string[], interval = 2000) {
   const current = ref(emojis[0]);
@@ -86,8 +128,8 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
 </script>
 
 <template>
-  <div class="flex flex-col w-full bg-[#F5F2EB] dark:bg-[#1F1F1F]">
-    <div class="m-8" id="hero">
+  <div class="flex flex-col w-full bg-color-alternating">
+    <div class="flex flex-col m-8 gap-uniform-4" id="hero">
       <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="flex flex-col items-start">
           <p class="heading-1 main-tagline top-tagline">Abadikan Hari Ini</p>
@@ -146,7 +188,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
                     class="flex items-center gap-8 paragraph-3 text-[#1F1F1F] font-semibold"
                   >
                     <p>Reservasi Sekarang</p>
-                    <Icon name="uil:arrow-up-right" class="w-8 h-8" />
+                    <Icon name="uil:arrow-up-right" class="icon-size-5" />
                   </NuxtLink>
                 </Button>
               </div>
@@ -239,9 +281,63 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
             class="flex items-center paragraph-3 text-[#1F1F1F] font-semibold gap-8"
           >
             <p>Lihat Galeri Portfolio Lengkap</p>
-            <Icon name="uil:arrow-up-right" class="w-8 h-8" />
+            <Icon name="uil:arrow-up-right" class="icon-size-5" />
           </NuxtLink>
         </Button>
+      </div>
+    </div>
+    <div class="flex flex-col m-8 gap-uniform-4" id="reservation-steps">
+      <div class="flex flex-col gap-uniform-1">
+        <p class="paragraph-2">
+          Suka sama hasilnya? Booking-nya juga gampang kok, cek aja
+        </p>
+        <p class="heading-1 text-color-alternating">Cara Reservasi</p>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-uniform-4 items-stretch"
+      >
+        <div
+          class="border border-color-alternating-inverted p-8 rounded-[3rem]"
+          v-for="(step, index) in reservationSteps"
+          :key="index"
+        >
+          <div
+            class="flex h-[120px] md:h-[100px] lg:h-[180px] xl:h-[120px] 2xl:h-[260px] gap-uniform-6 items-center justify-between"
+          >
+            <div
+              class="flex flex-col justify-between items-center h-full gap-uniform-6"
+            >
+              <p class="heading-7 text-color-alternating">{{ step.number }}</p>
+            </div>
+            <div class="flex flex-col gap-2 justify-between h-full">
+              <p class="heading-7 text-color-alternating">{{ step.title }}</p>
+              <p
+                class="paragraph-4 text-color-alternating"
+                v-if="step.description"
+              >
+                {{ step.description }}
+              </p>
+              <div v-if="step.button">
+                <Button>
+                  <NuxtLink
+                    :to="step.button.link"
+                    class="flex items-center gap-4 paragraph-4 text-[#1F1F1F] font-semibold"
+                  >
+                    <p>{{ step.button.text }}</p>
+                    <Icon name="uil:arrow-up-right" class="icon-size-5" />
+                  </NuxtLink>
+                </Button>
+              </div>
+            </div>
+            <div
+              class="flex flex-col justify-between items-center h-full gap-uniform-6"
+            >
+              <p>
+                {{ emoticonLoopers[index].currentEmoticon }}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -71,7 +71,7 @@ export default defineNuxtConfig({
         button: {
           root: {
             class:
-              "!border-0 !rounded-[3rem] hover:!border-0 hover:!bg-primary-600 !px-5 !py-[0.625rem] sm:!px-6 sm:!py-3 lg:!px-7 lg:!py-[0.875rem]",
+              "!border-0 !rounded-[3rem] hover:!border-0 hover:!bg-primary-600 !px-3 !py-[0.375rem] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]",
           },
           label: {
             class: "!font-semibold",

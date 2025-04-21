@@ -43,38 +43,42 @@
     @apply xl:text-2xl;
     @apply 2xl:text-4xl;
   }
-
-  .paragraph-1 {
-    @apply text-sm;
-    @apply sm:text-base;
-    @apply md:text-lg;
+  .heading-6 {
+    @apply text-sm font-han font-semibold text-[#1F1F1F];
+    @apply sm:text-base sm:font-normal;
+    @apply md:text-lg md:font-semibold;
     @apply lg:text-xl;
     @apply xl:text-2xl;
     @apply 2xl:text-3xl;
   }
-  .paragraph-2 {
-    @apply text-xs;
-    @apply sm:text-sm;
-    @apply md:text-base;
+  .heading-7 {
+    @apply text-xs font-han font-semibold text-[#1F1F1F];
+    @apply sm:text-sm sm:font-normal;
+    @apply md:text-base md:font-semibold;
     @apply lg:text-lg;
     @apply xl:text-xl;
     @apply 2xl:text-2xl;
   }
+
+  .paragraph-1 {
+    @apply text-lg;
+    @apply lg:text-xl;
+    @apply 2xl:text-2xl;
+  }
+  .paragraph-2 {
+    @apply text-base;
+    @apply lg:text-lg;
+    @apply 2xl:text-xl;
+  }
   .paragraph-3 {
-    @apply text-[0.5rem];
-    @apply sm:text-[0.625rem];
-    @apply md:text-xs;
-    @apply lg:text-sm;
-    @apply xl:text-base;
+    @apply text-sm;
+    @apply lg:text-base;
     @apply 2xl:text-lg;
   }
   .paragraph-4 {
-    @apply text-[0.25rem];
-    @apply sm:text-[0.375rem];
-    @apply md:text-[0.5rem];
-    @apply lg:text-[0.625rem];
-    @apply xl:text-xs;
-    @apply 2xl:text-sm;
+    @apply text-xs;
+    @apply lg:text-sm;
+    @apply 2xl:text-base;
   }
 
   /* Padding Classes */
@@ -191,5 +195,54 @@
   }
   .text-color-alternating-inverted {
     @apply text-[#F5F2EB] dark:text-[#1F1F1F];
+  }
+
+  .icon-size-1 {
+    @apply w-6 h-6;
+    @apply sm:w-7 sm:h-7;
+    @apply md:w-8 md:h-8;
+    @apply lg:w-9 lg:h-9;
+    @apply xl:w-10 xl:h-10;
+    @apply 2xl:w-12 2xl:h-12;
+  }
+  .icon-size-2 {
+    @apply w-4 h-4;
+    @apply sm:w-5 sm:h-5;
+    @apply md:w-6 md:h-6;
+    @apply lg:w-7 lg:h-7;
+    @apply xl:w-8 xl:h-8;
+    @apply 2xl:w-10 2xl:h-10;
+  }
+  .icon-size-3 {
+    @apply w-3 h-3;
+    @apply sm:w-4 sm:h-4;
+    @apply md:w-5 md:h-5;
+    @apply lg:w-6 lg:h-6;
+    @apply xl:w-7 xl:h-7;
+    @apply 2xl:w-8 2xl:h-8;
+  }
+  .icon-size-4 {
+    @apply w-2 h-2;
+    @apply sm:w-3 sm:h-3;
+    @apply md:w-4 md:h-4;
+    @apply lg:w-5 lg:h-5;
+    @apply xl:w-6 xl:h-6;
+    @apply 2xl:w-7 2xl:h-7;
+  }
+  .icon-size-5 {
+    @apply w-1 h-1;
+    @apply sm:w-2 sm:h-2;
+    @apply md:w-3 md:h-3;
+    @apply lg:w-4 lg:h-4;
+    @apply xl:w-5 xl:h-5;
+    @apply 2xl:w-6 2xl:h-6;
+  }
+  .icon-size-6 {
+    @apply w-[0.125rem] h-[0.125rem];
+    @apply sm:w-1 sm:h-1;
+    @apply md:w-2 md:h-2;
+    @apply lg:w-3 lg:h-3;
+    @apply xl:w-4 xl:h-4;
+    @apply 2xl:w-5 2xl:h-5;
   }
 }
