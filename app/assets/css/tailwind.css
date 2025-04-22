@@ -80,6 +80,11 @@
     @apply lg:text-sm;
     @apply 2xl:text-base;
   }
+  .paragraph-5 {
+    @apply text-[0.5rem];
+    @apply lg:text-xs;
+    @apply 2xl:text-sm;
+  }
 
   /* Padding Classes */
   .padding-uniform-1 {
@@ -179,6 +184,11 @@
     @apply gap-3;
     @apply sm:gap-4;
     @apply lg:gap-6;
+  }
+  .gap-uniform-7 {
+    @apply gap-2;
+    @apply sm:gap-3;
+    @apply lg:gap-5;
   }
 
   .bg-color-alternating {

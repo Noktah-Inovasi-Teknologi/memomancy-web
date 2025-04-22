@@ -15,6 +15,8 @@ export default {
         "infinite-loop-scroll-inverted":
           "loop-scroll-inverted 20s linear infinite",
         "infinite-loop-scroll-5": "loop-scroll 30s infinite",
+        "infinite-loop-scroll-horizontal":
+          "loop-scroll-horizontal 10s linear infinite",
       },
       colors: {
         primary: {
@@ -43,6 +45,10 @@ export default {
           "30%, 50%": { transform: "translateY(0)" },
           "50%, 70%": { transform: "translateY(0)" },
           "70%, 100%": { transform: "translateY(-300%)" },
+        },
+        "loop-scroll-horizontal": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-25%)" },
         },
       },
       fontFamily: {

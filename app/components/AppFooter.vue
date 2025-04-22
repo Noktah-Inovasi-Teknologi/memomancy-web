@@ -17,7 +17,7 @@ const footerMenu2 = [
   <div class="bg-color-alternating">
     <div class="px-8 pt-8">
       <div
-        class="p-6 border-t border-x border-color-alternating-inverted rounded-t-3xl"
+        class="p-6 border-t border-x border-color-alternating-inverted rounded-t-[3rem]"
       >
         <div
           class="flex flex-col md:flex-row justify-between gap-8 text-color-alternating"

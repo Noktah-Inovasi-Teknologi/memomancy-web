@@ -130,6 +130,23 @@ const whyUs = ref([
     icons: ["uil:money-bill", "uil:money-withdrawal", "uil:money-stack"],
   },
 ]);
+const testimonials = ref([
+  {
+    name: "Alifieya P. N.",
+    text: "Hasilnya bagus banget, sumpah aku juga ga expect bakal mudah banget buat reservasi.",
+    avatar: "F",
+  },
+  {
+    name: "Riska A. P.",
+    text: "Jadi bisa ngambil sisi-sisi aku yang fotogenik.",
+    avatar: "R",
+  },
+  {
+    name: "M. Atthaariq M.",
+    text: "Dilayanin dengan baik sampe detail-detail kecilnya, suka banget sama foto & video yang diambil.",
+    avatar: "A",
+  },
+]);
 
 function useEmoticonLooper(emojis: string[], interval = 2000) {
   const current = ref(emojis[0]);
@@ -167,15 +184,28 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
           >
             Kami foto dan rekam momenmu tanpa ribet
           </p>
-          <Button class="mt-4 lg:mt-12">
-            <NuxtLink
-              to="/reservation"
-              class="flex items-center gap-8 paragraph-3 text-[#1F1F1F] font-semibold"
+          <div class="flex gap-uniform-4 mt-4 lg:mt-12">
+            <Button>
+              <NuxtLink
+                to="/reservation"
+                class="flex items-center gap-8 paragraph-3 text-[#1F1F1F] font-semibold"
+              >
+                <p>Reservasi Sekarang</p>
+                <Icon name="uil:arrow-up-right" class="icon-size-5" />
+              </NuxtLink>
+            </Button>
+            <Button
+              pt:root:class="!bg-[#F5F2EB] dark:!bg-[#1F1F1F] dark:hover:!bg-[#2E2E2E] !border-[#1F1F1F] dark:!border-[#F5F2EB] !rounded-full !px-3 !py-[0.375rem] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem] hover:!bg-[#D9D491]"
             >
-              <p>Reservasi Sekarang</p>
-              <Icon name="uil:arrow-up-right" class="icon-size-5" />
-            </NuxtLink>
-          </Button>
+              <NuxtLink
+                to="/calculator"
+                class="flex items-center gap-uniform-4 paragraph-3 text-color-alternating font-semibold"
+              >
+                <p>Hitung Harga</p>
+                <Icon name="uil:arrow-up-right" class="icon-size-5" />
+              </NuxtLink>
+            </Button>
+          </div>
         </div>
         <div>
           <transition name="fade" mode="out-in">
@@ -185,15 +215,13 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
           </transition>
         </div>
       </div>
-      <div class="w-full flex flex-col gap-8">
-        <div class="w-full mt-8">
-          <div class="image-container">
-            <img
-              src="/images/blue_beach.png"
-              alt="Blue Beach"
-              class="main-image"
-            />
-          </div>
+      <div class="w-full mt-8">
+        <div class="image-container">
+          <img
+            src="/images/blue_beach.png"
+            alt="Blue Beach"
+            class="main-image"
+          />
         </div>
       </div>
     </div>
@@ -367,6 +395,83 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
           <p class="paragraph-4">
             {{ item.description }}
           </p>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col m-8 gap-uniform-4" id="testimonials">
+      <div class="flex flex-col gap-uniform-1">
+        <p class="paragraph-2">Buat finishing, bisa dilihat</p>
+        <p class="heading-1 text-color-alternating">
+          Testimoni Pelanggan Memomancy
+        </p>
+      </div>
+      <div class="w-full overflow-hidden">
+        <div
+          class="flex w-max gap-uniform-4 animate-infinite-loop-scroll-horizontal ease-in-out"
+        >
+          <div
+            class="flex flex-col max-w-[240px] lg:max-w-[360px] xl:max-w-[480px] justify-between gap-uniform-4 text-color-alternating border border-color-alternating-inverted p-8 rounded-[3rem] min-w-[300px]"
+            v-for="(testimonial, index) in [...testimonials, ...testimonials]"
+            :key="index"
+          >
+            <p class="paragraph-3">{{ testimonial.text }}</p>
+            <div class="flex gap-uniform-4 items-center">
+              <Avatar
+                :label="testimonial.avatar"
+                class="w-8 h-8 rounded-full border border-color-alternating-inverted"
+                shape="circle"
+                size="large"
+              />
+              <p class="heading-6 text-color-alternating">
+                {{ testimonial.name }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col m-8 gap-uniform-4" id="call-to-action">
+      <div class="w-full">
+        <div class="relative image-container">
+          <img
+            src="/images/blue_beach.png"
+            alt="Blue Beach"
+            class="w-full h-auto main-image"
+          />
+          <div class="absolute inset-0 bg-black/60 rounded-[3rem]" />
+
+          <div
+            class="absolute inset-0 flex flex-col gap-uniform-0 items-center justify-center"
+          >
+            <div
+              class="flex flex-col gap-uniform-7 text-center text-[#F5F2EB] heading-4"
+            >
+              <p>Udah liat galerinya kan?</p>
+              <p>Sekarang giliranmu nyumbang momenmu ke dalamnya.</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-uniform-4">
+              <Button>
+                <NuxtLink
+                  to="/reservation"
+                  class="flex items-center gap-uniform-4 paragraph-3 text-[#1F1F1F] font-semibold"
+                >
+                  <p>Reservasi Sekarang</p>
+                  <Icon name="uil:arrow-up-right" class="icon-size-5" />
+                </NuxtLink>
+              </Button>
+              <Button
+                pt:root:class="!bg-[#F5F2EB] dark:!bg-[#1F1F1F] dark:hover:!bg-[#2E2E2E] !border-0 !rounded-full !px-3 !py-[0.375rem] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem] hover:!bg-[#D9D491]"
+              >
+                <NuxtLink
+                  to="/calculator"
+                  class="flex items-center gap-uniform-4 paragraph-3 text-color-alternating font-semibold"
+                >
+                  <p>Hitung Harga</p>
+                  <Icon name="uil:arrow-up-right" class="icon-size-5" />
+                </NuxtLink>
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
