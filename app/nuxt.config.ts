@@ -77,6 +77,50 @@ export default defineNuxtConfig({
             class: "!font-semibold",
           },
         },
+        global: {
+          css: `
+            .p-inputgroupaddon {
+              border-block-start: 1px solid #1F1F1F !important;
+              border-block-end: 1px solid #1F1F1F !important;
+            }
+            .p-inputgroupaddon:first-child {
+              border-inline-start: 1px solid #1F1F1F !important;
+            }
+            .p-inputtext {
+              border: 1px solid #1F1F1F !important;
+              border-radius: 3rem;
+            }
+
+            @media (prefers-color-scheme: dark) {
+              .p-inputgroupaddon {
+                border-block-start: 1px solid #F5F2EB !important;
+                border-block-end: 1px solid #F5F2EB !important;
+              }
+              .p-inputgroupaddon:first-child {
+                border-inline-start: 1px solid #F5F2EB !important;
+              }
+              .p-inputtext {
+                border: 1px solid #F5F2EB !important;
+                border-radius: 3rem;
+              }
+            }
+          `,
+        },
+        inputtext: {
+          root: {
+            class:
+              "border-[#1F1F1F] dark:border-[#F5F2EB] rounded-[3rem] !px-3 !py-[0.375rem] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]",
+          },
+          label: {
+            class: "!font-semibold",
+          },
+        },
+        paginator: {
+          root: {
+            class:
+              "!border !border-[#1F1F1F] dark:!border-[#F5F2EB] !rounded-[3rem] !bg-transparent",
+          },
+        },
       },
     },
   },
