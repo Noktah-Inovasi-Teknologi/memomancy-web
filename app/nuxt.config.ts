@@ -124,11 +124,58 @@ export default defineNuxtConfig({
       },
     },
   },
+  routeRules: {
+    "/**": {
+      appMiddleware: ["auth-logged-in"],
+      kinde: {
+        redirectUrl: "/api/login",
+        external: true,
+      },
+    },
+    "/": {
+      kinde: {
+        public: true,
+      },
+    },
+    "/calculator": {
+      kinde: {
+        public: true,
+      },
+    },
+    "/dashboard": {
+      kinde: {
+        permissions: { dashboard: true },
+        redirectUrl: "/api/login",
+        external: true,
+      },
+    },
+    "/gallery": {
+      kinde: {
+        public: true,
+      },
+    },
+    "/reservation": {
+      kinde: {
+        public: true,
+      },
+    },
+  },
+  runtimeConfig: {
+    app: {
+      name: "Memomancy",
+      url: "https://memomancy.com",
+      head: {
+        title: "Memomancy",
+      },
+    },
+    adminList: process.env.MEMOMANCY_ADMIN_LIST,
+  },
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
   },
   viewport: {
     breakpoints: {
+      xs: 320,
       sm: 640,
       md: 768,
       mtl: 960,

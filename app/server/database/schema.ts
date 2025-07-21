@@ -10,7 +10,11 @@ export const events = sqliteTable("events", {
   endDate: integer("end_date", { mode: "timestamp" }).notNull(),
   location: text("location").notNull(),
   eventType: text("event_type").notNull(),
+  outdoor: text().notNull(),
   media: text("media", { mode: "json" }),
+  thumbnail: text("thumbnail"),
+  capacity: integer().notNull(),
+  region: text().notNull(),
   createdAt: integer("created_at", { mode: "timestamp" })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
@@ -24,8 +28,9 @@ export const medias = sqliteTable("medias", {
   name: text("name").notNull(),
   description: text("description"),
   type: text("type").notNull(),
-  blobUuid: text("blob_uuid").notNull(),
+  blobPath: text("blob_path").notNull(),
   eventId: integer("event_id").references(() => events.id),
+  liked: integer("liked").default(0),
   createdAt: integer("created_at", { mode: "timestamp" })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

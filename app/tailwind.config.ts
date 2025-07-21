@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: '320px',
+      },
       animation: {
         "infinite-loop-scroll": "loop-scroll 25s infinite",
         "infinite-loop-scroll-inverted":
@@ -53,6 +56,7 @@ export default {
       },
       fontFamily: {
         han: ["Hanuman", "sans-serif"],
+        "system": ["ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"],
       },
     },
   },

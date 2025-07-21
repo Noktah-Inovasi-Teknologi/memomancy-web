@@ -104,6 +104,64 @@ const reservationSteps = ref([
 const emoticonLoopers = reservationSteps.value.map((step) =>
   useEmoticonLooper(step.emojis, 1000)
 );
+const selectedCategory = ref("life-stories");
+const categoryOptions = [
+  { label: "Life Stories & Celebrations", value: "life-stories" },
+  { label: "Love & Union", value: "love-union" },
+  { label: "Sport", value: "sport" },
+  { label: "Event", value: "event" },
+];
+
+const categoryImages = {
+  "life-stories": [
+    { src: "/images/x2.png", alt: "Life story image", title: "Life Stories" },
+    { src: "/images/x7.png", alt: "Life story image", title: "Life Stories" },
+    { src: "/images/x11.png", alt: "Life story image", title: "Life Stories" }
+  ],
+  "love-union": [
+    { src: "/images/x10.png", alt: "Love union image", title: "Love & Union" },
+    { src: "/images/x3.png", alt: "Love union image", title: "Love & Union" },
+    { src: "/images/x13.png", alt: "Love union image", title: "Love & Union" }
+  ],
+  "sport": [
+    { src: "/images/x5.png", alt: "Sport image", title: "Sport" },
+    { src: "/images/x8.png", alt: "Sport image", title: "Sport" },
+    { src: "/images/x12.png", alt: "Sport image", title: "Sport" }
+  ],
+  "event": [
+    { src: "/images/x1.png", alt: "Event image", title: "Event" },
+    { src: "/images/x6.png", alt: "Event image", title: "Event" },
+    { src: "/images/x9.png", alt: "Event image", title: "Event" }
+  ],
+};
+
+
+const carouselVisible = computed(() => {
+  if (process.client) {
+    const width = window.innerWidth;
+    if (width < 640) return 1;
+    if (width < 768) return 2;
+    if (width < 1024) return 3;
+    return 4;
+  }
+  return 1; // Server-side default
+});
+
+const carouselScroll = computed(() => {
+  return carouselVisible.value;
+});
+
+const carouselOrientation = computed(() => {
+  if (process.client) {
+    const width = window.innerWidth;
+    return width < 640 ? 'vertical' : 'horizontal';
+  }
+  return 'horizontal'; // Server-side default
+});
+
+const filteredImages = computed(() => {
+  return categoryImages[selectedCategory.value as keyof typeof categoryImages] || [];
+});
 const whyUs = ref([
   {
     title: "Kualitas Terjamin & Terstandarisasi",
@@ -175,44 +233,39 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
     <div class="flex flex-col m-8 gap-uniform-4" id="hero">
       <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="flex flex-col items-center md:items-start">
-          <p class="heading-1 main-tagline top-tagline">Abadikan Hari Ini</p>
-          <p class="heading-1 main-tagline bottom-tagline">
+          <p class="heading-1 main-tagline text-color-alternating">
+            Abadikan Hari Ini
+          </p>
+          <p class="heading-1 main-tagline text-color-alternating">
             Ceritakan Selamanya
           </p>
           <p
-            class="heading-4 mt-6 text-color-alternating text-center md:text-start"
+            class="heading-4 mt-6 text-color-alternating text-center md:text-start sub-tagline"
           >
             Kami foto dan rekam momenmu tanpa ribet
           </p>
-          <div class="flex gap-uniform-4 mt-4 lg:mt-12">
+          <div class="flex flex-col sm:flex-row gap-uniform-4 mt-6 lg:mt-12">
             <Button>
               <NuxtLink
                 to="/reservation"
-                class="flex items-center gap-8 paragraph-3 text-[#1F1F1F] font-semibold"
+                class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
               >
                 <p>Reservasi Sekarang</p>
-                <Icon name="uil:arrow-up-right" class="icon-size-5" />
+                <Icon name="uil:arrow-up-right" class="icon-size-4" />
               </NuxtLink>
             </Button>
             <Button
-              pt:root:class="!bg-[#F5F2EB] dark:!bg-[#1F1F1F] dark:hover:!bg-[#2E2E2E] !border-[#1F1F1F] dark:!border-[#F5F2EB] !rounded-full !px-3 !py-[0.375rem] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem] hover:!bg-[#D9D491]"
+              pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
             >
               <NuxtLink
                 to="/calculator"
-                class="flex items-center gap-uniform-4 paragraph-3 text-color-alternating font-semibold"
+                class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
               >
                 <p>Hitung Harga</p>
-                <Icon name="uil:arrow-up-right" class="icon-size-5" />
+                <Icon name="uil:arrow-up-right" class="icon-size-4" />
               </NuxtLink>
             </Button>
           </div>
-        </div>
-        <div>
-          <transition name="fade" mode="out-in">
-            <p :key="currentEmoticon" class="emoji">
-              {{ currentEmoticon }}
-            </p>
-          </transition>
         </div>
       </div>
       <div class="w-full mt-8">
@@ -227,10 +280,46 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
     </div>
     <div class="flex flex-col m-8 gap-uniform-4" id="gallery">
       <div class="flex flex-col gap-uniform-1">
-        <p class="paragraph-2">Masih ragu sama hasilnya? Scroll dulu ke</p>
-        <p class="heading-1 text-color-alternating">Galeri Portfolio</p>
+        <p class="heading-1 text-color-alternating">
+          Cerita yang Telah Kami Abadikan
+        </p>
+        <p>
+          Kumpulan momen spesial dari berbagai perjalanan yang pernah kami
+          tangkap. Dari kisah cinta, kelahiran, hingga momen penuh semangat.
+          Inilah jejak visual yang kami banggakan.
+        </p>
+        <SelectButton
+          v-model="selectedCategory"
+          :options="categoryOptions"
+          optionLabel="label"
+          optionValue="value"
+          :pt="{
+            root: {
+              class:
+                'flex flex-wrap !rounded-3xl border border-color-alternating-inverted [&>button]:!px-4 [&>button]:!py-2 [&>button]:!rounded-3xl [&>button]:!border-0 [&>button]:!bg-color-alternating [&>button]:!text-color-alternating [&>button]:!paragraph-3 [&>button]:!font-semibold [&>button]:!transition-colors [&>button]:!duration-200 [&>button.p-highlight]:!bg-transparent [&>button.p-highlight]:!text-color-alternating [&>button.p-togglebutton-checked]:!bg-transparent [&>button.p-togglebutton-checked]:!text-color-alternating [&>button.p-togglebutton-checked>.p-togglebutton-content]:!bg-[#E3FE01] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!text-[#1F1F1F] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!shadow-none [&>button[data-p-active=true]]:!bg-transparent [&>button[data-p-active=true]]:!text-color-alternating [&>button:hover:not(.p-highlight)]:!bg-[#EDEEBB] [&>button:hover:not(.p-highlight)]:dark:!bg-[#2E2E2E]',
+            },
+            pcToggleButton: {
+              content: '!rounded-full',
+            },
+          }"
+        />
+        
+        <Carousel 
+          :value="filteredImages" 
+          :numVisible="carouselVisible"
+          :numScroll="carouselScroll"
+          :orientation="carouselOrientation"
+          class="mt-8"
+        >
+          <template #item="{ data }">
+            <img 
+              :src="data.src" 
+              :alt="data.alt" 
+            />
+          </template>
+        </Carousel>
       </div>
-      <div
+      <!-- <div
         class="flex gap-8 h-[360px] sm:h-[480px] 2xl:h-[560px] overflow-hidden"
       >
         <div
@@ -301,15 +390,15 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="flex justify-end">
         <Button>
           <NuxtLink
             to="/gallery"
-            class="flex items-center paragraph-3 text-[#1F1F1F] font-semibold gap-8"
+            class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
           >
             <p>Lihat Galeri Portfolio Lengkap</p>
-            <Icon name="uil:arrow-up-right" class="icon-size-5" />
+            <Icon name="uil:arrow-up-right" class="icon-size-4" />
           </NuxtLink>
         </Button>
       </div>
@@ -349,10 +438,10 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
                 <Button>
                   <NuxtLink
                     :to="step.button.link"
-                    class="flex items-center gap-4 paragraph-4 text-[#1F1F1F] font-semibold"
+                    class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
                   >
                     <p>{{ step.button.text }}</p>
-                    <Icon name="uil:arrow-up-right" class="icon-size-5" />
+                    <Icon name="uil:arrow-up-right" class="icon-size-4" />
                   </NuxtLink>
                 </Button>
               </div>
@@ -453,10 +542,10 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
               <Button>
                 <NuxtLink
                   to="/reservation"
-                  class="flex items-center gap-uniform-4 paragraph-3 text-[#1F1F1F] font-semibold"
+                  class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
                 >
                   <p>Reservasi Sekarang</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-5" />
+                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
                 </NuxtLink>
               </Button>
               <Button
@@ -464,10 +553,10 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
               >
                 <NuxtLink
                   to="/calculator"
-                  class="flex items-center gap-uniform-4 paragraph-3 text-color-alternating font-semibold"
+                  class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
                 >
                   <p>Hitung Harga</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-5" />
+                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
                 </NuxtLink>
               </Button>
             </div>
@@ -493,24 +582,13 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
 }
 
 .main-tagline {
-  @apply w-full px-8 bg-[#E3FE01] text-center;
-  @apply sm:w-auto sm:px-0 sm:text-start;
-  @apply md:px-4 text-nowrap;
-}
-.top-tagline {
-  @apply pt-4 rounded-t-[3rem];
-  @apply sm:pt-0 sm:rounded-t-[3rem];
-  @apply md:pt-2 md:rounded-t-[1rem];
-  @apply lg:pt-4 lg:rounded-t-[2rem];
-}
-.bottom-tagline {
-  @apply pb-2 rounded-b-[3rem];
-  @apply sm:pb-0 sm:rounded-b-none sm:rounded-r-[3rem];
-  @apply md:pt-1 md:pb-0 md:rounded-none md:rounded-r-[1rem] md:rounded-bl-[1rem];
-  @apply lg:pb-2 lg:rounded-r-[2rem] lg:rounded-bl-[2rem];
+  @apply w-full text-center font-system font-bold leading-tight;
+  @apply sm:w-auto sm:text-start;
+  @apply md:text-nowrap;
+  font-size: clamp(1.5rem, 8vw, 12rem);
 }
 .sub-tagline {
-  @apply mt-6 text-center text-base font-han;
+  @apply mt-6 text-center text-xs font-han;
   @apply sm:text-start sm:text-2xl;
   @apply md:text-base;
 }
@@ -522,7 +600,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
   @apply 2xl:text-[15rem];
 }
 .image-container {
-  @apply w-full aspect-[1/2] sm:aspect-[1/2] md:aspect-[2/1] lg:aspect-[2/1] xl:aspect-[3/1];
+  @apply w-full aspect-[2/3] sm:aspect-[2/3] md:aspect-[2/1] lg:aspect-[2/1] xl:aspect-[3/1];
 }
 .main-image {
   @apply rounded-[3rem] w-full h-full object-cover;

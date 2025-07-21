@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+useSeoMeta({
+  title: `Galeri | ${useRuntimeConfig().app.name}`,
+});
+</script>
 
 <template>
   <div class="w-full flex flex-col bg-color-alternating">
@@ -10,13 +14,13 @@
         <InputText label="Cari" />
       </InputGroup>
       <div class="flex gap-uniform-4">
-        <Button>
-          <Icon name="uil:filter" />
-          <p class="text-nowrap">Filter</p>
+        <Button class="w-full flex items-center gap-uniform-4 justify-between">
+          <Icon name="uil:filter" class="icon-size-4" />
+          <p class="text-nowrap paragraph-3">Filter</p>
         </Button>
-        <Button>
-          <Icon name="uil:arrows-v-alt" />
-          <p class="text-nowrap">Urutkan:</p>
+        <Button class="w-full flex items-center gap-uniform-4 justify-between">
+          <Icon name="uil:arrows-v-alt" class="icon-size-4" />
+          <p class="text-nowrap paragraph-3">Urutkan:</p>
         </Button>
       </div>
     </div>

@@ -19,6 +19,7 @@
     "@nuxtjs/kinde": "0.2.0",
     "@nuxtjs/robots": "5.2.9",
     "@pinia/nuxt": "^0.11.0",
+    "@primevue/forms": "^4.3.3",
     "@primevue/themes": "^4.3.3",
     "drizzle-orm": "^0.43.1",
     "nuxt": "^3.16.2",
@@ -33,7 +34,7 @@
     "@iconify-json/uil": "^1.2.3",
     "@nuxtjs/tailwindcss": "6.13.2",
     "@primeuix/themes": "^1.0.3",
-    "@primevue/nuxt-module": "4.3.0",
+    "@primevue/nuxt-module": "4.3.1",
     "@types/node": "^22.14.1",
     "drizzle-kit": "^0.31.0",
     "wrangler": "^4.10.0"
