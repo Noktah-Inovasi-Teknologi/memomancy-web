@@ -64,46 +64,54 @@ const galleryImages2 = ref([
 ]);
 const reservationSteps = ref([
   {
-    title: "Pergi ke halaman reservasi",
+    title: "Mulai Reservasi",
+    description:
+      "Klik tombol reservasi di bawah untuk mulai proses booking yang mudah dan cepat.",
     number: 1,
-    emojis: ["🗺️", "📅", "📝"],
-    button: {
-      text: "Reservasi",
-      link: "/reservation",
-    },
+    icon: "uil:calendar-alt",
   },
   {
-    title: "Tentukan waktu dan tempat",
+    title: "Pilih Paket & Waktu",
     description:
-      "Tentukan waktu dan tempat yang kamu mau, beserta detail lainnya.",
+      "Tentukan jenis sesi foto, tanggal, waktu, dan lokasi yang kamu inginkan.",
     number: 2,
-    emojis: ["📍", "🗓️", "⏰"],
+    icon: "uil:map-marker",
+    details: [
+      "Pilih paket foto/video",
+      "Tentukan tanggal & jam",
+      "Pilih lokasi shooting",
+    ],
   },
   {
-    title: "Lakukan pembayaran",
+    title: "Bayar dengan Mudah",
     description:
-      "Lakukan pembayaran sesuai dengan metode yang tersedia, QRIS juga bisa.",
+      "Pembayaran fleksibel via transfer bank, e-wallet, atau QRIS. Aman dan terpercaya.",
     number: 3,
-    emojis: ["💳", "💵", "💰"],
+    icon: "uil:credit-card",
+    details: ["Transfer Bank", "E-wallet (OVO, Dana, Gopay)", "QRIS"],
   },
   {
-    title: "Tunggu konfirmasi",
+    title: "Konfirmasi Otomatis",
     description:
-      "Tunggu konfirmasi dari staff kami lewat Whatsapp, biasanya tidak lebih dari 1x24 jam.",
+      "Tim kami akan menghubungi via WhatsApp untuk konfirmasi detail dalam 24 jam.",
     number: 4,
-    emojis: ["⏳", "📩", "📬"],
+    icon: "uil:whatsapp",
+    details: ["Konfirmasi booking", "Brief konsep foto", "Koordinasi teknis"],
   },
   {
-    title: "Nikmati momenmu",
+    title: "Sesi Foto Dimulai! ✨",
     description:
-      "Kami akan datang sesuai dengan waktu dan tempat yang sudah ditentukan, untuk mengabadikan momenmu.",
+      "Fotografer profesional kami siap mengabadikan momen spesialmu dengan magic touch Memomancy.",
     number: 5,
-    emojis: ["🎉", "🎊", "🎈"],
+    icon: "uil:camera",
+    details: [
+      "Photographer datang tepat waktu",
+      "Sesi foto/video profesional",
+      "Hasil edit dalam 3-7 hari",
+    ],
+    celebration: true,
   },
 ]);
-const emoticonLoopers = reservationSteps.value.map((step) =>
-  useEmoticonLooper(step.emojis, 1000)
-);
 const selectedCategory = ref("life-stories");
 const categoryOptions = [
   { label: "Life Stories & Celebrations", value: "life-stories" },
@@ -116,25 +124,24 @@ const categoryImages = {
   "life-stories": [
     { src: "/images/x2.png", alt: "Life story image", title: "Life Stories" },
     { src: "/images/x7.png", alt: "Life story image", title: "Life Stories" },
-    { src: "/images/x11.png", alt: "Life story image", title: "Life Stories" }
+    { src: "/images/x11.png", alt: "Life story image", title: "Life Stories" },
   ],
   "love-union": [
     { src: "/images/x10.png", alt: "Love union image", title: "Love & Union" },
     { src: "/images/x3.png", alt: "Love union image", title: "Love & Union" },
-    { src: "/images/x13.png", alt: "Love union image", title: "Love & Union" }
+    { src: "/images/x13.png", alt: "Love union image", title: "Love & Union" },
   ],
-  "sport": [
+  sport: [
     { src: "/images/x5.png", alt: "Sport image", title: "Sport" },
     { src: "/images/x8.png", alt: "Sport image", title: "Sport" },
-    { src: "/images/x12.png", alt: "Sport image", title: "Sport" }
+    { src: "/images/x12.png", alt: "Sport image", title: "Sport" },
   ],
-  "event": [
+  event: [
     { src: "/images/x1.png", alt: "Event image", title: "Event" },
     { src: "/images/x6.png", alt: "Event image", title: "Event" },
-    { src: "/images/x9.png", alt: "Event image", title: "Event" }
+    { src: "/images/x9.png", alt: "Event image", title: "Event" },
   ],
 };
-
 
 const carouselVisible = computed(() => {
   if (process.client) {
@@ -154,13 +161,15 @@ const carouselScroll = computed(() => {
 const carouselOrientation = computed(() => {
   if (process.client) {
     const width = window.innerWidth;
-    return width < 640 ? 'vertical' : 'horizontal';
+    return width < 640 ? "vertical" : "horizontal";
   }
-  return 'horizontal'; // Server-side default
+  return "horizontal"; // Server-side default
 });
 
 const filteredImages = computed(() => {
-  return categoryImages[selectedCategory.value as keyof typeof categoryImages] || [];
+  return (
+    categoryImages[selectedCategory.value as keyof typeof categoryImages] || []
+  );
 });
 const whyUs = ref([
   {
@@ -303,19 +312,16 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
             },
           }"
         />
-        
-        <Carousel 
-          :value="filteredImages" 
+
+        <Carousel
+          :value="filteredImages"
           :numVisible="carouselVisible"
           :numScroll="carouselScroll"
           :orientation="carouselOrientation"
           class="mt-8"
         >
           <template #item="{ data }">
-            <img 
-              :src="data.src" 
-              :alt="data.alt" 
-            />
+            <img :src="data.src" :alt="data.alt" />
           </template>
         </Carousel>
       </div>
@@ -403,58 +409,67 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
         </Button>
       </div>
     </div>
-    <div class="flex flex-col m-8 gap-uniform-4" id="reservation-steps">
-      <div class="flex flex-col gap-uniform-1">
+    <div
+      class="flex flex-col margin-uniform-4 gap-uniform-4"
+      id="reservation-steps"
+    >
+      <div class="flex flex-col gap-uniform-1 text-center">
         <p class="paragraph-2">
-          Suka sama hasilnya? Booking-nya juga gampang kok, cek aja
+          Suka sama hasilnya? Booking-nya juga gampang kok, cuma 5 langkah!
         </p>
         <p class="heading-1 text-color-alternating">Cara Reservasi</p>
       </div>
+
+      <!-- Steps Grid -->
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-uniform-4 items-stretch"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-uniform-4"
       >
         <div
-          class="border border-color-alternating-inverted p-8 rounded-[3rem]"
           v-for="(step, index) in reservationSteps"
           :key="index"
+          class="flex flex-col items-center text-center gap-uniform-4 px-8"
         >
-          <div
-            class="flex h-[120px] md:h-[100px] lg:h-[180px] xl:h-[120px] 2xl:h-[260px] gap-uniform-6 items-center justify-between"
-          >
+          <!-- Icon with Number -->
+          <div class="relative">
             <div
-              class="flex flex-col justify-between items-center h-full gap-uniform-6"
+              class="flex items-center justify-center w-20 h-20 border-2 border-color-alternating-inverted rounded-2xl bg-color-alternating p-4"
             >
-              <p class="heading-7 text-color-alternating">{{ step.number }}</p>
+              <Icon
+                :name="step.icon"
+                class="w-10 h-10 text-color-alternating"
+              />
             </div>
-            <div class="flex flex-col gap-2 justify-between h-full">
-              <p class="heading-7 text-color-alternating">{{ step.title }}</p>
-              <p
-                class="paragraph-4 text-color-alternating"
-                v-if="step.description"
-              >
-                {{ step.description }}
-              </p>
-              <div v-if="step.button">
-                <Button>
-                  <NuxtLink
-                    :to="step.button.link"
-                    class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
-                  >
-                    <p>{{ step.button.text }}</p>
-                    <Icon name="uil:arrow-up-right" class="icon-size-4" />
-                  </NuxtLink>
-                </Button>
-              </div>
-            </div>
+            <!-- Number Badge -->
             <div
-              class="flex flex-col justify-between items-center h-full gap-uniform-6"
+              class="absolute -top-2 -right-2 flex items-center justify-center w-8 h-8 bg-[#E3FE01] border-2 border-[#1F1F1F] rounded-full font-bold text-sm text-[#1F1F1F]"
             >
-              <p>
-                {{ emoticonLoopers[index].currentEmoticon }}
-              </p>
+              {{ step.number }}
             </div>
           </div>
+
+          <!-- Content -->
+          <div class="flex flex-col gap-1">
+            <h3 class="heading-6 font-bold text-color-alternating">
+              {{ step.title }}
+            </h3>
+            <p class="paragraph-4 text-color-alternating">
+              {{ step.description }}
+            </p>
+          </div>
         </div>
+      </div>
+
+      <!-- Call to Action Button -->
+      <div class="flex justify-center mt-8">
+        <Button>
+          <NuxtLink
+            to="/reservation"
+            class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
+          >
+            <p>Mulai Reservasi</p>
+            <Icon name="uil:arrow-up-right" class="icon-size-4" />
+          </NuxtLink>
+        </Button>
       </div>
     </div>
     <div class="flex flex-col m-8 gap-uniform-4" id="why-us">
