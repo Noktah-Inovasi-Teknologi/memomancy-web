@@ -215,6 +215,149 @@ const testimonials = ref([
   },
 ]);
 
+import {
+  getCoveredRegions,
+  getComingSoonRegions,
+  type EastJavaRegion,
+} from "~/data/eastJavaRegions";
+
+const eastJavaRegions = ref<EastJavaRegion[]>([
+  ...getCoveredRegions(),
+  ...getComingSoonRegions(),
+]);
+
+const hoveredRegion = ref<EastJavaRegion | null>(null);
+const selectedRegion = ref<EastJavaRegion | null>(null);
+
+// Map zoom and pan state
+const minZoomLevel = ref(1);
+const zoomLevel = ref(1);
+const panX = ref(0);
+const panY = ref(0);
+const isPanning = ref(false);
+const lastPanPoint = reactive({ x: 0, y: 0 });
+
+// Map refs
+const mapContainer = ref(null);
+const mapContent = ref(null);
+
+// Calculate minimum zoom level to fill container width
+const calculateMinZoom = () => {
+  const container = mapContainer.value as HTMLElement | null;
+  if (container) {
+    const containerWidth = container.offsetWidth;
+    const containerHeight = container.offsetHeight;
+    
+    // SVG viewBox dimensions: 497.320907 x 345.6
+    const mapAspectRatio = 497.320907 / 345.6; // ~1.439
+    const containerAspectRatio = containerWidth / containerHeight;
+    
+    if (containerAspectRatio > mapAspectRatio) {
+      // Container is wider than map - need to zoom to fill width
+      minZoomLevel.value = containerWidth / (containerHeight * mapAspectRatio);
+    } else {
+      // Container is taller than map - map already fills width at 1x
+      minZoomLevel.value = 1;
+    }
+    
+    // Set initial zoom to minimum
+    if (zoomLevel.value < minZoomLevel.value) {
+      zoomLevel.value = minZoomLevel.value;
+    }
+  }
+};
+
+// Map interaction methods - simplified, allow free panning
+const constrainPan = () => {
+  // Allow free panning - no constraints
+  // Background color will hide transparent areas
+};
+
+const zoomIn = () => {
+  if (zoomLevel.value < 3) {
+    zoomLevel.value = Math.min(zoomLevel.value + 0.25, 3);
+  }
+};
+
+const zoomOut = () => {
+  if (zoomLevel.value > minZoomLevel.value) {
+    zoomLevel.value = Math.max(zoomLevel.value - 0.25, minZoomLevel.value);
+  }
+};
+
+const resetZoom = () => {
+  zoomLevel.value = minZoomLevel.value;
+  panX.value = 0;
+  panY.value = 0;
+};
+
+const handleWheel = (event: WheelEvent) => {
+  event.preventDefault();
+  const delta = -event.deltaY * 0.001;
+  const newZoom = Math.max(minZoomLevel.value, Math.min(3, zoomLevel.value + delta));
+  zoomLevel.value = newZoom;
+};
+
+const startPan = (event: MouseEvent) => {
+  isPanning.value = true;
+  lastPanPoint.x = event.clientX;
+  lastPanPoint.y = event.clientY;
+  event.preventDefault();
+};
+
+const handlePan = (event: MouseEvent) => {
+  if (isPanning.value) {
+    const deltaX = event.clientX - lastPanPoint.x;
+    const deltaY = event.clientY - lastPanPoint.y;
+
+    // Simple free panning - no constraints
+    panX.value += deltaX;
+    panY.value += deltaY;
+
+    lastPanPoint.x = event.clientX;
+    lastPanPoint.y = event.clientY;
+    event.preventDefault();
+  }
+};
+
+const endPan = () => {
+  isPanning.value = false;
+};
+
+const setHoveredRegion = (region: EastJavaRegion) => {
+  hoveredRegion.value = region;
+};
+
+const clearHoveredRegion = () => {
+  hoveredRegion.value = null;
+};
+
+const selectRegion = (region: EastJavaRegion, event: MouseEvent) => {
+  // Prevent pan from triggering when clicking on region
+  event.stopPropagation();
+  
+  // Toggle selection - if clicking the same region, deselect it
+  if (selectedRegion.value?.id === region.id) {
+    selectedRegion.value = null;
+  } else {
+    selectedRegion.value = region;
+  }
+};
+
+// Initialize map zoom when component mounts
+onMounted(() => {
+  nextTick(() => {
+    calculateMinZoom();
+  });
+  
+  // Recalculate on window resize
+  window.addEventListener('resize', calculateMinZoom);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', calculateMinZoom);
+});
+
 function useEmoticonLooper(emojis: string[], interval = 2000) {
   const current = ref(emojis[0]);
   let index = 0;
@@ -325,78 +468,6 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
           </template>
         </Carousel>
       </div>
-      <!-- <div
-        class="flex gap-8 h-[360px] sm:h-[480px] 2xl:h-[560px] overflow-hidden"
-      >
-        <div
-          class="flex flex-col gap-8 md:basis-1/2 xl:basis-1/3 animate-infinite-loop-scroll ease-in-out"
-        >
-          <div
-            class="relative"
-            v-for="(image, index) in galleryImages"
-            :key="index"
-          >
-            <img
-              :src="image.src"
-              :alt="image.alt"
-              class="rounded-[3rem] w-full"
-            />
-            <div class="absolute top-0 left-0 padding-uniform-2">
-              <p
-                class="padding-5 rounded-[3rem] bg-color-alternating text-color-alternating paragraph-3"
-              >
-                {{ image.title }}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div
-          class="flex flex-col gap-8 basis-1/2 xl:basis-1/3 animate-infinite-loop-scroll-inverted ease-in-out"
-          v-if="$viewport.isGreaterOrEquals('md')"
-        >
-          <div
-            class="relative"
-            v-for="(image, index) in galleryImages1"
-            :key="index"
-          >
-            <img
-              :src="image.src"
-              :alt="image.alt"
-              class="rounded-[3rem] w-full"
-            />
-            <div class="absolute top-0 left-0 padding-uniform-2">
-              <p
-                class="padding-5 rounded-[3rem] bg-color-alternating text-color-alternating paragraph-3"
-              >
-                {{ image.title }}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div
-          class="flex flex-col gap-8 basis-1/3 animate-infinite-loop-scroll-5 ease-in-out"
-          v-if="$viewport.isGreaterOrEquals('xl')"
-        >
-          <div
-            class="relative"
-            v-for="(image, index) in galleryImages2"
-            :key="index"
-          >
-            <img
-              :src="image.src"
-              :alt="image.alt"
-              class="rounded-[3rem] w-full"
-            />
-            <div class="absolute top-0 left-0 padding-uniform-2">
-              <p
-                class="padding-5 rounded-[3rem] bg-color-alternating text-color-alternating paragraph-3"
-              >
-                {{ image.title }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div> -->
       <div class="flex justify-end">
         <Button>
           <NuxtLink
@@ -472,12 +543,357 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
         </Button>
       </div>
     </div>
+    <div class="flex flex-col m-8 gap-uniform-4" id="calculate-and-consult">
+      <div class="flex flex-col gap-uniform-4">
+        <p class="heading-1 text-color-alternating">Mulai Abadikan Momenmu</p>
+        <p class="paragraph-4">
+          Dapatkan estimasi harga yang akurat, atau konsultasikan langsung
+          dengan tim profesional kami.
+        </p>
+      </div>
+
+      <!-- Calculator and Consult Options -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-uniform-4">
+        <!-- Calculator -->
+        <div
+          class="flex flex-col gap-uniform-4 p-6 border-2 border-[#1F1F1F] rounded-3xl transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+        >
+          <div class="flex items-center gap-uniform-2">
+            <div
+              class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
+            >
+              <Icon name="uil:calculator" class="w-6 h-6 text-[#1F1F1F]" />
+            </div>
+            <h3 class="heading-4 font-bold text-color-alternating">
+              Kalkulator Harga
+            </h3>
+          </div>
+
+          <div class="flex gap-uniform-2">
+            <div
+              class="flex items-center justify-center w-12 h-12 border-2 border-color-alternating-inverted rounded-full shrink-0"
+            >
+              <Icon name="uil:clock" class="w-6 h-6 text-color-alternating" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <p class="paragraph-4 text-color-alternating font-medium">
+                Estimasi dalam 2 menit
+              </p>
+              <div class="space-y-1">
+                <p class="paragraph-4 text-color-alternating">
+                  1. Pilih jenis layanan
+                </p>
+                <p class="paragraph-4 text-color-alternating">
+                  2. Tentukan lokasi
+                </p>
+                <p class="paragraph-4 text-color-alternating">
+                  3. Dapatkan harga transparan
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <Button>
+            <NuxtLink
+              to="/calculator"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
+            >
+              <p>Hitung Harga</p>
+              <Icon name="uil:arrow-up-right" class="icon-size-4" />
+            </NuxtLink>
+          </Button>
+        </div>
+
+        <!-- Consult -->
+        <div
+          class="flex flex-col gap-uniform-4 p-6 border-2 border-[#1F1F1F] rounded-3xl transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+        >
+          <div class="flex items-center gap-uniform-2">
+            <div
+              class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
+            >
+              <Icon name="uil:comments" class="w-6 h-6 text-[#1F1F1F]" />
+            </div>
+            <h3 class="heading-4 font-bold text-color-alternating">
+              Konsultasi Langsung
+            </h3>
+          </div>
+
+          <div class="flex gap-uniform-2">
+            <div
+              class="flex items-center justify-center w-12 h-12 border-2 border-color-alternating-inverted rounded-full shrink-0"
+            >
+              <Icon name="uil:phone" class="w-6 h-6 text-color-alternating" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <p class="paragraph-4 text-color-alternating font-medium">
+                Respon cepat dalam 15-30 menit
+              </p>
+              <div class="space-y-1">
+                <p class="paragraph-4 text-color-alternating">
+                  - Konsultasi gratis
+                </p>
+                <p class="paragraph-4 text-color-alternating">
+                  - Saran profesional
+                </p>
+                <p class="paragraph-4 text-color-alternating">
+                  - Paket custom sesuai budget
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <Button
+            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
+          >
+            <a
+              href="https://wa.me/your-whatsapp-number"
+              target="_blank"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+            >
+              <p>Hubungi Kami</p>
+              <Icon name="uil:whatsapp" class="icon-size-4" />
+            </a>
+          </Button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive East Java Map Section -->
+    <div class="flex flex-col m-8 gap-uniform-4" id="service-areas">
+      <div class="flex flex-col gap-uniform-1 text-center">
+        <p class="heading-1 text-color-alternating">Area Layanan Kami</p>
+        <p class="paragraph-4">
+          Klik pada wilayah untuk melihat detail layanan di area tersebut
+        </p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-uniform-4 items-center lg:items-start">
+        <!-- Map Container -->
+        <div class="flex-1 relative">
+          <div
+            class="bg-color-alternating border-2 border-color-alternating-inverted rounded-3xl p-8"
+          >
+            <!-- Background East Java Map -->
+            <div
+              class="relative overflow-hidden rounded-2xl h-80 md:h-96 xl:aspect-[2/1] xl:h-auto bg-[#212830]"
+              ref="mapContainer"
+              @wheel="handleWheel"
+            >
+              <!-- Zoom Controls -->
+              <div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
+                <button
+                  @click="zoomIn"
+                  class="w-10 h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
+                >
+                  <Icon name="uil:plus" class="w-5 h-5 text-gray-700" />
+                </button>
+                <button
+                  @click="zoomOut"
+                  class="w-10 h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
+                >
+                  <Icon name="uil:minus" class="w-5 h-5 text-gray-700" />
+                </button>
+                <button
+                  @click="resetZoom"
+                  class="w-10 h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
+                >
+                  <Icon
+                    name="uil:expand-arrows-alt"
+                    class="w-5 h-5 text-gray-700"
+                  />
+                </button>
+              </div>
+
+              <div
+                ref="mapContent"
+                class="transition-transform duration-300 origin-center cursor-grab active:cursor-grabbing w-full h-full"
+                :style="{
+                  transform: `translate(${panX}px, ${panY}px) scale(${zoomLevel})`,
+                }"
+                @mousedown="startPan"
+                @mousemove="handlePan"
+                @mouseup="endPan"
+                @mouseleave="endPan"
+              >
+                <!-- Combined SVG with background and interactive overlay -->
+                <svg
+                  viewBox="0 0 497.320907 345.6"
+                  class="w-full h-full"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  <!-- Background map -->
+                  <image
+                    href="/svgs/id-ji.min.svg"
+                    x="0"
+                    y="0"
+                    width="497.320907"
+                    height="345.6"
+                    opacity="1"
+                  />
+                  <!-- Dynamic Interactive Regions -->
+                  <template v-for="region in eastJavaRegions" :key="region.id">
+                    <!-- Regions with SVG paths -->
+                    <path
+                      v-if="region.svgPath"
+                      :id="'region-' + region.id"
+                      :d="region.svgPath"
+                      :class="{
+                        'fill-[#E3FE01] stroke-[#1F1F1F]':
+                          selectedRegion?.id === region.id,
+                        'fill-[#F5F2EB] stroke-[#1F1F1F] hover:fill-[#E3FE01]':
+                          selectedRegion?.id !== region.id &&
+                          region.status === 'covered',
+                        'fill-gray-200 stroke-gray-400 hover:fill-gray-300':
+                          selectedRegion?.id !== region.id &&
+                          region.status === 'coming_soon',
+                        'opacity-60': region.status === 'coming_soon',
+                        'opacity-90': region.status === 'covered',
+                        'stroke-1 cursor-pointer transition-all duration-200': true,
+                      }"
+                      @click="selectRegion(region, $event)"
+                    />
+
+                    <!-- Regions without SVG paths (fallback to circle) -->
+                    <circle
+                      v-if="!region.svgPath && region.labelPosition"
+                      :id="'region-' + region.id"
+                      :cx="region.labelPosition.x"
+                      :cy="region.labelPosition.y"
+                      r="15"
+                      :class="{
+                        'fill-[#E3FE01] stroke-[#1F1F1F]':
+                          selectedRegion?.id === region.id,
+                        'fill-[#F5F2EB] stroke-[#1F1F1F] hover:fill-[#E3FE01]':
+                          selectedRegion?.id !== region.id &&
+                          region.status === 'covered',
+                        'fill-gray-200 stroke-gray-400 hover:fill-gray-300':
+                          selectedRegion?.id !== region.id &&
+                          region.status === 'coming_soon',
+                        'opacity-60': region.status === 'coming_soon',
+                        'opacity-90': region.status === 'covered',
+                        'stroke-2 cursor-pointer transition-all duration-200': true,
+                      }"
+                      @click="selectRegion(region, $event)"
+                    />
+
+                    <!-- Region labels -->
+                    <!-- <text
+                    v-if="region.labelPosition"
+                    :x="region.labelPosition.x"
+                    :y="region.labelPosition.y + 5"
+                    :class="
+                      region.status === 'coming_soon'
+                        ? 'fill-gray-600'
+                        : 'fill-[#1F1F1F]'
+                    "
+                    class="text-xs font-bold pointer-events-none"
+                    text-anchor="middle"
+                  >
+                    {{
+                      region.name
+                        .replace("Kab. ", "")
+                        .replace("Kota ", "")
+                        .replace(" (Kab. + Kota)", "")
+                    }}
+                  </text> -->
+                  </template>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details Panel -->
+        <div class="lg:w-80">
+          <div
+            class="bg-color-alternating border-2 border-color-alternating-inverted rounded-3xl p-6"
+          >
+            <div v-if="selectedRegion" class="flex flex-col gap-uniform-4">
+              <div class="flex items-center gap-uniform-2">
+                <div
+                  class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
+                >
+                  <Icon name="uil:map-marker" class="w-6 h-6 text-[#1F1F1F]" />
+                </div>
+                <div>
+                  <h3 class="heading-4 font-bold text-color-alternating">
+                    {{ selectedRegion.name }}
+                  </h3>
+                  <p
+                    class="paragraph-4"
+                    :class="{
+                      'text-green-600': selectedRegion.status === 'covered',
+                      'text-orange-600': selectedRegion.status === 'coming_soon',
+                    }"
+                  >
+                    {{
+                      selectedRegion.status === "covered"
+                        ? "Tersedia"
+                        : "Segera Hadir"
+                    }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex items-center gap-uniform-2">
+                  <Icon
+                    name="uil:users-alt"
+                    class="w-4 h-4 text-color-alternating"
+                  />
+                  <p class="paragraph-4 text-color-alternating">
+                    {{ selectedRegion.photographers }}
+                  </p>
+                </div>
+                <div class="flex items-center gap-uniform-2">
+                  <Icon
+                    name="uil:clock"
+                    class="w-4 h-4 text-color-alternating"
+                  />
+                  <p class="paragraph-4 text-color-alternating">
+                    Respon: {{ selectedRegion.response }}
+                  </p>
+                </div>
+                <div
+                  v-if="selectedRegion.popular"
+                  class="flex items-center gap-uniform-2"
+                >
+                  <Icon name="uil:star" class="w-4 h-4 text-yellow-500" />
+                  <p class="paragraph-4 text-color-alternating">Area Populer</p>
+                </div>
+              </div>
+
+              <Button v-if="selectedRegion.status === 'covered'">
+                <NuxtLink
+                  to="/reservation"
+                  class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
+                >
+                  <p>Reservasi di {{ selectedRegion.name }}</p>
+                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
+                </NuxtLink>
+              </Button>
+            </div>
+
+            <div v-else class="text-center py-8">
+              <Icon
+                name="uil:map"
+                class="w-16 h-16 text-color-alternating mx-auto mb-4"
+              />
+              <p class="heading-5 text-color-alternating mb-2">
+                Jelajahi Area Layanan
+              </p>
+              <p class="paragraph-4 text-color-alternating">
+                Klik pada peta untuk melihat detail layanan di setiap wilayah
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="flex flex-col m-8 gap-uniform-4" id="why-us">
       <div class="flex flex-col gap-uniform-1">
-        <p class="paragraph-2">
-          Sampe sini kamu pasti mikir, "foto-videografer kan banyak, apa yang
-          bikin Memomancy ini beda?". Nah, ini alasannya
-        </p>
         <p class="heading-1 text-color-alternating">
           Kenapa Mending Pake Memomancy
         </p>
