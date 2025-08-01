@@ -451,15 +451,13 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
       <div class="w-full mt-8">
         <div class="image-container">
           <video
+            src="/videos/video_thumbnail.mp4"
             autoplay
             muted
             loop
             playsinline
             class="main-image"
-          >
-            <source src="/videos/video_thumbnail.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+          />
         </div>
       </div>
     </div>

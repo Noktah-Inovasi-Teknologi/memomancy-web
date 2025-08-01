@@ -170,6 +170,9 @@ export default defineNuxtConfig({
     },
     adminList: process.env.MEMOMANCY_ADMIN_LIST,
   },
+  vite: {
+    assetsInclude: ['**/*.mp4', '**/*.webm', '**/*.ogg']
+  },
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
   },
