@@ -17,35 +17,47 @@ const footerMenu2 = [
   <div class="bg-color-alternating">
     <div class="px-8 pt-8">
       <div
-        class="p-6 border-t border-x border-color-alternating-inverted rounded-t-[3rem]"
+        class="p-6 border-t-2 border-x-2 border-color-alternating-inverted rounded-t-[3rem]"
       >
         <div
-          class="flex flex-col md:flex-row justify-between gap-8 text-color-alternating"
+          class="grid grid-cols-1 md:grid-cols-4 gap-8 text-color-alternating"
         >
-          <div class="flex flex-col gap-16">
-            <div class="flex flex-col gap-2">
-              <div class="flex">
-                <p
-                  class="px-6 py-2 bg-[#E3FE01] heading-4 rounded-t-full rounded-r-full"
-                >
-                  Memomancy
-                </p>
-              </div>
-              <p class="text-lg">
-                Layanan Fotografi & Videografi Profesional Anti Ribet
-              </p>
-              <p class="text-sm">
-                Tangkap momenmu pake Memomancy, panggil kenangannya lagi lewat
-                foto & video ✨🧙‍♂️
+          <div class="flex flex-col gap-uniform-6">
+            <div class="flex">
+              <p
+                class="px-6 py-2 bg-[#E3FE01] heading-4 rounded-t-full rounded-r-full"
+              >
+                Memomancy
               </p>
             </div>
-
-            <p class="text-xs">
-              Bukit Menganti Regency, Boteng, Menganti, Gresik, Jawa Timur -
-              61174
+            <p class="heading-7">
+              Layanan Fotografi & Videografi Profesional Anti Ribet
+            </p>
+            <p class="text-sm">
+              Tangkap momenmu pake Memomancy, panggil kenangannya lagi lewat
+              foto & video ✨🧙‍♂️
             </p>
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-3 mt-6">
+            <h3 class="heading-6 mb-2">Kontak</h3>
+            <div class="flex items-center gap-2">
+              <Icon name="uil:map-marker" class="text-lg flex-shrink-0" />
+              <p class="paragraph-4">
+                Bukit Menganti Regency, Boteng, Menganti, Gresik, Jawa Timur -
+                61174
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <Icon name="uil:phone" class="text-lg flex-shrink-0" />
+              <p class="paragraph-4">+62 812 3456 7890</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <Icon name="uil:envelope" class="text-lg flex-shrink-0" />
+              <p class="paragraph-4">hello@memomancy.com</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 mt-6">
+            <h3 class="heading-6 mb-2">Menu</h3>
             <div
               v-for="item in footerMenu1"
               :key="item.label"
@@ -57,14 +69,15 @@ const footerMenu2 = [
                 :href="item.href"
                 class="px-4 py-2 rounded-full transition-colors duration-200"
                 :class="{
-                  'hover:bg-[#D9D491] hover:dark:text-[#1F1F1F]': true,
+                  'hover:bg-[#EDEEBB] hover:dark:text-[#1F1F1F]': true,
                 }"
               >
                 {{ item.label }}
               </NuxtLink>
             </div>
           </div>
-          <div class="lg:mr-[15vw] flex flex-col gap-2">
+          <div class="lg:mr-[15vw] flex flex-col gap-2 mt-6">
+            <h3 class="heading-6 mb-2 text-nowrap">Sosial Media</h3>
             <div
               v-for="item in footerMenu2"
               :key="item.label"
@@ -75,7 +88,7 @@ const footerMenu2 = [
                 :href="item.href"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="px-4 py-2 rounded-full transition-colors duration-200 hover:bg-[#D9D491] hover:dark:text-[#1F1F1F]"
+                class="px-4 py-2 rounded-full transition-colors duration-200 hover:bg-[#EDEEBB] hover:dark:text-[#1F1F1F]"
               >
                 {{ item.label }}
               </a>

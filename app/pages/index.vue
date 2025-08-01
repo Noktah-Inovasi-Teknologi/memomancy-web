@@ -48,6 +48,33 @@ const galleryImages1 = ref([
     title: "Cartoonish white dog with green sweater",
   },
 ]);
+
+const contactMethods = ref([
+  {
+    icon: "uil:whatsapp",
+    title: "WhatsApp",
+    subtitle: "Respon Paling Cepat",
+    contact: "+62 851-7301-7749",
+    buttonText: "Chat Sekarang",
+    href: "https://wa.me/6285173017749",
+  },
+  {
+    icon: "uil:phone",
+    title: "Telepon",
+    subtitle: "Obrolan Langsung",
+    contact: "+62 851-7301-7749",
+    buttonText: "Telepon Sekarang",
+    href: "tel:+6285173017749",
+  },
+  {
+    icon: "uil:envelope",
+    title: "Email",
+    subtitle: "Pesanan Secara Detail",
+    contact: "core@memomancy.com",
+    buttonText: "Kirim Email",
+    href: "mailto:core@memomancy.com",
+  },
+]);
 const galleryImages2 = ref([
   { src: "/images/x9.png", alt: "Whale in the sky", title: "Whale on the sky" },
   { src: "/images/x10.png", alt: "Couple kissing", title: "Couple kissing" },
@@ -173,27 +200,27 @@ const filteredImages = computed(() => {
 });
 const whyUs = ref([
   {
-    title: "Kualitas Terjamin & Terstandarisasi",
+    title: "Kualitas Konsisten & Profesional",
     description:
-      "Sudah coba macem-macem foto-videografer dan hasilnya beda semua? Pilih Memomancy kalo kamu pengen hasil yang konsisten dimana aja kapan aja momenmu direkam.",
+      "Pernah kecewa sama hasil foto yang ga sesuai ekspektasi? Di Memomancy, setiap sesi dijamin hasilnya berkualitas tinggi dan konsisten. Tim profesional kami pakai standar yang sama di setiap project!",
     icons: ["uil:camera", "uil:check-circle", "uil:star"],
   },
   {
-    title: "Fleksibel & Bisa Custom Request",
+    title: "Super Fleksibel, Apapun Bisa!",
     description:
-      "Butuh 3 kru? Gass. Butuh 2 angle kamera? Gass. Butuh edit video yang ada narasinya? Gass. Apapun yang kamu butuhin, tambahin aja toppingnya.",
+      "Mau tambah kru? Boleh! Butuh multiple angle? Siap! Pengen edit video dengan narasi? Gas terus! Semua request kamu bisa kita wujudkan sesuai budget dan kebutuhan.",
     icons: ["uil:setting", "uil:edit-alt", "uil:icons"],
   },
   {
-    title: "Ada di Banyak Kota & Tempat",
+    title: "Coverage Area Luas",
     description:
-      "Lagi di surabaya nyari foto-videografer? Ada Memomancy. Lagi di Gili Labak Sumenep? Ada Memomancy. Pokoknya kalo lagi di Surabaya, Gresik, dan Madura, langsung kontak Memomancy.",
+      "Dari Surabaya sampai ujung Madura, tim Memomancy siap datang ke lokasimu! Udah beroperasi di Surabaya, Gresik, Sidoarjo, dan seluruh wilayah Madura dengan response time yang cepat.",
     icons: ["uil:map-marker", "uil:location-arrow", "uil:home"],
   },
   {
-    title: "Murah Luar Biasa, Serius",
+    title: "Harga Terjangkau, Kualitas Premium",
     description:
-      "Kalo kamu udah liat harga di halaman reservasi, kamu pasti setuju kalo Memomancy itu murah luar biasa. Murahnya bukan berarti murahan, tapi karena kami percaya semua orang berhak ngeabadikan momennya.",
+      "Siapa bilang foto profesional harus mahal? Memomancy hadir dengan harga yang ramah di kantong tanpa mengorbankan kualitas. Karena setiap orang berhak punya kenangan yang indah!",
     icons: ["uil:money-bill", "uil:money-withdrawal", "uil:money-stack"],
   },
 ]);
@@ -247,11 +274,11 @@ const calculateMinZoom = () => {
   if (container) {
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
-    
+
     // SVG viewBox dimensions: 497.320907 x 345.6
     const mapAspectRatio = 497.320907 / 345.6; // ~1.439
     const containerAspectRatio = containerWidth / containerHeight;
-    
+
     if (containerAspectRatio > mapAspectRatio) {
       // Container is wider than map - need to zoom to fill width
       minZoomLevel.value = containerWidth / (containerHeight * mapAspectRatio);
@@ -259,7 +286,7 @@ const calculateMinZoom = () => {
       // Container is taller than map - map already fills width at 1x
       minZoomLevel.value = 1;
     }
-    
+
     // Set initial zoom to minimum
     if (zoomLevel.value < minZoomLevel.value) {
       zoomLevel.value = minZoomLevel.value;
@@ -294,7 +321,10 @@ const resetZoom = () => {
 const handleWheel = (event: WheelEvent) => {
   event.preventDefault();
   const delta = -event.deltaY * 0.001;
-  const newZoom = Math.max(minZoomLevel.value, Math.min(3, zoomLevel.value + delta));
+  const newZoom = Math.max(
+    minZoomLevel.value,
+    Math.min(3, zoomLevel.value + delta)
+  );
   zoomLevel.value = newZoom;
 };
 
@@ -335,7 +365,7 @@ const clearHoveredRegion = () => {
 const selectRegion = (region: EastJavaRegion, event: MouseEvent) => {
   // Prevent pan from triggering when clicking on region
   event.stopPropagation();
-  
+
   // Toggle selection - if clicking the same region, deselect it
   if (selectedRegion.value?.id === region.id) {
     selectedRegion.value = null;
@@ -349,13 +379,13 @@ onMounted(() => {
   nextTick(() => {
     calculateMinZoom();
   });
-  
+
   // Recalculate on window resize
-  window.addEventListener('resize', calculateMinZoom);
+  window.addEventListener("resize", calculateMinZoom);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('resize', calculateMinZoom);
+  window.removeEventListener("resize", calculateMinZoom);
 });
 
 function useEmoticonLooper(emojis: string[], interval = 2000) {
@@ -384,23 +414,21 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
   <div class="flex flex-col w-full bg-color-alternating">
     <div class="flex flex-col m-8 gap-uniform-4" id="hero">
       <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div class="flex flex-col items-center md:items-start">
-          <p class="heading-1 main-tagline text-color-alternating">
+        <div class="w-full flex flex-col items-center">
+          <p class="w-auto heading-1 main-tagline text-color-alternating">
             Abadikan Hari Ini
           </p>
-          <p class="heading-1 main-tagline text-color-alternating">
+          <p class="w-auto heading-1 main-tagline text-color-alternating">
             Ceritakan Selamanya
           </p>
-          <p
-            class="heading-4 mt-6 text-color-alternating text-center md:text-start sub-tagline"
-          >
-            Kami foto dan rekam momenmu tanpa ribet
+          <p class="text-color-alternating sub-tagline">
+            Kami foto dan rekam momenmu gapake ribet
           </p>
           <div class="flex flex-col sm:flex-row gap-uniform-4 mt-6 lg:mt-12">
             <Button>
               <NuxtLink
                 to="/reservation"
-                class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
+                class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
               >
                 <p>Reservasi Sekarang</p>
                 <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -411,7 +439,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
             >
               <NuxtLink
                 to="/calculator"
-                class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+                class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-color-alternating font-semibold"
               >
                 <p>Hitung Harga</p>
                 <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -422,57 +450,59 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
       </div>
       <div class="w-full mt-8">
         <div class="image-container">
-          <img
-            src="/images/blue_beach.png"
-            alt="Blue Beach"
+          <video
+            src="/videos/video_thumbnail.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
             class="main-image"
           />
         </div>
       </div>
     </div>
     <div class="flex flex-col m-8 gap-uniform-4" id="gallery">
-      <div class="flex flex-col gap-uniform-1">
+      <div class="flex flex-col gap-uniform-8 text-center">
         <p class="heading-1 text-color-alternating">
-          Cerita yang Telah Kami Abadikan
+          Cerita yang Udah Kami Abadikan
         </p>
-        <p>
+        <p class="paragraph-2">
           Kumpulan momen spesial dari berbagai perjalanan yang pernah kami
           tangkap. Dari kisah cinta, kelahiran, hingga momen penuh semangat.
           Inilah jejak visual yang kami banggakan.
         </p>
-        <SelectButton
-          v-model="selectedCategory"
-          :options="categoryOptions"
-          optionLabel="label"
-          optionValue="value"
-          :pt="{
-            root: {
-              class:
-                'flex flex-wrap !rounded-3xl border border-color-alternating-inverted [&>button]:!px-4 [&>button]:!py-2 [&>button]:!rounded-3xl [&>button]:!border-0 [&>button]:!bg-color-alternating [&>button]:!text-color-alternating [&>button]:!paragraph-3 [&>button]:!font-semibold [&>button]:!transition-colors [&>button]:!duration-200 [&>button.p-highlight]:!bg-transparent [&>button.p-highlight]:!text-color-alternating [&>button.p-togglebutton-checked]:!bg-transparent [&>button.p-togglebutton-checked]:!text-color-alternating [&>button.p-togglebutton-checked>.p-togglebutton-content]:!bg-[#E3FE01] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!text-[#1F1F1F] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!shadow-none [&>button[data-p-active=true]]:!bg-transparent [&>button[data-p-active=true]]:!text-color-alternating [&>button:hover:not(.p-highlight)]:!bg-[#EDEEBB] [&>button:hover:not(.p-highlight)]:dark:!bg-[#2E2E2E]',
-            },
-            pcToggleButton: {
-              content: '!rounded-full',
-            },
-          }"
-        />
-
-        <Carousel
-          :value="filteredImages"
-          :numVisible="carouselVisible"
-          :numScroll="carouselScroll"
-          :orientation="carouselOrientation"
-          class="mt-8"
-        >
-          <template #item="{ data }">
-            <img :src="data.src" :alt="data.alt" />
-          </template>
-        </Carousel>
       </div>
-      <div class="flex justify-end">
+      <SelectButton
+        v-model="selectedCategory"
+        :options="categoryOptions"
+        optionLabel="label"
+        optionValue="value"
+        :pt="{
+          root: {
+            class:
+              'flex flex-wrap !rounded-3xl border border-color-alternating-inverted [&>button]:!px-4 [&>button]:!py-2 [&>button]:!rounded-3xl [&>button]:!border-0 [&>button]:!bg-color-alternating [&>button]:!text-color-alternating [&>button]:!paragraph-3 [&>button]:!font-semibold [&>button]:!transition-colors [&>button]:!duration-200 [&>button.p-highlight]:!bg-transparent [&>button.p-highlight]:!text-color-alternating [&>button.p-togglebutton-checked]:!bg-transparent [&>button.p-togglebutton-checked]:!text-color-alternating [&>button.p-togglebutton-checked>.p-togglebutton-content]:!bg-[#E3FE01] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!text-[#1F1F1F] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!shadow-none [&>button[data-p-active=true]]:!bg-transparent [&>button[data-p-active=true]]:!text-color-alternating [&>button:hover:not(.p-highlight)]:!bg-[#EDEEBB] [&>button:hover:not(.p-highlight)]:dark:!bg-[#2E2E2E]',
+          },
+          pcToggleButton: {
+            content: '!rounded-full',
+          },
+        }"
+      />
+      <Carousel
+        :value="filteredImages"
+        :numVisible="carouselVisible"
+        :numScroll="carouselScroll"
+        :orientation="carouselOrientation"
+        class="mt-8"
+      >
+        <template #item="{ data }">
+          <img :src="data.src" :alt="data.alt" />
+        </template>
+      </Carousel>
+      <div class="flex justify-center">
         <Button>
           <NuxtLink
             to="/gallery"
-            class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
+            class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
           >
             <p>Lihat Galeri Portfolio Lengkap</p>
             <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -480,17 +510,13 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
         </Button>
       </div>
     </div>
-    <div
-      class="flex flex-col margin-uniform-4 gap-uniform-4"
-      id="reservation-steps"
-    >
-      <div class="flex flex-col gap-uniform-1 text-center">
+    <div class="flex flex-col m-8 gap-uniform-4" id="reservation-steps">
+      <div class="flex flex-col gap-uniform-8 text-center">
         <p class="paragraph-2">
           Suka sama hasilnya? Booking-nya juga gampang kok, cuma 5 langkah!
         </p>
         <p class="heading-1 text-color-alternating">Cara Reservasi</p>
       </div>
-
       <!-- Steps Grid -->
       <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-uniform-4"
@@ -520,22 +546,21 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
 
           <!-- Content -->
           <div class="flex flex-col gap-1">
-            <h3 class="heading-6 font-bold text-color-alternating">
+            <h3 class="heading-4 font-bold text-color-alternating">
               {{ step.title }}
             </h3>
-            <p class="paragraph-4 text-color-alternating">
+            <p class="paragraph-3 text-color-alternating">
               {{ step.description }}
             </p>
           </div>
         </div>
       </div>
-
       <!-- Call to Action Button -->
-      <div class="flex justify-center mt-8">
+      <div class="flex justify-center">
         <Button>
           <NuxtLink
             to="/reservation"
-            class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
+            class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
           >
             <p>Mulai Reservasi</p>
             <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -544,19 +569,18 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
       </div>
     </div>
     <div class="flex flex-col m-8 gap-uniform-4" id="calculate-and-consult">
-      <div class="flex flex-col gap-uniform-4">
+      <div class="flex flex-col gap-uniform-8 text-center">
         <p class="heading-1 text-color-alternating">Mulai Abadikan Momenmu</p>
-        <p class="paragraph-4">
+        <p class="paragraph-2">
           Dapatkan estimasi harga yang akurat, atau konsultasikan langsung
           dengan tim profesional kami.
         </p>
       </div>
-
       <!-- Calculator and Consult Options -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-uniform-4">
         <!-- Calculator -->
         <div
-          class="flex flex-col gap-uniform-4 p-6 border-2 border-[#1F1F1F] rounded-3xl transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+          class="flex flex-col gap-uniform-4 p-8 border-2 border-[#E3FE01] rounded-3xl bg-gradient-to-br from-[#F5F2EB] to-[#EDEEBB] shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-[#D9D491] hover:-translate-y-1"
         >
           <div class="flex items-center gap-uniform-2">
             <div
@@ -564,29 +588,23 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
             >
               <Icon name="uil:calculator" class="w-6 h-6 text-[#1F1F1F]" />
             </div>
-            <h3 class="heading-4 font-bold text-color-alternating">
-              Kalkulator Harga
-            </h3>
+            <h3 class="heading-4 font-bold text-[#1F1F1F]">Kalkulator Harga</h3>
           </div>
 
           <div class="flex gap-uniform-2">
             <div
-              class="flex items-center justify-center w-12 h-12 border-2 border-color-alternating-inverted rounded-full shrink-0"
+              class="flex items-center justify-center w-12 h-12 border-2 border-[#1F1F1F] rounded-full shrink-0"
             >
-              <Icon name="uil:clock" class="w-6 h-6 text-color-alternating" />
+              <Icon name="uil:clock" class="w-6 h-6 text-[#1F1F1F]" />
             </div>
             <div class="flex flex-col gap-1">
-              <p class="paragraph-4 text-color-alternating font-medium">
+              <p class="paragraph-4 text-[#1F1F1F] font-medium">
                 Estimasi dalam 2 menit
               </p>
               <div class="space-y-1">
-                <p class="paragraph-4 text-color-alternating">
-                  1. Pilih jenis layanan
-                </p>
-                <p class="paragraph-4 text-color-alternating">
-                  2. Tentukan lokasi
-                </p>
-                <p class="paragraph-4 text-color-alternating">
+                <p class="paragraph-4 text-[#1F1F1F]">1. Pilih jenis layanan</p>
+                <p class="paragraph-4 text-[#1F1F1F]">2. Tentukan lokasi</p>
+                <p class="paragraph-4 text-[#1F1F1F]">
                   3. Dapatkan harga transparan
                 </p>
               </div>
@@ -596,7 +614,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
           <Button>
             <NuxtLink
               to="/calculator"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
             >
               <p>Hitung Harga</p>
               <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -606,7 +624,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
 
         <!-- Consult -->
         <div
-          class="flex flex-col gap-uniform-4 p-6 border-2 border-[#1F1F1F] rounded-3xl transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+          class="flex flex-col gap-uniform-4 p-8 border-2 border-[#E3FE01] rounded-3xl bg-gradient-to-br from-[#F5F2EB] to-[#EDEEBB] shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-[#D9D491] hover:-translate-y-1"
         >
           <div class="flex items-center gap-uniform-2">
             <div
@@ -614,29 +632,25 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
             >
               <Icon name="uil:comments" class="w-6 h-6 text-[#1F1F1F]" />
             </div>
-            <h3 class="heading-4 font-bold text-color-alternating">
+            <h3 class="heading-4 font-bold text-[#1F1F1F]">
               Konsultasi Langsung
             </h3>
           </div>
 
           <div class="flex gap-uniform-2">
             <div
-              class="flex items-center justify-center w-12 h-12 border-2 border-color-alternating-inverted rounded-full shrink-0"
+              class="flex items-center justify-center w-12 h-12 border-2 border-[#1F1F1F] rounded-full shrink-0"
             >
-              <Icon name="uil:phone" class="w-6 h-6 text-color-alternating" />
+              <Icon name="uil:phone" class="w-6 h-6 text-[#1F1F1F]" />
             </div>
             <div class="flex flex-col gap-1">
-              <p class="paragraph-4 text-color-alternating font-medium">
+              <p class="paragraph-3 text-[#1F1F1F] font-medium">
                 Respon cepat dalam 15-30 menit
               </p>
               <div class="space-y-1">
-                <p class="paragraph-4 text-color-alternating">
-                  - Konsultasi gratis
-                </p>
-                <p class="paragraph-4 text-color-alternating">
-                  - Saran profesional
-                </p>
-                <p class="paragraph-4 text-color-alternating">
+                <p class="paragraph-3 text-[#1F1F1F]">- Konsultasi gratis</p>
+                <p class="paragraph-3 text-[#1F1F1F]">- Saran profesional</p>
+                <p class="paragraph-3 text-[#1F1F1F]">
                   - Paket custom sesuai budget
                 </p>
               </div>
@@ -658,17 +672,17 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
         </div>
       </div>
     </div>
-
     <!-- Interactive East Java Map Section -->
     <div class="flex flex-col m-8 gap-uniform-4" id="service-areas">
-      <div class="flex flex-col gap-uniform-1 text-center">
+      <div class="flex flex-col gap-uniform-8 text-center">
         <p class="heading-1 text-color-alternating">Area Layanan Kami</p>
-        <p class="paragraph-4">
+        <p class="paragraph-2">
           Klik pada wilayah untuk melihat detail layanan di area tersebut
         </p>
       </div>
-
-      <div class="flex flex-col lg:flex-row gap-uniform-4 items-center lg:items-start">
+      <div
+        class="flex flex-col lg:flex-row gap-uniform-4 items-center lg:items-start"
+      >
         <!-- Map Container -->
         <div class="flex-1 relative">
           <div
@@ -803,9 +817,8 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
             </div>
           </div>
         </div>
-
         <!-- Details Panel -->
-        <div class="lg:w-80">
+        <div>
           <div
             class="bg-color-alternating border-2 border-color-alternating-inverted rounded-3xl p-6"
           >
@@ -821,10 +834,11 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
                     {{ selectedRegion.name }}
                   </h3>
                   <p
-                    class="paragraph-4"
+                    class="paragraph-3"
                     :class="{
                       'text-green-600': selectedRegion.status === 'covered',
-                      'text-orange-600': selectedRegion.status === 'coming_soon',
+                      'text-orange-600':
+                        selectedRegion.status === 'coming_soon',
                     }"
                   >
                     {{
@@ -842,7 +856,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
                     name="uil:users-alt"
                     class="w-4 h-4 text-color-alternating"
                   />
-                  <p class="paragraph-4 text-color-alternating">
+                  <p class="paragraph-3 text-color-alternating">
                     {{ selectedRegion.photographers }}
                   </p>
                 </div>
@@ -851,7 +865,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
                     name="uil:clock"
                     class="w-4 h-4 text-color-alternating"
                   />
-                  <p class="paragraph-4 text-color-alternating">
+                  <p class="paragraph-3 text-color-alternating">
                     Respon: {{ selectedRegion.response }}
                   </p>
                 </div>
@@ -860,14 +874,14 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
                   class="flex items-center gap-uniform-2"
                 >
                   <Icon name="uil:star" class="w-4 h-4 text-yellow-500" />
-                  <p class="paragraph-4 text-color-alternating">Area Populer</p>
+                  <p class="paragraph-3 text-color-alternating">Area Populer</p>
                 </div>
               </div>
 
               <Button v-if="selectedRegion.status === 'covered'">
                 <NuxtLink
                   to="/reservation"
-                  class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
+                  class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
                 >
                   <p>Reservasi di {{ selectedRegion.name }}</p>
                   <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -883,115 +897,330 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
               <p class="heading-5 text-color-alternating mb-2">
                 Jelajahi Area Layanan
               </p>
-              <p class="paragraph-4 text-color-alternating">
+              <p class="paragraph-3 text-color-alternating">
                 Klik pada peta untuk melihat detail layanan di setiap wilayah
               </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      <div
+        class="flex flex-col gap-uniform-4 p-7 border-2 border-color-alternating-inverted rounded-3xl bg-gradient-to-r from-[#E3FE01]/10 to-transparent shadow-lg transition-all duration-300 hover:border-[#E3FE01] hover:shadow-xl hover:from-[#E3FE01]/20 text-center"
+      >
+        <div class="flex items-center justify-center gap-uniform-2">
+          <div
+            class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
+          >
+            <Icon name="uil:map-marker-alt" class="w-6 h-6 text-[#1F1F1F]" />
+          </div>
+          <h3 class="heading-4 font-bold text-color-alternating">
+            Ada Event di Luar Area Layanan?
+          </h3>
+        </div>
 
+        <p class="paragraph-3 text-color-alternating max-w-2xl mx-auto">
+          Kami senang melakukan perjalanan ke luar coverage area untuk acara
+          yang spesial. Yuk, diskusikan visimu biar kita bisa bikin cerita yang
+          luar biasa, bersama.
+        </p>
+
+        <div class="flex justify-center">
+          <Button
+            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
+          >
+            <a
+              href="https://wa.me/your-whatsapp-number"
+              target="_blank"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+            >
+              <p>Konsultasikan dengan Kami</p>
+              <Icon name="uil:whatsapp" class="icon-size-4" />
+            </a>
+          </Button>
+        </div>
+      </div>
+    </div>
     <div class="flex flex-col m-8 gap-uniform-4" id="why-us">
-      <div class="flex flex-col gap-uniform-1">
+      <div class="flex flex-col gap-uniform-1 text-center">
         <p class="heading-1 text-color-alternating">
-          Kenapa Mending Pake Memomancy
+          Kenapa Harus Pilih Memomancy?
         </p>
       </div>
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-uniform-0 bg-color-alternating-inverted padding-uniform-4 rounded-[3rem]"
-      >
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-uniform-4">
         <div
-          class="flex flex-col gap-uniform-4 text-color-alternating-inverted items-center text-center"
+          class="flex flex-col gap-uniform-4 text-color-alternating items-center text-center p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
           v-for="(item, index) in whyUs"
           :key="index"
         >
-          <div class="flex gap-uniform-1">
-            <Icon :name="item.icons[1]" class="icon-size-1" />
+          <div class="flex gap-uniform-1 relative">
+            <!-- Magical glow effect -->
+            <div
+              class="absolute inset-0 bg-[#E3FE01] rounded-full blur-sm opacity-20 animate-pulse"
+            ></div>
+            <Icon :name="item.icons[1]" class="icon-size-1 relative z-10" />
           </div>
-          <p class="heading-5 text-color-alternating-inverted">
+          <p class="heading-5 text-color-alternating">
             {{ item.title }}
           </p>
-          <p class="paragraph-4">
+          <p class="paragraph-3 text-color-alternating">
             {{ item.description }}
           </p>
         </div>
       </div>
     </div>
-    <div class="flex flex-col m-8 gap-uniform-4" id="testimonials">
-      <div class="flex flex-col gap-uniform-1">
-        <p class="paragraph-2">Buat finishing, bisa dilihat</p>
+    <div class="flex flex-col m-8 gap-uniform-4" id="contact-us">
+      <div class="flex flex-col gap-uniform-8 text-center">
         <p class="heading-1 text-color-alternating">
-          Testimoni Pelanggan Memomancy
+          Siap mengabadikan momen spesialmu?
+        </p>
+        <p class="paragraph-2 text-color-alternating">
+          Yuk ceritain visimu! Kami siap bantu wujudkan cerita yang luar biasa
+          bareng kamu.
         </p>
       </div>
-      <div class="w-full overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-uniform-4">
         <div
-          class="flex w-max gap-uniform-4 animate-infinite-loop-scroll-horizontal ease-in-out"
+          v-for="method in contactMethods"
+          :key="method.title"
+          class="flex flex-col gap-uniform-4 text-color-alternating items-center text-center p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
         >
           <div
-            class="flex flex-col max-w-[240px] lg:max-w-[360px] xl:max-w-[480px] justify-between gap-uniform-4 text-color-alternating border border-color-alternating-inverted p-8 rounded-[3rem] min-w-[300px]"
-            v-for="(testimonial, index) in [...testimonials, ...testimonials]"
-            :key="index"
+            class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
           >
-            <p class="paragraph-3">{{ testimonial.text }}</p>
-            <div class="flex gap-uniform-4 items-center">
-              <Avatar
-                :label="testimonial.avatar"
-                class="w-8 h-8 rounded-full border border-color-alternating-inverted"
-                shape="circle"
-                size="large"
-              />
-              <p class="heading-6 text-color-alternating">
-                {{ testimonial.name }}
-              </p>
-            </div>
+            <Icon :name="method.icon" class="w-6 h-6 text-[#1F1F1F]" />
           </div>
+          <div class="flex flex-col gap-uniform-8">
+            <h3 class="heading-5 font-bold text-color-alternating">
+              {{ method.title }}
+            </h3>
+            <p class="paragraph-3 text-color-alternating">
+              {{ method.subtitle }}
+            </p>
+            <p class="paragraph-3 text-color-alternating font-semibold">
+              {{ method.contact }}
+            </p>
+          </div>
+          <Button
+            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
+          >
+            <a
+              :href="method.href"
+              :target="method.title === 'WhatsApp' ? '_blank' : undefined"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+            >
+              <p>{{ method.buttonText }}</p>
+              <Icon name="uil:arrow-up-right" class="icon-size-4" />
+            </a>
+          </Button>
         </div>
       </div>
     </div>
-    <div class="flex flex-col m-8 gap-uniform-4" id="call-to-action">
-      <div class="w-full">
-        <div class="relative image-container">
-          <img
-            src="/images/blue_beach.png"
-            alt="Blue Beach"
-            class="w-full h-auto main-image"
-          />
-          <div class="absolute inset-0 bg-black/60 rounded-[3rem]" />
-
+    <!-- Social Media Section -->
+    <div class="flex flex-col m-8 gap-uniform-4" id="social-media">
+      <div class="flex flex-col gap-uniform-8 text-center">
+        <p class="heading-1 text-color-alternating">Ikuti Sosial Media Kami</p>
+        <p class="paragraph-2 text-color-alternating">
+          Ikuti perjalanan kreatif kami dan dapatkan inspirasi terbaru!
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-uniform-4">
+        <!-- Instagram -->
+        <div
+          class="flex items-center gap-uniform-4 text-color-alternating p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+        >
+          <!-- Icon -->
           <div
-            class="absolute inset-0 flex flex-col gap-uniform-0 items-center justify-center"
+            class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-[#E4405F] to-[#F77737] rounded-full shrink-0"
           >
-            <div
-              class="flex flex-col gap-uniform-7 text-center text-[#F5F2EB] heading-4"
-            >
-              <p>Udah liat galerinya kan?</p>
-              <p>Sekarang giliranmu nyumbang momenmu ke dalamnya.</p>
-            </div>
-            <div class="flex flex-col md:flex-row gap-uniform-4">
-              <Button>
-                <NuxtLink
-                  to="/reservation"
-                  class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-[#1F1F1F] font-semibold"
-                >
-                  <p>Reservasi Sekarang</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
-                </NuxtLink>
-              </Button>
-              <Button
-                pt:root:class="!bg-[#F5F2EB] dark:!bg-[#1F1F1F] dark:hover:!bg-[#2E2E2E] !border-0 !rounded-full !px-3 !py-[0.375rem] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem] hover:!bg-[#D9D491]"
-              >
-                <NuxtLink
-                  to="/calculator"
-                  class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
-                >
-                  <p>Hitung Harga</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
-                </NuxtLink>
-              </Button>
-            </div>
+            <Icon name="uil:instagram" class="w-6 h-6 text-white" />
           </div>
+
+          <!-- Info -->
+          <div class="flex flex-col gap-1 flex-grow">
+            <h3 class="heading-5 font-bold text-color-alternating">
+              Instagram
+            </h3>
+            <p class="paragraph-3 text-color-alternating">
+              @memomancy.official
+            </p>
+            <p class="paragraph-3 text-color-alternating font-semibold">
+              2.5K Followers
+            </p>
+          </div>
+
+          <!-- Button -->
+          <Button
+            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
+          >
+            <a
+              href="https://instagram.com/memomancy.official"
+              target="_blank"
+              class="flex items-center gap-2 paragraph-3 text-color-alternating font-semibold"
+            >
+              <p>Follow</p>
+              <Icon name="uil:arrow-up-right" class="w-4 h-4" />
+            </a>
+          </Button>
+        </div>
+
+        <!-- TikTok -->
+        <div
+          class="flex items-center gap-uniform-4 text-color-alternating p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+        >
+          <!-- Icon -->
+          <div
+            class="flex items-center justify-center w-12 h-12 bg-[#000000] rounded-full shrink-0"
+          >
+            <Icon name="uil:tiktok" class="w-6 h-6 text-white" />
+          </div>
+
+          <!-- Info -->
+          <div class="flex flex-col gap-1 flex-grow">
+            <h3 class="heading-5 font-bold text-color-alternating">TikTok</h3>
+            <p class="paragraph-3 text-color-alternating">@memomancy</p>
+            <p class="paragraph-3 text-color-alternating font-semibold">
+              5.8K Followers
+            </p>
+          </div>
+
+          <!-- Button -->
+          <Button
+            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
+          >
+            <a
+              href="https://tiktok.com/@memomancy"
+              target="_blank"
+              class="flex items-center gap-2 paragraph-3 text-color-alternating font-semibold"
+            >
+              <p>Follow</p>
+              <Icon name="uil:arrow-up-right" class="w-4 h-4" />
+            </a>
+          </Button>
+        </div>
+
+        <!-- Facebook -->
+        <div
+          class="flex items-center gap-uniform-4 text-color-alternating p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+        >
+          <!-- Icon -->
+          <div
+            class="flex items-center justify-center w-12 h-12 bg-[#1877F2] rounded-full shrink-0"
+          >
+            <Icon name="uil:facebook-f" class="w-6 h-6 text-white" />
+          </div>
+
+          <!-- Info -->
+          <div class="flex flex-col gap-1 flex-grow">
+            <h3 class="heading-5 font-bold text-color-alternating">Facebook</h3>
+            <p class="paragraph-3 text-color-alternating">
+              Memomancy Photography
+            </p>
+            <p class="paragraph-3 text-color-alternating font-semibold">
+              1.2K Likes
+            </p>
+          </div>
+
+          <!-- Button -->
+          <Button
+            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
+          >
+            <a
+              href="https://facebook.com/memomancy"
+              target="_blank"
+              class="flex items-center gap-2 paragraph-3 text-color-alternating font-semibold"
+            >
+              <p>Like</p>
+              <Icon name="uil:arrow-up-right" class="w-4 h-4" />
+            </a>
+          </Button>
+        </div>
+
+        <!-- YouTube -->
+        <div
+          class="flex items-center gap-uniform-4 text-color-alternating p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+        >
+          <!-- Icon -->
+          <div
+            class="flex items-center justify-center w-12 h-12 bg-[#FF0000] rounded-full shrink-0"
+          >
+            <Icon name="uil:youtube" class="w-6 h-6 text-white" />
+          </div>
+
+          <!-- Info -->
+          <div class="flex flex-col gap-1 flex-grow">
+            <h3 class="heading-5 font-bold text-color-alternating">YouTube</h3>
+            <p class="paragraph-3 text-color-alternating">Memomancy Studio</p>
+            <p class="paragraph-3 text-color-alternating font-semibold">
+              950 Subscribers
+            </p>
+          </div>
+
+          <!-- Button -->
+          <Button
+            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
+          >
+            <a
+              href="https://youtube.com/@memomancy"
+              target="_blank"
+              class="flex items-center gap-2 paragraph-3 text-color-alternating font-semibold"
+            >
+              <p>Subscribe</p>
+              <Icon name="uil:arrow-up-right" class="w-4 h-4" />
+            </a>
+          </Button>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col m-8 gap-uniform-4" id="quick-action">
+      <div
+        class="flex flex-col gap-uniform-4 text-color-alternating text-center p-8 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+      >
+        <div class="flex flex-col gap-uniform-8">
+          <h2 class="heading-1 font-bold text-color-alternating">
+            Tindakan Pintas
+          </h2>
+          <p class="paragraph-2 text-color-alternating">
+            Akses langsung ke layanan utama kami dengan sekali klik
+          </p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-uniform-4 justify-center">
+          <!-- Reservasi Sekarang -->
+          <Button>
+            <NuxtLink
+              to="/reservation"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
+            >
+              <p>Reservasi Sekarang</p>
+              <Icon name="uil:arrow-up-right" class="icon-size-4" />
+            </NuxtLink>
+          </Button>
+
+          <!-- Lihat Portfolio -->
+          <Button
+            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
+          >
+            <NuxtLink
+              to="/gallery"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+            >
+              <p>Lihat Portfolio</p>
+              <Icon name="uil:arrow-up-right" class="icon-size-4" />
+            </NuxtLink>
+          </Button>
+
+          <!-- Hitung Harga -->
+          <Button
+            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
+          >
+            <NuxtLink
+              to="/calculator"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+            >
+              <p>Hitung Harga</p>
+              <Icon name="uil:arrow-up-right" class="icon-size-4" />
+            </NuxtLink>
+          </Button>
         </div>
       </div>
     </div>
@@ -1013,22 +1242,17 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
 }
 
 .main-tagline {
-  @apply w-full text-center font-system font-bold leading-tight;
-  @apply sm:w-auto sm:text-start;
+  @apply font-system font-bold leading-tight;
   @apply md:text-nowrap;
   font-size: clamp(1.5rem, 8vw, 12rem);
 }
 .sub-tagline {
-  @apply mt-6 text-center text-xs font-han;
-  @apply sm:text-start sm:text-2xl;
-  @apply md:text-base;
+  @apply mt-8 font-han leading-relaxed;
+  font-size: clamp(0.875rem, 3vw, 4rem);
 }
 .emoji {
-  @apply text-[2rem] text-center transition-all duration-200 ease-in-out transform;
-  @apply md:text-[7rem];
-  @apply lg:text-[10rem];
-  @apply xl:text-[12rem];
-  @apply 2xl:text-[15rem];
+  @apply text-center transition-all duration-200 ease-in-out transform;
+  font-size: clamp(2rem, 8vw, 15rem);
 }
 .image-container {
   @apply w-full aspect-[2/3] sm:aspect-[2/3] md:aspect-[2/1] lg:aspect-[2/1] xl:aspect-[3/1];

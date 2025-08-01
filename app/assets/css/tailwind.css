@@ -4,86 +4,53 @@
 
 @layer components {
   .heading-1 {
-    @apply text-3xl font-han font-semibold text-[#1F1F1F];
-    @apply sm:font-normal;
-    @apply md:text-4xl md:font-semibold;
-    @apply lg:text-5xl;
-    @apply xl:text-6xl;
-    @apply 2xl:text-8xl;
+    @apply font-han font-semibold text-[#1F1F1F] leading-tight;
+    font-size: clamp(1.875rem, 4vw, 5rem);
   }
   .heading-2 {
-    @apply text-2xl font-han font-semibold text-[#1F1F1F];
-    @apply sm:font-normal;
-    @apply md:text-3xl md:font-semibold;
-    @apply lg:text-4xl;
-    @apply xl:text-5xl;
-    @apply 2xl:text-7xl;
+    @apply font-han font-semibold text-[#1F1F1F] leading-tight;
+    font-size: clamp(1.5rem, 3.5vw, 4.5rem);
   }
   .heading-3 {
-    @apply text-xl font-han font-semibold text-[#1F1F1F];
-    @apply sm:font-normal;
-    @apply md:text-2xl md:font-semibold;
-    @apply lg:text-3xl;
-    @apply xl:text-4xl;
-    @apply 2xl:text-6xl;
+    @apply font-han font-semibold text-[#1F1F1F] leading-tight;
+    font-size: clamp(1.25rem, 3vw, 4rem);
   }
   .heading-4 {
-    @apply text-lg font-han font-semibold text-[#1F1F1F];
-    @apply sm:font-normal;
-    @apply md:text-xl md:font-semibold;
-    @apply lg:text-2xl;
-    @apply xl:text-3xl;
-    @apply 2xl:text-5xl;
+    @apply font-han font-semibold text-[#1F1F1F] leading-tight;
+    font-size: clamp(1.125rem, 2.5vw, 3rem);
   }
   .heading-5 {
-    @apply text-base font-han font-semibold text-[#1F1F1F];
-    @apply sm:font-normal;
-    @apply md:text-lg md:font-semibold;
-    @apply lg:text-xl;
-    @apply xl:text-2xl;
-    @apply 2xl:text-4xl;
+    @apply font-han font-semibold text-[#1F1F1F] leading-tight;
+    font-size: clamp(1rem, 2vw, 2rem);
   }
   .heading-6 {
-    @apply text-sm font-han font-semibold text-[#1F1F1F];
-    @apply sm:text-base sm:font-normal;
-    @apply md:text-lg md:font-semibold;
-    @apply lg:text-xl;
-    @apply xl:text-2xl;
-    @apply 2xl:text-3xl;
+    @apply font-han font-semibold text-[#1F1F1F] leading-tight;
+    font-size: clamp(0.875rem, 1.5vw, 1.5rem);
   }
   .heading-7 {
-    @apply text-xs font-han font-semibold text-[#1F1F1F];
-    @apply sm:text-sm sm:font-normal;
-    @apply md:text-base md:font-semibold;
-    @apply lg:text-lg;
-    @apply xl:text-xl;
-    @apply 2xl:text-2xl;
+    @apply font-han font-semibold text-[#1F1F1F] leading-tight;
+    font-size: clamp(0.75rem, 1.25vw, 1.25rem);
   }
 
   .paragraph-1 {
-    @apply text-lg;
-    @apply lg:text-xl;
-    @apply 2xl:text-2xl;
+    @apply leading-relaxed;
+    font-size: clamp(1.125rem, 1.5vw, 1.5rem);
   }
   .paragraph-2 {
-    @apply text-base;
-    @apply lg:text-lg;
-    @apply 2xl:text-xl;
+    @apply leading-relaxed;
+    font-size: clamp(1rem, 1.25vw, 1.25rem);
   }
   .paragraph-3 {
-    @apply text-sm;
-    @apply lg:text-base;
-    @apply 2xl:text-lg;
+    @apply leading-relaxed;
+    font-size: clamp(0.875rem, 1vw, 1.125rem);
   }
   .paragraph-4 {
-    @apply text-xs;
-    @apply lg:text-sm;
-    @apply 2xl:text-base;
+    @apply leading-relaxed;
+    font-size: clamp(0.75rem, 0.875vw, 1rem);
   }
   .paragraph-5 {
-    @apply text-[0.5rem];
-    @apply lg:text-xs;
-    @apply 2xl:text-sm;
+    @apply leading-relaxed;
+    font-size: clamp(0.625rem, 0.75vw, 0.875rem);
   }
 
   /* Padding Classes */
@@ -150,45 +117,61 @@
   }
 
   /* Gap Classes */
-  .gap-uniform-0 {
-    @apply gap-12;
-    @apply sm:gap-14;
-    @apply lg:gap-14;
-  }
   .gap-uniform-1 {
     @apply gap-8;
-    @apply sm:gap-9;
-    @apply lg:gap-11;
+    @apply sm:gap-10;
+    @apply md:gap-12;
+    @apply lg:gap-16;
+    @apply xl:gap-20;
   }
   .gap-uniform-2 {
-    @apply gap-7;
+    @apply gap-6;
     @apply sm:gap-8;
-    @apply lg:gap-10;
+    @apply md:gap-10;
+    @apply lg:gap-12;
+    @apply xl:gap-16;
   }
   .gap-uniform-3 {
-    @apply gap-6;
-    @apply sm:gap-7;
-    @apply lg:gap-9;
-  }
-  .gap-uniform-4 {
     @apply gap-5;
     @apply sm:gap-6;
-    @apply lg:gap-8;
+    @apply md:gap-8;
+    @apply lg:gap-10;
+    @apply xl:gap-12;
   }
-  .gap-uniform-5 {
+  .gap-uniform-4 {
     @apply gap-4;
     @apply sm:gap-5;
-    @apply lg:gap-7;
+    @apply md:gap-6;
+    @apply lg:gap-8;
+    @apply xl:gap-10;
   }
-  .gap-uniform-6 {
+  .gap-uniform-5 {
     @apply gap-3;
     @apply sm:gap-4;
+    @apply md:gap-5;
     @apply lg:gap-6;
+    @apply xl:gap-8;
   }
-  .gap-uniform-7 {
+  .gap-uniform-6 {
     @apply gap-2;
     @apply sm:gap-3;
+    @apply md:gap-4;
     @apply lg:gap-5;
+    @apply xl:gap-6;
+  }
+  .gap-uniform-7 {
+    @apply gap-1.5;
+    @apply sm:gap-2;
+    @apply md:gap-2.5;
+    @apply lg:gap-3;
+    @apply xl:gap-4;
+  }
+  .gap-uniform-8 {
+    @apply gap-1;
+    @apply sm:gap-1.5;
+    @apply md:gap-2;
+    @apply lg:gap-2;
+    @apply xl:gap-2.5;
   }
 
   .bg-color-alternating {

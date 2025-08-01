@@ -14,7 +14,7 @@ const navbarMenu = [
       <Menubar
         class="flex justify-between items-center"
         :model="navbarMenu"
-        pt:root:class="!px-6 !bg-[#F5F2EB] dark:!bg-[#1F1F1F] !border-[#1F1F1F] dark:!border-[#F5F2EB] !rounded-[1.5rem]"
+        pt:root:class="!px-6 !bg-[#F5F2EB] dark:!bg-[#1F1F1F] !border-[#1F1F1F] !border-2 dark:!border-[#F5F2EB] !rounded-[1.5rem]"
         pt:end:class="flex !ml-0"
         :pt="{
           end: {
