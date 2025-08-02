@@ -473,7 +473,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
       <div class="w-full mt-8">
         <div class="image-container">
           <video
-            :src="video_thumbnail"
+            :src="videoUrl"
             autoplay
             muted
             loop
