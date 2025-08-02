@@ -50,6 +50,7 @@ const galleryImages1 = ref([
 ]);
 const videoUrl = ref<any>(null);
 const imageUrl = ref<any>(null);
+const isLoading = ref(true);
 const handleVideoBlob = (blob: any) => {
   if (videoUrl.value) {
     URL.revokeObjectURL(videoUrl.value);
@@ -393,31 +394,32 @@ const selectRegion = (region: EastJavaRegion, event: MouseEvent) => {
 };
 
 onBeforeMount(async () => {
-  // Fetch image thumbnail first for quick loading
+  // Fetch image thumbnail first and wait for it to load before showing page
   image_thumbnail.value = await $fetch(`/api/media`, {
     query: {
       id: "images/image_thumbnail.jpg",
     },
   });
   handleImageBlob(image_thumbnail.value);
-
-  // Then fetch video thumbnail
-  video_thumbnail.value = await $fetch(`/api/media`, {
-    query: {
-      id: "videos/video_thumbnail.mp4",
-    },
-  });
-  handleVideoBlob(video_thumbnail.value);
+  isLoading.value = false;
 });
 
 // Initialize map zoom when component mounts
-onMounted(() => {
+onMounted(async () => {
   nextTick(() => {
     calculateMinZoom();
   });
 
   // Recalculate on window resize
   window.addEventListener("resize", calculateMinZoom);
+
+  // Load video after page is mounted
+  video_thumbnail.value = await $fetch(`/api/media`, {
+    query: {
+      id: "videos/video_thumbnail.mp4",
+    },
+  });
+  handleVideoBlob(video_thumbnail.value);
 });
 
 onUnmounted(() => {
@@ -453,7 +455,13 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
 </script>
 
 <template>
-  <div class="flex flex-col w-full bg-color-alternating">
+  <div v-if="isLoading" class="flex items-center justify-center min-h-screen bg-color-alternating">
+    <div class="text-center">
+      <Icon name="uil:spinner" class="w-12 h-12 text-color-alternating animate-spin mx-auto mb-4" />
+      <p class="text-color-alternating paragraph-2">Loading...</p>
+    </div>
+  </div>
+  <div v-else class="flex flex-col w-full bg-color-alternating">
     <div class="flex flex-col m-8 gap-uniform-4" id="hero">
       <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="w-full flex flex-col items-center">
