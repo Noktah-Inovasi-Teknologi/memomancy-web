@@ -377,7 +377,11 @@ const selectRegion = (region: EastJavaRegion, event: MouseEvent) => {
 };
 
 onBeforeMount(async () => {
-  video_thumbnail.value = await $fetch(`/api/media/videos/video_thumbnail.mp4`);
+  video_thumbnail.value = await $fetch(`/api/media`, {
+    query: {
+      id: "videos/video_thumbnail.mp4",
+    },
+  });
   console.log(video_thumbnail.value);
 });
 

@@ -1,6 +1,6 @@
 export default eventHandler(async (event) => {
-  const { id } = getRouterParams(event);
+  const { id } = getQuery(event) as any;
 
-  // return hubBlob().get(id);
-  return id;
+  return hubBlob().get(id);
+  // return id;
 });
