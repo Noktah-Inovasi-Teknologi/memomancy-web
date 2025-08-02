@@ -389,6 +389,7 @@ onBeforeMount(async () => {
       id: "videos/video_thumbnail.mp4",
     },
   });
+  console.log("Type", typeof video_thumbnail.value, video_thumbnail.value);
   handleBlob(video_thumbnail.value);
 });
 
