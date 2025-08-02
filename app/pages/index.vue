@@ -1,70 +1,52 @@
 <script lang="ts" setup>
-const colorMode = useColorMode();
-const { $viewport } = useNuxtApp();
-const emoticons = ref(["✨", "🧙", "📸", "🧙‍♂️", "🪄", "🧙‍♀️", "📷"]);
-const { currentEmoticon } = useEmoticonLooper(emoticons.value);
-const galleryImages = ref([
-  { src: "/images/x1.png", alt: "Cat girl model", title: "Cat girl model" },
-  {
-    src: "/images/x2.png",
-    alt: "Pink angel sculpture",
-    title: "Pink angel sculpture",
-  },
-  {
-    src: "/images/x3.png",
-    alt: "Cat cartoon dwarf riding a mouse",
-    title: "Cat cartoon dwarf riding a mouse",
-  },
-  {
-    src: "/images/x4.png",
-    alt: "Leopard on pink flower field",
-    title: "Leopard on pink flower field",
-  },
-  {
-    src: "/images/x13.png",
-    alt: "Sakura tree on a hill",
-    title: "Sakura tree on a hill",
-  },
-]);
-const galleryImages1 = ref([
-  {
-    src: "/images/x5.png",
-    alt: "Colorful frank knight",
-    title: "Colorful frank knight",
-  },
-  {
-    src: "/images/x6.png",
-    alt: "Elegant glossy white-pink flower",
-    title: "Elegant glossy white-pink flower",
-  },
-  {
-    src: "/images/x7.png",
-    alt: "Bug on an egg-shaped chinese decoration",
-    title: "Bug on an egg-shaped chinese decoration",
-  },
-  {
-    src: "/images/x8.png",
-    alt: "Cartoonish white dog with green sweater",
-    title: "Cartoonish white dog with green sweater",
-  },
-]);
-const videoUrl = ref<any>(null);
-const imageUrl = ref<any>(null);
-const handleVideoBlob = (blob: any) => {
-  if (videoUrl.value) {
-    URL.revokeObjectURL(videoUrl.value);
-  }
-  videoUrl.value = URL.createObjectURL(blob);
-};
+import {
+  getCoveredRegions,
+  getComingSoonRegions,
+  type EastJavaRegion,
+} from "~/data/eastJavaRegions";
 
-const handleImageBlob = (blob: any) => {
-  if (imageUrl.value) {
-    URL.revokeObjectURL(imageUrl.value);
-  }
-  imageUrl.value = URL.createObjectURL(blob);
-};
+// Types
+interface GalleryImage {
+  src: string;
+  alt: string;
+  title: string;
+  location?: string;
+  serviceType?: string;
+  date?: string;
+}
 
-const contactMethods = ref([
+interface ContactMethod {
+  icon: string;
+  title: string;
+  subtitle: string;
+  contact: string;
+  buttonText: string;
+  href: string;
+}
+
+interface ReservationStep {
+  title: string;
+  description: string;
+  number: number;
+  icon: string;
+  details?: string[];
+  celebration?: boolean;
+}
+
+interface WhyUsItem {
+  title: string;
+  description: string;
+  icons: string[];
+}
+
+// Media URLs and references
+const videoUrl = ref<string | null>(null);
+const imageUrl = ref<string | null>(null);
+const video_thumbnail = ref<Blob | null>(null);
+const image_thumbnail = ref<Blob | null>(null);
+
+// Contact information
+const contactMethods = ref<ContactMethod[]>([
   {
     icon: "uil:whatsapp",
     title: "WhatsApp",
@@ -90,21 +72,9 @@ const contactMethods = ref([
     href: "mailto:core@memomancy.com",
   },
 ]);
-const galleryImages2 = ref([
-  { src: "/images/x9.png", alt: "Whale in the sky", title: "Whale on the sky" },
-  { src: "/images/x10.png", alt: "Couple kissing", title: "Couple kissing" },
-  {
-    src: "/images/x11.png",
-    alt: "Japanese woman below toris",
-    title: "Japanese woman below toris",
-  },
-  {
-    src: "/images/x12.png",
-    alt: "Urban ape samurai hobbyist",
-    title: "Urban ape samurai hobbyist",
-  },
-]);
-const reservationSteps = ref([
+
+// Reservation process
+const reservationSteps = ref<ReservationStep[]>([
   {
     title: "Mulai Reservasi",
     description:
@@ -154,6 +124,8 @@ const reservationSteps = ref([
     celebration: true,
   },
 ]);
+
+// Category filtering
 const selectedCategory = ref("life-stories");
 const categoryOptions = [
   { label: "Life Stories & Celebrations", value: "life-stories" },
@@ -162,61 +134,115 @@ const categoryOptions = [
   { label: "Event", value: "event" },
 ];
 
-const categoryImages = {
+const categoryImages: Record<string, GalleryImage[]> = {
   "life-stories": [
-    { src: "/images/x2.png", alt: "Life story image", title: "Life Stories" },
-    { src: "/images/x7.png", alt: "Life story image", title: "Life Stories" },
-    { src: "/images/x11.png", alt: "Life story image", title: "Life Stories" },
+    {
+      src: "/images/x2.png",
+      alt: "Life story image",
+      title: "Maternity Photoshoot",
+      location: "Surabaya",
+      serviceType: "Photography",
+      date: "15 Jan 2024",
+    },
+    {
+      src: "/images/x7.png",
+      alt: "Life story image",
+      title: "Family Portrait",
+      location: "Gresik",
+      serviceType: "Photography",
+      date: "28 Dec 2023",
+    },
+    {
+      src: "/images/x11.png",
+      alt: "Life story image",
+      title: "Birthday Celebration",
+      location: "Sidoarjo",
+      serviceType: "Photo & Video",
+      date: "05 Feb 2024",
+    },
   ],
   "love-union": [
-    { src: "/images/x10.png", alt: "Love union image", title: "Love & Union" },
-    { src: "/images/x3.png", alt: "Love union image", title: "Love & Union" },
-    { src: "/images/x13.png", alt: "Love union image", title: "Love & Union" },
+    {
+      src: "/images/x10.png",
+      alt: "Love union image",
+      title: "Pre-Wedding Session",
+      location: "Surabaya",
+      serviceType: "Photography",
+      date: "12 Feb 2024",
+    },
+    {
+      src: "/images/x3.png",
+      alt: "Love union image",
+      title: "Wedding Ceremony",
+      location: "Madura",
+      serviceType: "Photo & Video",
+      date: "20 Jan 2024",
+    },
+    {
+      src: "/images/x13.png",
+      alt: "Love union image",
+      title: "Engagement Photos",
+      location: "Gresik",
+      serviceType: "Photography",
+      date: "08 Mar 2024",
+    },
   ],
   sport: [
-    { src: "/images/x5.png", alt: "Sport image", title: "Sport" },
-    { src: "/images/x8.png", alt: "Sport image", title: "Sport" },
-    { src: "/images/x12.png", alt: "Sport image", title: "Sport" },
+    {
+      src: "/images/x5.png",
+      alt: "Sport image",
+      title: "Football Tournament",
+      location: "Surabaya",
+      serviceType: "Videography",
+      date: "03 Feb 2024",
+    },
+    {
+      src: "/images/x8.png",
+      alt: "Sport image",
+      title: "Basketball Match",
+      location: "Sidoarjo",
+      serviceType: "Photo & Video",
+      date: "18 Jan 2024",
+    },
+    {
+      src: "/images/x12.png",
+      alt: "Sport image",
+      title: "Marathon Event",
+      location: "Gresik",
+      serviceType: "Photography",
+      date: "25 Feb 2024",
+    },
   ],
   event: [
-    { src: "/images/x1.png", alt: "Event image", title: "Event" },
-    { src: "/images/x6.png", alt: "Event image", title: "Event" },
-    { src: "/images/x9.png", alt: "Event image", title: "Event" },
+    {
+      src: "/images/x1.png",
+      alt: "Event image",
+      title: "Corporate Event",
+      location: "Surabaya",
+      serviceType: "Photo & Video",
+      date: "10 Mar 2024",
+    },
+    {
+      src: "/images/x6.png",
+      alt: "Event image",
+      title: "Product Launch",
+      location: "Gresik",
+      serviceType: "Videography",
+      date: "22 Feb 2024",
+    },
+    {
+      src: "/images/x9.png",
+      alt: "Event image",
+      title: "Conference",
+      location: "Sidoarjo",
+      serviceType: "Photography",
+      date: "14 Mar 2024",
+    },
   ],
 };
 
-const carouselVisible = computed(() => {
-  if (process.client) {
-    const width = window.innerWidth;
-    if (width < 640) return 1;
-    if (width < 768) return 2;
-    if (width < 1024) return 3;
-    return 4;
-  }
-  return 1; // Server-side default
-});
-
-const video_thumbnail = ref();
-const image_thumbnail = ref();
-
-const carouselScroll = computed(() => {
-  return carouselVisible.value;
-});
-
-const carouselOrientation = computed(() => {
-  if (process.client) {
-    const width = window.innerWidth;
-    return width < 640 ? "vertical" : "horizontal";
-  }
-  return "horizontal"; // Server-side default
-});
-
-const filteredImages = computed(() => {
-  return (
-    categoryImages[selectedCategory.value as keyof typeof categoryImages] || []
-  );
-});
-const whyUs = ref([
+// Company information
+const whyUs = ref<WhyUsItem[]>([
   {
     title: "Kualitas Konsisten & Profesional",
     description:
@@ -242,36 +268,13 @@ const whyUs = ref([
     icons: ["uil:money-bill", "uil:money-withdrawal", "uil:money-stack"],
   },
 ]);
-const testimonials = ref([
-  {
-    name: "Alifieya P. N.",
-    text: "Hasilnya bagus banget, sumpah aku juga ga expect bakal mudah banget buat reservasi.",
-    avatar: "F",
-  },
-  {
-    name: "Riska A. P.",
-    text: "Jadi bisa ngambil sisi-sisi aku yang fotogenik.",
-    avatar: "R",
-  },
-  {
-    name: "M. Atthaariq M.",
-    text: "Dilayanin dengan baik sampe detail-detail kecilnya, suka banget sama foto & video yang diambil.",
-    avatar: "A",
-  },
-]);
 
-import {
-  getCoveredRegions,
-  getComingSoonRegions,
-  type EastJavaRegion,
-} from "~/data/eastJavaRegions";
-
+// Map functionality
 const eastJavaRegions = ref<EastJavaRegion[]>([
   ...getCoveredRegions(),
   ...getComingSoonRegions(),
 ]);
 
-const hoveredRegion = ref<EastJavaRegion | null>(null);
 const selectedRegion = ref<EastJavaRegion | null>(null);
 
 // Map zoom and pan state
@@ -283,39 +286,49 @@ const isPanning = ref(false);
 const lastPanPoint = reactive({ x: 0, y: 0 });
 
 // Map refs
-const mapContainer = ref(null);
-const mapContent = ref(null);
+const mapContainer = ref<HTMLElement | null>(null);
+const mapContent = ref<HTMLElement | null>(null);
 
-// Calculate minimum zoom level to fill container width
+// Computed properties
+const filteredImages = computed(() => {
+  return categoryImages[selectedCategory.value] || [];
+});
+
+// Media blob handlers
+const handleVideoBlob = (blob: Blob) => {
+  if (videoUrl.value) {
+    URL.revokeObjectURL(videoUrl.value);
+  }
+  videoUrl.value = URL.createObjectURL(blob);
+};
+
+const handleImageBlob = (blob: Blob) => {
+  if (imageUrl.value) {
+    URL.revokeObjectURL(imageUrl.value);
+  }
+  imageUrl.value = URL.createObjectURL(blob);
+};
+
+// Map utility functions
 const calculateMinZoom = () => {
-  const container = mapContainer.value as HTMLElement | null;
+  const container = mapContainer.value;
   if (container) {
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
 
-    // SVG viewBox dimensions: 497.320907 x 345.6
-    const mapAspectRatio = 497.320907 / 345.6; // ~1.439
+    const mapAspectRatio = 497.320907 / 345.6;
     const containerAspectRatio = containerWidth / containerHeight;
 
     if (containerAspectRatio > mapAspectRatio) {
-      // Container is wider than map - need to zoom to fill width
       minZoomLevel.value = containerWidth / (containerHeight * mapAspectRatio);
     } else {
-      // Container is taller than map - map already fills width at 1x
       minZoomLevel.value = 1;
     }
 
-    // Set initial zoom to minimum
     if (zoomLevel.value < minZoomLevel.value) {
       zoomLevel.value = minZoomLevel.value;
     }
   }
-};
-
-// Map interaction methods - simplified, allow free panning
-const constrainPan = () => {
-  // Allow free panning - no constraints
-  // Background color will hide transparent areas
 };
 
 const zoomIn = () => {
@@ -336,6 +349,7 @@ const resetZoom = () => {
   panY.value = 0;
 };
 
+// Map event handlers
 const handleWheel = (event: WheelEvent) => {
   event.preventDefault();
   const delta = -event.deltaY * 0.001;
@@ -358,7 +372,6 @@ const handlePan = (event: MouseEvent) => {
     const deltaX = event.clientX - lastPanPoint.x;
     const deltaY = event.clientY - lastPanPoint.y;
 
-    // Simple free panning - no constraints
     panX.value += deltaX;
     panY.value += deltaY;
 
@@ -372,19 +385,9 @@ const endPan = () => {
   isPanning.value = false;
 };
 
-const setHoveredRegion = (region: EastJavaRegion) => {
-  hoveredRegion.value = region;
-};
-
-const clearHoveredRegion = () => {
-  hoveredRegion.value = null;
-};
-
 const selectRegion = (region: EastJavaRegion, event: MouseEvent) => {
-  // Prevent pan from triggering when clicking on region
   event.stopPropagation();
 
-  // Toggle selection - if clicking the same region, deselect it
   if (selectedRegion.value?.id === region.id) {
     selectedRegion.value = null;
   } else {
@@ -392,36 +395,52 @@ const selectRegion = (region: EastJavaRegion, event: MouseEvent) => {
   }
 };
 
+// Lifecycle hooks
 onBeforeMount(async () => {
-  // Fetch image thumbnail first
-  image_thumbnail.value = await $fetch(`/api/media`, {
-    query: {
-      id: "images/image_thumbnail.jpg",
-    },
-  });
-  handleImageBlob(image_thumbnail.value);
+  // Only load media on client side
+  if (!import.meta.client) return;
+
+  try {
+    image_thumbnail.value = await $fetch(`/api/media`, {
+      query: {
+        id: "images/image_thumbnail.jpg",
+      },
+    });
+    if (image_thumbnail.value) {
+      handleImageBlob(image_thumbnail.value);
+    }
+  } catch (error) {
+    imageUrl.value = null;
+  }
 });
 
-// Initialize map zoom when component mounts
 onMounted(async () => {
   nextTick(() => {
     calculateMinZoom();
   });
 
-  // Recalculate on window resize
   window.addEventListener("resize", calculateMinZoom);
 
-  // Load video after page is mounted
-  video_thumbnail.value = await $fetch(`/api/media`, {
-    query: {
-      id: "videos/video_thumbnail.mp4",
-    },
-  });
-  handleVideoBlob(video_thumbnail.value);
+  // Only load media on client side
+  if (!import.meta.client) return;
+
+  try {
+    video_thumbnail.value = await $fetch(`/api/media`, {
+      query: {
+        id: "videos/video_thumbnail.mp4",
+      },
+    });
+    if (video_thumbnail.value) {
+      handleVideoBlob(video_thumbnail.value);
+    }
+  } catch (error) {
+    videoUrl.value = null;
+  }
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", calculateMinZoom);
+
   if (videoUrl.value) {
     URL.revokeObjectURL(videoUrl.value);
   }
@@ -429,27 +448,6 @@ onUnmounted(() => {
     URL.revokeObjectURL(imageUrl.value);
   }
 });
-
-function useEmoticonLooper(emojis: string[], interval = 2000) {
-  const current = ref(emojis[0]);
-  let index = 0;
-  let intervalId: ReturnType<typeof setInterval>;
-
-  onMounted(() => {
-    intervalId = setInterval(() => {
-      index = (index + 1) % emojis.length;
-      current.value = emojis[index];
-    }, interval);
-  });
-
-  onUnmounted(() => {
-    clearInterval(intervalId);
-  });
-
-  return {
-    currentEmoticon: current,
-  };
-}
 </script>
 
 <template>
@@ -533,24 +531,62 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
         :pt="{
           root: {
             class:
-              'flex flex-wrap !rounded-3xl border border-color-alternating-inverted [&>button]:!px-4 [&>button]:!py-2 [&>button]:!rounded-3xl [&>button]:!border-0 [&>button]:!bg-color-alternating [&>button]:!text-color-alternating [&>button]:!paragraph-3 [&>button]:!font-semibold [&>button]:!transition-colors [&>button]:!duration-200 [&>button.p-highlight]:!bg-transparent [&>button.p-highlight]:!text-color-alternating [&>button.p-togglebutton-checked]:!bg-transparent [&>button.p-togglebutton-checked]:!text-color-alternating [&>button.p-togglebutton-checked>.p-togglebutton-content]:!bg-[#E3FE01] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!text-[#1F1F1F] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!shadow-none [&>button[data-p-active=true]]:!bg-transparent [&>button[data-p-active=true]]:!text-color-alternating [&>button:hover:not(.p-highlight)]:!bg-[#EDEEBB] [&>button:hover:not(.p-highlight)]:dark:!bg-[#2E2E2E]',
+              'flex flex-wrap !rounded-3xl border-2 border-color-alternating-inverted [&>button]:!px-4 [&>button]:!py-2 [&>button]:!rounded-3xl [&>button]:!border-0 [&>button]:!bg-color-alternating [&>button]:!text-color-alternating [&>button]:!paragraph-3 [&>button]:!font-semibold [&>button]:!transition-colors [&>button]:!duration-200 [&>button.p-highlight]:!bg-transparent [&>button.p-highlight]:!text-color-alternating [&>button.p-togglebutton-checked]:!bg-transparent [&>button.p-togglebutton-checked]:!text-color-alternating [&>button.p-togglebutton-checked>.p-togglebutton-content]:!bg-[#E3FE01] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!text-[#1F1F1F] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!shadow-none [&>button[data-p-active=true]]:!bg-transparent [&>button[data-p-active=true]]:!text-color-alternating [&>button:hover:not(.p-highlight)]:!bg-[#EDEEBB] [&>button:hover:not(.p-highlight)]:dark:!bg-[#2E2E2E]',
           },
           pcToggleButton: {
             content: '!rounded-full',
           },
         }"
       />
-      <Carousel
-        :value="filteredImages"
-        :numVisible="carouselVisible"
-        :numScroll="carouselScroll"
-        :orientation="carouselOrientation"
-        class="mt-8"
-      >
-        <template #item="{ data }">
-          <img :src="data.src" :alt="data.alt" />
-        </template>
-      </Carousel>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-uniform-4 mt-8">
+        <div
+          v-for="(item, index) in filteredImages.slice(0, 3)"
+          :key="index"
+          class="flex flex-col gap-uniform-4 p-4 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+        >
+          <img
+            :src="item.src"
+            :alt="item.alt"
+            class="w-full aspect-square object-cover rounded-2xl"
+          />
+          <div class="flex flex-col gap-uniform-8">
+            <h3 class="heading-5 font-bold text-color-alternating">
+              {{ item.title }}
+            </h3>
+            <div
+              class="flex flex-col lg:flex-row lg:justify-between gap-1 lg:gap-2"
+            >
+              <div class="flex items-center gap-2">
+                <Icon
+                  name="uil:map-marker"
+                  class="w-4 h-4 text-color-alternating"
+                />
+                <p class="paragraph-4 text-color-alternating">
+                  {{ item.location }}
+                </p>
+              </div>
+              <div class="flex items-center gap-2">
+                <Icon
+                  name="uil:camera"
+                  class="w-4 h-4 text-color-alternating"
+                />
+                <p class="paragraph-4 text-color-alternating">
+                  {{ item.serviceType }}
+                </p>
+              </div>
+              <div class="flex items-center gap-2">
+                <Icon
+                  name="uil:calendar-alt"
+                  class="w-4 h-4 text-color-alternating"
+                />
+                <p class="paragraph-4 text-color-alternating">
+                  {{ item.date }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="flex justify-center">
         <Button>
           <NuxtLink
