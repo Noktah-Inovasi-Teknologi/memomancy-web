@@ -390,7 +390,7 @@ onBeforeMount(async () => {
     },
   });
   console.log("Type", typeof video_thumbnail.value, video_thumbnail.value);
-  handleBlob(video_thumbnail.value);
+  handleBlob(video_thumbnail.value[0]);
 });
 
 // Initialize map zoom when component mounts
