@@ -181,6 +181,8 @@ const carouselVisible = computed(() => {
   return 1; // Server-side default
 });
 
+const video_thumbnail = ref();
+
 const carouselScroll = computed(() => {
   return carouselVisible.value;
 });
@@ -374,6 +376,10 @@ const selectRegion = (region: EastJavaRegion, event: MouseEvent) => {
   }
 };
 
+onBeforeMount(async () => {
+  video_thumbnail.value = await $fetch('/api/media/video_thumbnail');
+});
+
 // Initialize map zoom when component mounts
 onMounted(() => {
   nextTick(() => {
@@ -451,7 +457,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
       <div class="w-full mt-8">
         <div class="image-container">
           <video
-            src="/videos/video_thumbnail.mp4"
+            :src="video_thumbnail"
             autoplay
             muted
             loop
