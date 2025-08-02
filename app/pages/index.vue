@@ -54,6 +54,7 @@ const handleBlob = (blob: any) => {
     URL.revokeObjectURL(videoUrl.value);
   }
   videoUrl.value = URL.createObjectURL(blob);
+  console.log("A", blob, videoUrl.value);
 };
 
 const contactMethods = ref([
@@ -389,7 +390,6 @@ onBeforeMount(async () => {
       id: "videos/video_thumbnail.mp4",
     },
   });
-  console.log("Type", typeof video_thumbnail.value, video_thumbnail.value);
   handleBlob(video_thumbnail.value);
 });
 
