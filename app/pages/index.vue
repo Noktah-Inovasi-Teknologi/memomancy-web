@@ -49,12 +49,19 @@ const galleryImages1 = ref([
   },
 ]);
 const videoUrl = ref<any>(null);
-const handleBlob = (blob: any) => {
+const imageUrl = ref<any>(null);
+const handleVideoBlob = (blob: any) => {
   if (videoUrl.value) {
     URL.revokeObjectURL(videoUrl.value);
   }
   videoUrl.value = URL.createObjectURL(blob);
-  console.log("A", blob, videoUrl.value);
+};
+
+const handleImageBlob = (blob: any) => {
+  if (imageUrl.value) {
+    URL.revokeObjectURL(imageUrl.value);
+  }
+  imageUrl.value = URL.createObjectURL(blob);
 };
 
 const contactMethods = ref([
@@ -190,6 +197,7 @@ const carouselVisible = computed(() => {
 });
 
 const video_thumbnail = ref();
+const image_thumbnail = ref();
 
 const carouselScroll = computed(() => {
   return carouselVisible.value;
@@ -385,12 +393,21 @@ const selectRegion = (region: EastJavaRegion, event: MouseEvent) => {
 };
 
 onBeforeMount(async () => {
+  // Fetch image thumbnail first for quick loading
+  image_thumbnail.value = await $fetch(`/api/media`, {
+    query: {
+      id: "images/image_thumbnail.jpg",
+    },
+  });
+  handleImageBlob(image_thumbnail.value);
+
+  // Then fetch video thumbnail
   video_thumbnail.value = await $fetch(`/api/media`, {
     query: {
       id: "videos/video_thumbnail.mp4",
     },
   });
-  handleBlob(video_thumbnail.value);
+  handleVideoBlob(video_thumbnail.value);
 });
 
 // Initialize map zoom when component mounts
@@ -407,6 +424,9 @@ onUnmounted(() => {
   window.removeEventListener("resize", calculateMinZoom);
   if (videoUrl.value) {
     URL.revokeObjectURL(videoUrl.value);
+  }
+  if (imageUrl.value) {
+    URL.revokeObjectURL(imageUrl.value);
   }
 });
 
@@ -481,7 +501,12 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
             class="main-image"
             v-if="videoUrl"
           />
-          {{ video_thumbnail }}
+          <img
+            :src="imageUrl"
+            alt="Video thumbnail"
+            class="main-image"
+            v-else
+          />
         </div>
       </div>
     </div>
