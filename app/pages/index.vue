@@ -377,7 +377,8 @@ const selectRegion = (region: EastJavaRegion, event: MouseEvent) => {
 };
 
 onBeforeMount(async () => {
-  video_thumbnail.value = await $fetch('/api/media/video_thumbnail');
+  video_thumbnail.value = await $fetch("/api/media/video_thumbnail");
+  console.log(video_thumbnail.value);
 });
 
 // Initialize map zoom when component mounts
@@ -464,6 +465,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
             playsinline
             class="main-image"
           />
+          {{ video_thumbnail }}
         </div>
       </div>
     </div>
