@@ -48,6 +48,13 @@ const galleryImages1 = ref([
     title: "Cartoonish white dog with green sweater",
   },
 ]);
+const videoUrl = ref<any>(null);
+const handleBlob = (blob: any) => {
+  if (videoUrl.value) {
+    URL.revokeObjectURL(videoUrl.value);
+  }
+  videoUrl.value = URL.createObjectURL(blob);
+};
 
 const contactMethods = ref([
   {
@@ -382,7 +389,7 @@ onBeforeMount(async () => {
       id: "videos/video_thumbnail.mp4",
     },
   });
-  console.log(video_thumbnail.value);
+  handleBlob(video_thumbnail.value);
 });
 
 // Initialize map zoom when component mounts
@@ -397,6 +404,9 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener("resize", calculateMinZoom);
+  if (videoUrl.value) {
+    URL.revokeObjectURL(videoUrl.value);
+  }
 });
 
 function useEmoticonLooper(emojis: string[], interval = 2000) {
@@ -468,6 +478,7 @@ function useEmoticonLooper(emojis: string[], interval = 2000) {
             loop
             playsinline
             class="main-image"
+            v-if="videoUrl"
           />
           {{ video_thumbnail }}
         </div>
