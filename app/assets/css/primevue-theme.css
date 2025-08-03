@@ -31,7 +31,8 @@
 }
 
 .p-button.p-button-contrast:hover {
-  background: var(--memomancy-primary-hover) !important;
+  background: var(--memomancy-contrast-hover) !important;
+  border-color: var(--memomancy-contrast-hover) !important;
 }
 
 /* Input Styling */

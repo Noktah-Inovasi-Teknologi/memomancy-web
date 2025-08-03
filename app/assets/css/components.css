@@ -182,7 +182,8 @@
 }
 
 .nuxtlink-btn-contrast:hover {
-  background: var(--memomancy-primary-hover);
+  background: var(--memomancy-contrast-hover);
+  border-color: var(--memomancy-contrast-hover);
 }
 
 @media (min-width: 640px) {
