@@ -99,7 +99,7 @@ const reservationSteps = ref<ReservationStep[]>([
     details: ["Konfirmasi booking", "Brief konsep foto", "Koordinasi teknis"],
   },
   {
-    title: "Sesi Foto Dimulai! ✨",
+    title: "Sesi Foto/Video Dimulai!✨",
     description:
       "Fotografer profesional kami siap mengabadikan momen spesialmu dengan magic touch Memomancy.",
     number: 5,
@@ -655,9 +655,7 @@ onUnmounted(() => {
       <!-- Calculator and Consult Options -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-uniform-4">
         <!-- Calculator -->
-        <div
-          class="flex flex-col gap-uniform-4 p-8 border-2 border-[#E3FE01] rounded-3xl bg-gradient-to-br from-[#F5F2EB] to-[#EDEEBB] shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-[#EDEEBB] hover:-translate-y-1"
-        >
+        <div class="memomancy-action-card flex flex-col gap-uniform-4">
           <div class="flex items-center gap-uniform-2">
             <div
               class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
@@ -674,13 +672,13 @@ onUnmounted(() => {
               <Icon name="uil:clock" class="w-6 h-6 text-[#1F1F1F]" />
             </div>
             <div class="flex flex-col gap-1">
-              <p class="paragraph-4 text-[#1F1F1F] font-medium">
+              <p class="paragraph-3 text-[#1F1F1F] font-medium">
                 Estimasi dalam 2 menit
               </p>
               <div class="space-y-1">
-                <p class="paragraph-4 text-[#1F1F1F]">1. Pilih jenis layanan</p>
-                <p class="paragraph-4 text-[#1F1F1F]">2. Tentukan lokasi</p>
-                <p class="paragraph-4 text-[#1F1F1F]">
+                <p class="paragraph-3 text-[#1F1F1F]">1. Pilih jenis layanan</p>
+                <p class="paragraph-3 text-[#1F1F1F]">2. Tentukan lokasi</p>
+                <p class="paragraph-3 text-[#1F1F1F]">
                   3. Dapatkan harga transparan
                 </p>
               </div>
@@ -699,9 +697,7 @@ onUnmounted(() => {
         </div>
 
         <!-- Consult -->
-        <div
-          class="flex flex-col gap-uniform-4 p-8 border-2 border-[#E3FE01] rounded-3xl bg-gradient-to-br from-[#F5F2EB] to-[#EDEEBB] shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-[#EDEEBB] hover:-translate-y-1"
-        >
+        <div class="memomancy-action-card flex flex-col gap-uniform-4">
           <div class="flex items-center gap-uniform-2">
             <div
               class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
@@ -979,7 +975,7 @@ onUnmounted(() => {
         </div>
       </div>
       <div
-        class="flex flex-col gap-uniform-4 p-7 border-2 border-color-alternating-inverted rounded-3xl bg-gradient-to-r from-[#E3FE01]/10 to-transparent shadow-lg transition-all duration-300 hover:border-[#E3FE01] hover:shadow-xl hover:from-[#E3FE01]/20 text-center"
+        class="flex flex-col memomancy-action-card text-center gap-uniform-6"
       >
         <div class="flex items-center justify-center gap-uniform-2">
           <div
@@ -1054,7 +1050,7 @@ onUnmounted(() => {
         <div
           v-for="method in contactMethods"
           :key="method.title"
-          class="flex flex-col gap-uniform-4 text-color-alternating items-center text-center p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+          class="memomancy-action-card flex flex-col gap-uniform-4 text-color-alternating items-center text-center"
         >
           <div
             class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
@@ -1239,11 +1235,11 @@ onUnmounted(() => {
     </div>
     <div class="flex flex-col m-8 gap-uniform-4" id="quick-action">
       <div
-        class="flex flex-col gap-uniform-4 text-color-alternating text-center p-8 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+        class="flex flex-col memomancy-action-card text-color-alternating text-center gap-uniform-6"
       >
         <div class="flex flex-col gap-uniform-8">
           <h2 class="heading-1 font-bold text-color-alternating">
-            Tindakan Pintas
+            Akses Cepat
           </h2>
           <p class="paragraph-2 text-color-alternating">
             Akses langsung ke layanan utama kami dengan sekali klik
@@ -1268,7 +1264,7 @@ onUnmounted(() => {
               to="/gallery"
               class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
             >
-              <p>Lihat Portfolio</p>
+              <p>Lihat Galeri Portfolio</p>
               <Icon name="uil:arrow-up-right" class="icon-size-4" />
             </NuxtLink>
           </Button>

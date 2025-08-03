@@ -9,9 +9,12 @@
   --memomancy-dark: #1F1F1F;
   --memomancy-dark-hover: #2E2E2E;
   --memomancy-light: #F5F2EB;
+  --memomancy-elevated-bg: #FFFFFF;
   
   /* Effects */
   --memomancy-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --memomancy-elevated-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+  --memomancy-elevated-shadow-hover: 0 4px 16px rgb(0 0 0 / 0.12);
   
   /* Border Radius */
   --memomancy-border-radius: 3rem;

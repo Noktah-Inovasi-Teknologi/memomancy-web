@@ -69,5 +69,20 @@ export const useMemomancyPassthrough = () => {
         class: "memomancy-form-field",
       },
     },
+    card: {
+      root: {
+        class: "memomancy-elevated-card",
+      },
+    },
+    panel: {
+      root: {
+        class: "memomancy-elevated-card",
+      },
+    },
+    dialog: {
+      root: {
+        class: "memomancy-elevated-section",
+      },
+    },
   };
 };

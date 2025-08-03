@@ -210,3 +210,82 @@
     background: var(--memomancy-dark-hover);
   }
 }
+
+/* Elevated Card Components */
+.memomancy-elevated-card {
+  background: var(--memomancy-elevated-bg);
+  border: 1px solid var(--memomancy-dark);
+  border-radius: var(--memomancy-border-radius-lg);
+  box-shadow: var(--memomancy-elevated-shadow);
+  padding: var(--memomancy-space-lg) var(--memomancy-space-xl);
+  transition: all 200ms ease;
+}
+
+.memomancy-elevated-card:hover {
+  box-shadow: var(--memomancy-elevated-shadow-hover);
+  border-color: var(--memomancy-primary);
+}
+
+.memomancy-elevated-card-compact {
+  background: var(--memomancy-elevated-bg);
+  border: 1px solid var(--memomancy-dark);
+  border-radius: var(--memomancy-border-radius-lg);
+  box-shadow: var(--memomancy-elevated-shadow);
+  padding: var(--memomancy-space-md) var(--memomancy-space-lg);
+  transition: all 200ms ease;
+}
+
+.memomancy-elevated-card-compact:hover {
+  box-shadow: var(--memomancy-elevated-shadow-hover);
+  border-color: var(--memomancy-primary);
+}
+
+/* Elevated Section */
+.memomancy-elevated-section {
+  background: var(--memomancy-elevated-bg);
+  border: 2px solid var(--memomancy-dark);
+  border-radius: var(--memomancy-border-radius-lg);
+  box-shadow: var(--memomancy-elevated-shadow);
+  padding: var(--memomancy-space-xl);
+  transition: all 200ms ease;
+}
+
+.memomancy-elevated-section:hover {
+  border-color: var(--memomancy-primary);
+  box-shadow: var(--memomancy-elevated-shadow-hover);
+}
+
+/* Important Action Cards */
+.memomancy-action-card {
+  background: var(--memomancy-elevated-bg);
+  border: 2px solid var(--memomancy-dark);
+  border-radius: var(--memomancy-border-radius-lg);
+  box-shadow: var(--memomancy-elevated-shadow);
+  padding: var(--memomancy-space-lg) var(--memomancy-space-xl);
+  transition: all 200ms ease;
+}
+
+.memomancy-action-card:hover {
+  box-shadow: var(--memomancy-elevated-shadow-hover);
+  border-color: var(--memomancy-primary);
+  transform: translateY(-2px);
+}
+
+/* Dark Mode Elevated Styles */
+@media (prefers-color-scheme: dark) {
+  .memomancy-elevated-card,
+  .memomancy-elevated-card-compact,
+  .memomancy-elevated-section,
+  .memomancy-action-card {
+    background: var(--memomancy-elevated-bg);
+    border-color: var(--memomancy-dark);
+    color: var(--memomancy-dark);
+  }
+  
+  .memomancy-elevated-card:hover,
+  .memomancy-elevated-card-compact:hover,
+  .memomancy-elevated-section:hover,
+  .memomancy-action-card:hover {
+    border-color: var(--memomancy-primary);
+  }
+}
