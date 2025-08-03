@@ -1,0 +1,98 @@
+/* Memomancy PrimeVue Theme Overrides */
+
+/* Button Styling */
+.p-button.p-button-primary, 
+.p-button:not([data-pc-severity]) {
+  background: var(--memomancy-light) !important;
+  border: 1px solid var(--memomancy-dark) !important;
+  color: var(--p-text-color) !important;
+}
+
+.p-button.p-button-primary:hover, 
+.p-button:not([data-pc-severity]):hover {
+  background: var(--memomancy-primary-hover) !important;
+}
+
+.p-button.p-button-secondary {
+  background: var(--memomancy-dark) !important;
+  border: 1px solid var(--memomancy-dark) !important;
+  color: var(--memomancy-light) !important;
+}
+
+.p-button.p-button-secondary:hover {
+  background: var(--memomancy-dark-hover) !important;
+}
+
+.p-button.p-button-contrast {
+  background: var(--memomancy-primary) !important;
+  border: 1px solid var(--memomancy-primary) !important;
+  color: var(--memomancy-dark) !important;
+  box-shadow: var(--memomancy-shadow) !important;
+}
+
+.p-button.p-button-contrast:hover {
+  background: var(--memomancy-primary-hover) !important;
+}
+
+/* Input Styling */
+.p-inputgroupaddon {
+  border-block-start: 1px solid var(--memomancy-dark) !important;
+  border-block-end: 1px solid var(--memomancy-dark) !important;
+}
+
+.p-inputgroupaddon:first-child {
+  border-inline-start: 1px solid var(--memomancy-dark) !important;
+  border-top-left-radius: var(--memomancy-border-radius) !important;
+  border-bottom-left-radius: var(--memomancy-border-radius) !important;
+}
+
+.p-inputtext {
+  border: 1px solid var(--memomancy-dark) !important;
+  border-radius: var(--memomancy-border-radius);
+}
+
+.p-inputgroup > .p-inputtext:last-child {
+  border-top-right-radius: var(--memomancy-border-radius) !important;
+  border-bottom-right-radius: var(--memomancy-border-radius) !important;
+}
+
+/* Dark Mode Overrides */
+@media (prefers-color-scheme: dark) {
+  /* Button Dark Mode */
+  .p-button.p-button-primary, 
+  .p-button:not([data-pc-severity]) {
+    background: var(--memomancy-dark) !important;
+    border: 1px solid var(--memomancy-light) !important;
+    color: var(--p-text-color) !important;
+  }
+  
+  .p-button.p-button-primary:hover, 
+  .p-button:not([data-pc-severity]):hover {
+    background: var(--memomancy-dark-hover) !important;
+  }
+  
+  .p-button.p-button-secondary {
+    background: var(--memomancy-light) !important;
+    border: 1px solid var(--memomancy-light) !important;
+    color: var(--memomancy-dark) !important;
+  }
+  
+  .p-button.p-button-secondary:hover {
+    background: var(--memomancy-primary-hover) !important;
+  }
+
+  /* Input Dark Mode */
+  .p-inputgroupaddon {
+    border-block-start: 1px solid var(--memomancy-light) !important;
+    border-block-end: 1px solid var(--memomancy-light) !important;
+  }
+  
+  .p-inputgroupaddon:first-child {
+    border-inline-start: 1px solid var(--memomancy-light) !important;
+  }
+  
+  .p-inputtext {
+    border: 1px solid var(--memomancy-light) !important;
+    border-radius: var(--memomancy-border-radius);
+  }
+}

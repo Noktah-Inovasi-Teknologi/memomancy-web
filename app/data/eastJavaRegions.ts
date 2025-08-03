@@ -1,15 +1,4 @@
-export interface EastJavaRegion {
-  id: string;
-  name: string;
-  type: "kabupaten" | "kota";
-  patches: number[];
-  status: "covered" | "coming_soon" | "not_covered";
-  photographers?: string;
-  response?: string;
-  popular?: boolean;
-  svgPath?: string;
-  labelPosition?: { x: number; y: number };
-}
+import { type EastJavaRegion } from "~/types";
 
 // Complete mapping of all East Java regions with their patch numbers
 export const EAST_JAVA_REGIONS: EastJavaRegion[] = [

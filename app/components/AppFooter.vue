@@ -1,15 +1,27 @@
 <script lang="ts" setup>
-// const { $viewport } = useNuxtApp();
+import {
+  phoneNumber,
+  phoneLink,
+  whatsappLink,
+  emailAddress,
+  emailLink,
+  instagramLink,
+  tiktokLink,
+  facebookLink,
+  youtubeLink,
+  address
+} from "~/data/commonInformations";
+
 const footerMenu1 = [
   { label: "Galeri", to: "/gallery" },
   { label: "Reservasi", to: "/reservation" },
-  { label: "Kontak", href: "https://wa.me/6281234567890" },
+  { label: "Kontak", href: whatsappLink },
 ];
 const footerMenu2 = [
-  { label: "Instagram", href: "https://www.instagram.com/memomancy" },
-  { label: "Facebook", href: "https://www.facebook.com/memomancy" },
-  { label: "Tiktok", href: "https://www.tiktok.com/@memomancy" },
-  { label: "X", href: "https://x.com/memomancy" },
+  { label: "Instagram", href: instagramLink },
+  { label: "Facebook", href: facebookLink },
+  { label: "Tiktok", href: tiktokLink },
+  { label: "YouTube", href: youtubeLink },
 ];
 </script>
 
@@ -43,17 +55,16 @@ const footerMenu2 = [
             <div class="flex items-center gap-2">
               <Icon name="uil:map-marker" class="text-lg flex-shrink-0" />
               <p class="paragraph-4">
-                Bukit Menganti Regency, Boteng, Menganti, Gresik, Jawa Timur -
-                61174
+                {{ address }}
               </p>
             </div>
             <div class="flex items-center gap-2">
               <Icon name="uil:phone" class="text-lg flex-shrink-0" />
-              <p class="paragraph-4">+62 812 3456 7890</p>
+              <p class="paragraph-4">{{ phoneNumber }}</p>
             </div>
             <div class="flex items-center gap-2">
               <Icon name="uil:envelope" class="text-lg flex-shrink-0" />
-              <p class="paragraph-4">hello@memomancy.com</p>
+              <p class="paragraph-4">{{ emailAddress }}</p>
             </div>
           </div>
           <div class="flex flex-col gap-2 mt-6">

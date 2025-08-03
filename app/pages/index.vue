@@ -2,42 +2,30 @@
 import {
   getCoveredRegions,
   getComingSoonRegions,
-  type EastJavaRegion,
 } from "~/data/eastJavaRegions";
-
-// Types
-interface GalleryImage {
-  src: string;
-  alt: string;
-  title: string;
-  location?: string;
-  serviceType?: string;
-  date?: string;
-}
-
-interface ContactMethod {
-  icon: string;
-  title: string;
-  subtitle: string;
-  contact: string;
-  buttonText: string;
-  href: string;
-}
-
-interface ReservationStep {
-  title: string;
-  description: string;
-  number: number;
-  icon: string;
-  details?: string[];
-  celebration?: boolean;
-}
-
-interface WhyUsItem {
-  title: string;
-  description: string;
-  icons: string[];
-}
+import {
+  phoneNumber,
+  phoneLink,
+  whatsappLink,
+  emailAddress,
+  emailLink,
+  instagramName,
+  instagramLink,
+  tiktokName,
+  tiktokLink,
+  facebookName,
+  facebookLink,
+  youtubeName,
+  youtubeLink,
+  socialMediaStats,
+} from "~/data/commonInformations";
+import type {
+  EastJavaRegion,
+  GalleryImage,
+  ContactMethod,
+  ReservationStep,
+  WhyUsItem,
+} from "~/types";
 
 // Media URLs and references
 const videoUrl = ref<string | null>(null);
@@ -51,25 +39,25 @@ const contactMethods = ref<ContactMethod[]>([
     icon: "uil:whatsapp",
     title: "WhatsApp",
     subtitle: "Respon Paling Cepat",
-    contact: "+62 851-7301-7749",
+    contact: phoneNumber,
     buttonText: "Chat Sekarang",
-    href: "https://wa.me/6285173017749",
+    href: whatsappLink,
   },
   {
     icon: "uil:phone",
     title: "Telepon",
     subtitle: "Obrolan Langsung",
-    contact: "+62 851-7301-7749",
+    contact: phoneNumber,
     buttonText: "Telepon Sekarang",
-    href: "tel:+6285173017749",
+    href: phoneLink,
   },
   {
     icon: "uil:envelope",
     title: "Email",
     subtitle: "Pesanan Secara Detail",
-    contact: "core@memomancy.com",
+    contact: emailAddress,
     buttonText: "Kirim Email",
-    href: "mailto:core@memomancy.com",
+    href: emailLink,
   },
 ]);
 
@@ -465,21 +453,19 @@ onUnmounted(() => {
             Kami foto dan rekam momenmu gapake ribet
           </p>
           <div class="flex flex-col sm:flex-row gap-uniform-4 mt-6 lg:mt-12">
-            <Button>
+            <Button severity="contrast">
               <NuxtLink
                 to="/reservation"
-                class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
+                class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
               >
                 <p>Reservasi Sekarang</p>
                 <Icon name="uil:arrow-up-right" class="icon-size-4" />
               </NuxtLink>
             </Button>
-            <Button
-              pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
-            >
+            <Button severity="primary">
               <NuxtLink
                 to="/calculator"
-                class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-color-alternating font-semibold"
+                class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
               >
                 <p>Hitung Harga</p>
                 <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -529,10 +515,6 @@ onUnmounted(() => {
         optionLabel="label"
         optionValue="value"
         :pt="{
-          root: {
-            class:
-              'flex flex-wrap !rounded-3xl border-2 border-color-alternating-inverted [&>button]:!px-4 [&>button]:!py-2 [&>button]:!rounded-3xl [&>button]:!border-0 [&>button]:!bg-color-alternating [&>button]:!text-color-alternating [&>button]:!paragraph-3 [&>button]:!font-semibold [&>button]:!transition-colors [&>button]:!duration-200 [&>button.p-highlight]:!bg-transparent [&>button.p-highlight]:!text-color-alternating [&>button.p-togglebutton-checked]:!bg-transparent [&>button.p-togglebutton-checked]:!text-color-alternating [&>button.p-togglebutton-checked>.p-togglebutton-content]:!bg-[#E3FE01] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!text-[#1F1F1F] [&>button.p-togglebutton-checked>.p-togglebutton-content]:!shadow-none [&>button[data-p-active=true]]:!bg-transparent [&>button[data-p-active=true]]:!text-color-alternating [&>button:hover:not(.p-highlight)]:!bg-[#EDEEBB] [&>button:hover:not(.p-highlight)]:dark:!bg-[#2E2E2E]',
-          },
           pcToggleButton: {
             content: '!rounded-full',
           },
@@ -542,7 +524,7 @@ onUnmounted(() => {
         <div
           v-for="(item, index) in filteredImages.slice(0, 3)"
           :key="index"
-          class="flex flex-col gap-uniform-4 p-4 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
+          class="flex flex-col gap-uniform-4 p-4 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:shadow-lg gallery-item"
         >
           <img
             :src="item.src"
@@ -588,10 +570,10 @@ onUnmounted(() => {
         </div>
       </div>
       <div class="flex justify-center">
-        <Button>
+        <Button severity="contrast">
           <NuxtLink
             to="/gallery"
-            class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
+            class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
           >
             <p>Lihat Galeri Portfolio Lengkap</p>
             <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -627,7 +609,12 @@ onUnmounted(() => {
             </div>
             <!-- Number Badge -->
             <div
-              class="absolute -top-2 -right-2 flex items-center justify-center w-8 h-8 bg-[#E3FE01] border-2 border-[#1F1F1F] rounded-full font-bold text-sm text-[#1F1F1F]"
+              class="absolute -top-2 -right-2 flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm"
+              style="
+                background: var(--memomancy-primary);
+                border: 2px solid var(--memomancy-dark);
+                color: var(--memomancy-dark);
+              "
             >
               {{ step.number }}
             </div>
@@ -646,10 +633,10 @@ onUnmounted(() => {
       </div>
       <!-- Call to Action Button -->
       <div class="flex justify-center">
-        <Button>
+        <Button severity="contrast">
           <NuxtLink
             to="/reservation"
-            class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
+            class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
           >
             <p>Mulai Reservasi</p>
             <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -669,7 +656,7 @@ onUnmounted(() => {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-uniform-4">
         <!-- Calculator -->
         <div
-          class="flex flex-col gap-uniform-4 p-8 border-2 border-[#E3FE01] rounded-3xl bg-gradient-to-br from-[#F5F2EB] to-[#EDEEBB] shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-[#D9D491] hover:-translate-y-1"
+          class="flex flex-col gap-uniform-4 p-8 border-2 border-[#E3FE01] rounded-3xl bg-gradient-to-br from-[#F5F2EB] to-[#EDEEBB] shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-[#EDEEBB] hover:-translate-y-1"
         >
           <div class="flex items-center gap-uniform-2">
             <div
@@ -700,10 +687,10 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <Button>
+          <Button severity="contrast">
             <NuxtLink
               to="/calculator"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
             >
               <p>Hitung Harga</p>
               <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -713,7 +700,7 @@ onUnmounted(() => {
 
         <!-- Consult -->
         <div
-          class="flex flex-col gap-uniform-4 p-8 border-2 border-[#E3FE01] rounded-3xl bg-gradient-to-br from-[#F5F2EB] to-[#EDEEBB] shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-[#D9D491] hover:-translate-y-1"
+          class="flex flex-col gap-uniform-4 p-8 border-2 border-[#E3FE01] rounded-3xl bg-gradient-to-br from-[#F5F2EB] to-[#EDEEBB] shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-[#EDEEBB] hover:-translate-y-1"
         >
           <div class="flex items-center gap-uniform-2">
             <div
@@ -746,13 +733,11 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <Button
-            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
-          >
+          <Button severity="primary">
             <a
-              href="https://wa.me/your-whatsapp-number"
+              :href="whatsappLink"
               target="_blank"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
             >
               <p>Hubungi Kami</p>
               <Icon name="uil:whatsapp" class="icon-size-4" />
@@ -1014,13 +999,11 @@ onUnmounted(() => {
         </p>
 
         <div class="flex justify-center">
-          <Button
-            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
-          >
+          <Button severity="primary">
             <a
-              href="https://wa.me/your-whatsapp-number"
+              :href="whatsappLink"
               target="_blank"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
             >
               <p>Konsultasikan dengan Kami</p>
               <Icon name="uil:whatsapp" class="icon-size-4" />
@@ -1089,13 +1072,11 @@ onUnmounted(() => {
               {{ method.contact }}
             </p>
           </div>
-          <Button
-            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
-          >
+          <Button severity="primary">
             <a
               :href="method.href"
               :target="method.title === 'WhatsApp' ? '_blank' : undefined"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
             >
               <p>{{ method.buttonText }}</p>
               <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -1130,21 +1111,20 @@ onUnmounted(() => {
               Instagram
             </h3>
             <p class="paragraph-3 text-color-alternating">
-              @memomancy.official
+              {{ instagramName }}
             </p>
             <p class="paragraph-3 text-color-alternating font-semibold">
-              2.5K Followers
+              {{ socialMediaStats.instagram.followers }}
+              {{ socialMediaStats.instagram.metric }}
             </p>
           </div>
 
           <!-- Button -->
-          <Button
-            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
-          >
+          <Button severity="primary">
             <a
-              href="https://instagram.com/memomancy.official"
+              :href="instagramLink"
               target="_blank"
-              class="flex items-center gap-2 paragraph-3 text-color-alternating font-semibold"
+              class="flex items-center gap-2 paragraph-3 font-semibold"
             >
               <p>Follow</p>
               <Icon name="uil:arrow-up-right" class="w-4 h-4" />
@@ -1160,26 +1140,25 @@ onUnmounted(() => {
           <div
             class="flex items-center justify-center w-12 h-12 bg-[#000000] rounded-full shrink-0"
           >
-            <Icon name="uil:tiktok" class="w-6 h-6 text-white" />
+            <Icon name="ic:baseline-tiktok" class="w-6 h-6 text-white" />
           </div>
 
           <!-- Info -->
           <div class="flex flex-col gap-1 flex-grow">
             <h3 class="heading-5 font-bold text-color-alternating">TikTok</h3>
-            <p class="paragraph-3 text-color-alternating">@memomancy</p>
+            <p class="paragraph-3 text-color-alternating">{{ tiktokName }}</p>
             <p class="paragraph-3 text-color-alternating font-semibold">
-              5.8K Followers
+              {{ socialMediaStats.tiktok.followers }}
+              {{ socialMediaStats.tiktok.metric }}
             </p>
           </div>
 
           <!-- Button -->
-          <Button
-            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
-          >
+          <Button severity="primary">
             <a
-              href="https://tiktok.com/@memomancy"
+              :href="tiktokLink"
               target="_blank"
-              class="flex items-center gap-2 paragraph-3 text-color-alternating font-semibold"
+              class="flex items-center gap-2 paragraph-3 font-semibold"
             >
               <p>Follow</p>
               <Icon name="uil:arrow-up-right" class="w-4 h-4" />
@@ -1202,21 +1181,20 @@ onUnmounted(() => {
           <div class="flex flex-col gap-1 flex-grow">
             <h3 class="heading-5 font-bold text-color-alternating">Facebook</h3>
             <p class="paragraph-3 text-color-alternating">
-              Memomancy Photography
+              {{ facebookName }}
             </p>
             <p class="paragraph-3 text-color-alternating font-semibold">
-              1.2K Likes
+              {{ socialMediaStats.facebook.followers }}
+              {{ socialMediaStats.facebook.metric }}
             </p>
           </div>
 
           <!-- Button -->
-          <Button
-            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
-          >
+          <Button severity="primary">
             <a
-              href="https://facebook.com/memomancy"
+              :href="facebookLink"
               target="_blank"
-              class="flex items-center gap-2 paragraph-3 text-color-alternating font-semibold"
+              class="flex items-center gap-2 paragraph-3 font-semibold"
             >
               <p>Like</p>
               <Icon name="uil:arrow-up-right" class="w-4 h-4" />
@@ -1238,20 +1216,19 @@ onUnmounted(() => {
           <!-- Info -->
           <div class="flex flex-col gap-1 flex-grow">
             <h3 class="heading-5 font-bold text-color-alternating">YouTube</h3>
-            <p class="paragraph-3 text-color-alternating">Memomancy Studio</p>
+            <p class="paragraph-3 text-color-alternating">{{ youtubeName }}</p>
             <p class="paragraph-3 text-color-alternating font-semibold">
-              950 Subscribers
+              {{ socialMediaStats.youtube.followers }}
+              {{ socialMediaStats.youtube.metric }}
             </p>
           </div>
 
           <!-- Button -->
-          <Button
-            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
-          >
+          <Button severity="primary">
             <a
-              href="https://youtube.com/@memomancy"
+              :href="youtubeLink"
               target="_blank"
-              class="flex items-center gap-2 paragraph-3 text-color-alternating font-semibold"
+              class="flex items-center gap-2 paragraph-3 font-semibold"
             >
               <p>Subscribe</p>
               <Icon name="uil:arrow-up-right" class="w-4 h-4" />
@@ -1275,10 +1252,10 @@ onUnmounted(() => {
 
         <div class="flex flex-col md:flex-row gap-uniform-4 justify-center">
           <!-- Reservasi Sekarang -->
-          <Button>
+          <Button severity="contrast">
             <NuxtLink
               to="/reservation"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
             >
               <p>Reservasi Sekarang</p>
               <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -1286,12 +1263,10 @@ onUnmounted(() => {
           </Button>
 
           <!-- Lihat Portfolio -->
-          <Button
-            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
-          >
+          <Button severity="primary">
             <NuxtLink
               to="/gallery"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
             >
               <p>Lihat Portfolio</p>
               <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -1299,12 +1274,10 @@ onUnmounted(() => {
           </Button>
 
           <!-- Hitung Harga -->
-          <Button
-            pt:root:class="!bg-[#F5F2EB] !border-[#1F1F1F] !rounded-full !px-3 !py-[0.375rem] hover:!bg-[#D9D491] dark:!bg-[#1F1F1F] dark:!border-[#F5F2EB] dark:hover:!bg-[#2E2E2E] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]"
-          >
+          <Button severity="primary">
             <NuxtLink
               to="/calculator"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 text-color-alternating font-semibold"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
             >
               <p>Hitung Harga</p>
               <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -1318,7 +1291,65 @@ onUnmounted(() => {
 
 <style scoped>
 .button-styling {
-  @apply !rounded-full border-0 hover:bg-[#E3FE01];
+  @apply !rounded-full border-0;
+  &:hover {
+    background: var(--memomancy-primary);
+  }
+}
+
+.gallery-item:hover {
+  border-color: var(--memomancy-primary);
+}
+
+.feature-card {
+  border-color: var(--memomancy-primary);
+  background: linear-gradient(
+    135deg,
+    var(--memomancy-light),
+    var(--memomancy-primary-hover)
+  );
+}
+
+.feature-card:hover {
+  border-color: var(--memomancy-primary-hover);
+}
+
+.icon-primary {
+  background: var(--memomancy-primary);
+  color: var(--memomancy-dark);
+}
+
+.icon-border {
+  border: 2px solid var(--memomancy-dark);
+}
+
+.text-dark {
+  color: var(--memomancy-dark);
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(
+    135deg,
+    var(--memomancy-primary) / 10,
+    transparent
+  );
+}
+
+.bg-gradient-primary:hover {
+  background: linear-gradient(
+    135deg,
+    var(--memomancy-primary) / 20,
+    transparent
+  );
+  border-color: var(--memomancy-primary);
+}
+
+.testimonial-card:hover {
+  border-color: var(--memomancy-primary);
+}
+
+.contact-card:hover {
+  border-color: var(--memomancy-primary);
 }
 
 .fade-enter-active,

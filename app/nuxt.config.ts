@@ -1,5 +1,5 @@
-import Aura from "@primeuix/themes/aura";
-import { definePreset } from "@primevue/themes";
+import { useMemomancyTheme, useMemomancyPassthrough } from "./composables/usePrimeVueTheme";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   colorMode: {
@@ -8,7 +8,12 @@ export default defineNuxtConfig({
     fallback: "light",
   },
   compatibilityDate: "2024-11-01",
-  css: ["@/assets/css/tailwind.css"],
+  css: [
+    "@/assets/css/tailwind.css",
+    "@/assets/css/design-tokens.css",
+    "@/assets/css/primevue-theme.css",
+    "@/assets/css/components.css",
+  ],
   devtools: { enabled: true },
   hub: {
     blob: true,
@@ -49,79 +54,9 @@ export default defineNuxtConfig({
     options: {
       ripple: true,
       theme: {
-        preset: definePreset(Aura, {
-          semantic: {
-            primary: {
-              50: "#FCFFE5",
-              100: "#F5FFB3",
-              200: "#ECFF73",
-              300: "#E6FF3A",
-              400: "#E5FF0F",
-              500: "#E3FE01", // your main base
-              600: "#BADA01",
-              700: "#91B501",
-              800: "#6B8F00",
-              900: "#4E6A00",
-              950: "#2E4100",
-            },
-          },
-        }),
+        preset: useMemomancyTheme(),
       },
-      pt: {
-        button: {
-          root: {
-            class:
-              "!border-0 !rounded-[3rem] hover:!border-0 hover:!bg-primary-600 !px-3 !py-[0.375rem] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]",
-          },
-          label: {
-            class: "!font-semibold",
-          },
-        },
-        global: {
-          css: `
-            .p-inputgroupaddon {
-              border-block-start: 1px solid #1F1F1F !important;
-              border-block-end: 1px solid #1F1F1F !important;
-            }
-            .p-inputgroupaddon:first-child {
-              border-inline-start: 1px solid #1F1F1F !important;
-            }
-            .p-inputtext {
-              border: 1px solid #1F1F1F !important;
-              border-radius: 3rem;
-            }
-
-            @media (prefers-color-scheme: dark) {
-              .p-inputgroupaddon {
-                border-block-start: 1px solid #F5F2EB !important;
-                border-block-end: 1px solid #F5F2EB !important;
-              }
-              .p-inputgroupaddon:first-child {
-                border-inline-start: 1px solid #F5F2EB !important;
-              }
-              .p-inputtext {
-                border: 1px solid #F5F2EB !important;
-                border-radius: 3rem;
-              }
-            }
-          `,
-        },
-        inputtext: {
-          root: {
-            class:
-              "border-[#1F1F1F] dark:border-[#F5F2EB] rounded-[3rem] !px-3 !py-[0.375rem] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]",
-          },
-          label: {
-            class: "!font-semibold",
-          },
-        },
-        paginator: {
-          root: {
-            class:
-              "!border !border-[#1F1F1F] dark:!border-[#F5F2EB] !rounded-[3rem] !bg-transparent",
-          },
-        },
-      },
+      pt: useMemomancyPassthrough(),
     },
   },
   routeRules: {
@@ -171,7 +106,7 @@ export default defineNuxtConfig({
     adminList: process.env.MEMOMANCY_ADMIN_LIST,
   },
   vite: {
-    assetsInclude: ['**/*.mp4', '**/*.webm', '**/*.ogg']
+    assetsInclude: ["**/*.mp4", "**/*.webm", "**/*.ogg"],
   },
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",

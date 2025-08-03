@@ -1,0 +1,31 @@
+/* Memomancy Design System Tokens */
+:root {
+  /* Primary Colors */
+  --memomancy-primary: #E3FE01;
+  --memomancy-primary-hover: #EDEEBB;
+  
+  /* Neutral Colors */
+  --memomancy-dark: #1F1F1F;
+  --memomancy-dark-hover: #2E2E2E;
+  --memomancy-light: #F5F2EB;
+  
+  /* Effects */
+  --memomancy-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  
+  /* Border Radius */
+  --memomancy-border-radius: 3rem;
+  --memomancy-border-radius-lg: 1.5rem;
+  
+  /* Spacing Scale */
+  --memomancy-space-xs: 0.25rem;
+  --memomancy-space-sm: 0.5rem;
+  --memomancy-space-md: 1rem;
+  --memomancy-space-lg: 1.5rem;
+  --memomancy-space-xl: 2rem;
+  
+  /* Font Weights */
+  --memomancy-font-weight-normal: 400;
+  --memomancy-font-weight-medium: 500;
+  --memomancy-font-weight-semibold: 600;
+  --memomancy-font-weight-bold: 700;
+}

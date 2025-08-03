@@ -14,8 +14,6 @@ const navbarMenu = [
       <Menubar
         class="flex justify-between items-center"
         :model="navbarMenu"
-        pt:root:class="!px-6 !bg-[#F5F2EB] dark:!bg-[#1F1F1F] !border-[#1F1F1F] !border-2 dark:!border-[#F5F2EB] !rounded-[1.5rem]"
-        pt:end:class="flex !ml-0"
         :pt="{
           end: {
             class: [
@@ -26,29 +24,45 @@ const navbarMenu = [
             ],
           },
           itemContent: {
-            class: '!bg-transparent !rounded-[1.5rem]',
+            class: '!bg-transparent font-semibold',
+            style: 'border-radius: var(--memomancy-border-radius-lg)',
           },
           rootList: {
-            class:
-              '!bg-[#F5F2EB] dark:!bg-[#1F1F1F] !border-[#1F1F1F] !rounded-[1.5rem]',
+            style:
+              'background: var(--memomancy-light); var(--memomancy-dark); border-radius: var(--memomancy-border-radius-lg)',
           },
         }"
       >
         <template #start v-if="$viewport.isGreaterOrEquals('mtl')">
-          <p class="font-bold text-[#1F1F1F] dark:text-[#F5F2EB]">Memomancy</p>
+          <p class="font-bold memomancy-brand-text">Memomancy</p>
         </template>
         <template #item="{ item, props }">
           <NuxtLink
             v-ripple
             v-bind="props.action"
             :to="item.to"
-            class="px-4 py-2 rounded-full transition-colors duration-200"
-            :class="{
-              'bg-[#E3FE01] hover:bg-[#DFE559] dark:text-[#1F1F1F]':
-                route.path === item.to,
-              'hover:bg-[#EDEEBB] hover:dark:text-[#1F1F1F]':
-                route.path !== item.to,
+            class="px-4 py-2 transition-colors duration-200"
+            style="border-radius: var(--memomancy-border-radius)"
+            :style="{
+              background:
+                route.path === item.to
+                  ? 'var(--memomancy-primary)'
+                  : 'transparent',
+              color:
+                route.path === item.to ? 'var(--memomancy-dark)' : 'inherit',
             }"
+            @mouseover="
+              $event.target.style.background =
+                route.path !== item.to
+                  ? 'var(--memomancy-primary-hover)'
+                  : 'var(--memomancy-primary-hover)'
+            "
+            @mouseleave="
+              $event.target.style.background =
+                route.path === item.to
+                  ? 'var(--memomancy-primary)'
+                  : 'transparent'
+            "
           >
             {{ item.label }}
           </NuxtLink>
@@ -60,7 +74,10 @@ const navbarMenu = [
               { 'w-full': $viewport.isLessThan('mtl') },
             ]"
           >
-            <p v-if="$viewport.isLessThan('mtl')" class="font-bold">
+            <p
+              v-if="$viewport.isLessThan('mtl')"
+              class="font-bold memomancy-brand-text"
+            >
               Memomancy
             </p>
             <div class="flex gap-2 items-center">
@@ -69,7 +86,7 @@ const navbarMenu = [
                   v-ripple
                   to="/api/login"
                   external
-                  class="px-4 py-2 bg-[#E3FE01] text-[#1F1F1F] rounded-full border-0"
+                  class="nuxtlink-btn nuxtlink-btn-contrast"
                 >
                   Masuk
                 </NuxtLink>
@@ -77,7 +94,7 @@ const navbarMenu = [
                   v-ripple
                   to="/api/login"
                   external
-                  class="px-4 py-2 bg-[#1F1F1F] text-[#E3FE01] rounded-full border-0"
+                  class="nuxtlink-btn nuxtlink-btn-primary"
                 >
                   Daftar
                 </NuxtLink>
