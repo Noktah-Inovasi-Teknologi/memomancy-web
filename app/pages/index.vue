@@ -27,6 +27,8 @@ import type {
   WhyUsItem,
 } from "~/types";
 
+const { $viewport } = useNuxtApp();
+
 // Media URLs and references
 const videoUrl = ref<string | null>(null);
 const imageUrl = ref<string | null>(null);
@@ -383,6 +385,63 @@ const selectRegion = (region: EastJavaRegion, event: MouseEvent) => {
   }
 };
 
+// Category animation data
+const categories = [
+  "Pre-Wed",
+  "Content Creator Wed",
+  "Birthday",
+  "Graduation",
+  "Corporate Event",
+  "Sport",
+];
+
+const currentCategoryIndex = ref(0);
+let categoryInterval: NodeJS.Timeout | null = null;
+
+// Calculate item height based on screen size
+const getItemHeight = () => {
+  if ($viewport.isLessOrEquals("xs")) return 16;
+  if ($viewport.isLessOrEquals("sm")) return 24; // Mobile: smaller
+  if ($viewport.isLessOrEquals("md")) return 36; // Tablet: medium
+  if ($viewport.isLessOrEquals("lg")) return 48;
+  return 64; // Desktop: larger
+};
+
+// Category styling function
+const getCategoryClass = (index: number) => {
+  const currentIndex = currentCategoryIndex.value % categories.length;
+  const prevIndex = (currentIndex - 1 + categories.length) % categories.length;
+  const nextIndex = (currentIndex + 1) % categories.length;
+
+  if (index === currentIndex) {
+    return {
+      class:
+        "text-[#1F1F1F] bg-[#E3FE01] rounded-3xl px-3 pt-1 md:pt-2 lg:pt-3 font-semibold opacity-100 inline-block transition-all duration-500 leading-none",
+      style: "transform: scale(1);",
+    };
+  } else if (index === prevIndex || index === nextIndex) {
+    return {
+      class:
+        "text-color-alternating opacity-60 inline-block transition-all duration-500 leading-none",
+      style: "transform: scale(0.5);",
+    };
+  } else {
+    return {
+      class:
+        "text-red-500 opacity-30 inline-block transition-all duration-500 leading-none",
+      style: "transform: scale(0.3);",
+    };
+  }
+};
+
+// Auto-scroll function
+const startCategoryAnimation = () => {
+  categoryInterval = setInterval(() => {
+    currentCategoryIndex.value =
+      (currentCategoryIndex.value + 1) % categories.length;
+  }, 2000);
+};
+
 // Lifecycle hooks
 onBeforeMount(async () => {
   // Only load media on client side
@@ -409,6 +468,9 @@ onMounted(async () => {
 
   window.addEventListener("resize", calculateMinZoom);
 
+  // Start category animation
+  startCategoryAnimation();
+
   // Only load media on client side
   if (!import.meta.client) return;
 
@@ -428,6 +490,11 @@ onMounted(async () => {
 
 onUnmounted(() => {
   window.removeEventListener("resize", calculateMinZoom);
+
+  // Cleanup category animation
+  if (categoryInterval) {
+    clearInterval(categoryInterval);
+  }
 
   if (videoUrl.value) {
     URL.revokeObjectURL(videoUrl.value);
@@ -449,9 +516,48 @@ onUnmounted(() => {
           <p class="w-auto heading-1 main-tagline text-color-alternating">
             Ceritakan Selamanya
           </p>
-          <p class="text-color-alternating sub-tagline">
-            Kami foto dan rekam momenmu gapake ribet
-          </p>
+          <div
+            class="flex flex-col md:flex-row items-center gap-2 text-color-alternating sub-tagline"
+          >
+            <span class="leading-none pt-2"
+              >Foto & Video Profesional untuk</span
+            >
+            <div
+              class="relative overflow-hidden"
+              :style="`height: ${getItemHeight() * 3}px`"
+            >
+              <!-- Text scroller -->
+              <div
+                ref="categoryScroller"
+                class="flex flex-col transition-transform duration-500 ease-in-out"
+                :style="`transform: translateY(-${
+                  currentCategoryIndex * getItemHeight()
+                }px)`"
+              >
+                <!-- Empty item to center the first category -->
+                <div
+                  class="flex items-center justify-center transition-all duration-500 whitespace-nowrap px-4"
+                  :style="`height: ${getItemHeight()}px`"
+                >
+                  <span class="opacity-0">&nbsp;</span>
+                </div>
+
+                <div
+                  v-for="(category, index) in categories"
+                  :key="index"
+                  class="flex items-center justify-center transition-all duration-500 whitespace-nowrap px-4"
+                  :style="`height: ${getItemHeight()}px`"
+                >
+                  <span
+                    :class="getCategoryClass(index).class"
+                    :style="getCategoryClass(index).style"
+                  >
+                    {{ category }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="flex flex-col sm:flex-row gap-uniform-4 mt-6 lg:mt-12">
             <Button severity="contrast">
               <NuxtLink
