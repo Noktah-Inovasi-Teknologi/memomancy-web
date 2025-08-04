@@ -559,7 +559,7 @@ onUnmounted(() => {
             </div>
           </div>
           <div class="flex flex-col sm:flex-row gap-uniform-4 mt-6 lg:mt-12">
-            <Button severity="contrast">
+            <Button severity="primary">
               <NuxtLink
                 to="/reservation"
                 class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
@@ -568,7 +568,7 @@ onUnmounted(() => {
                 <Icon name="uil:arrow-up-right" class="icon-size-4" />
               </NuxtLink>
             </Button>
-            <Button severity="primary">
+            <Button severity="secondary">
               <NuxtLink
                 to="/calculator"
                 class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
@@ -676,7 +676,7 @@ onUnmounted(() => {
         </div>
       </div>
       <div class="flex justify-center">
-        <Button severity="contrast">
+        <Button severity="primary">
           <NuxtLink
             to="/gallery"
             class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
@@ -739,7 +739,7 @@ onUnmounted(() => {
       </div>
       <!-- Call to Action Button -->
       <div class="flex justify-center">
-        <Button severity="contrast">
+        <Button severity="primary">
           <NuxtLink
             to="/reservation"
             class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
@@ -791,7 +791,7 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <Button severity="contrast">
+          <Button severity="secondary">
             <NuxtLink
               to="/calculator"
               class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
@@ -835,7 +835,7 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <Button severity="primary">
+          <Button severity="secondary">
             <a
               :href="whatsappLink"
               target="_blank"
@@ -1101,7 +1101,7 @@ onUnmounted(() => {
         </p>
 
         <div class="flex justify-center">
-          <Button severity="primary">
+          <Button severity="secondary">
             <a
               :href="whatsappLink"
               target="_blank"
@@ -1174,7 +1174,7 @@ onUnmounted(() => {
               {{ method.contact }}
             </p>
           </div>
-          <Button severity="primary">
+          <Button severity="secondary">
             <a
               :href="method.href"
               :target="method.title === 'WhatsApp' ? '_blank' : undefined"
@@ -1222,7 +1222,7 @@ onUnmounted(() => {
           </div>
 
           <!-- Button -->
-          <Button severity="primary">
+          <Button severity="secondary">
             <a
               :href="instagramLink"
               target="_blank"
@@ -1256,7 +1256,7 @@ onUnmounted(() => {
           </div>
 
           <!-- Button -->
-          <Button severity="primary">
+          <Button severity="secondary">
             <a
               :href="tiktokLink"
               target="_blank"
@@ -1292,7 +1292,7 @@ onUnmounted(() => {
           </div>
 
           <!-- Button -->
-          <Button severity="primary">
+          <Button severity="secondary">
             <a
               :href="facebookLink"
               target="_blank"
@@ -1326,7 +1326,7 @@ onUnmounted(() => {
           </div>
 
           <!-- Button -->
-          <Button severity="primary">
+          <Button severity="secondary">
             <a
               :href="youtubeLink"
               target="_blank"
@@ -1354,7 +1354,7 @@ onUnmounted(() => {
 
         <div class="flex flex-col md:flex-row gap-uniform-4 justify-center">
           <!-- Reservasi Sekarang -->
-          <Button severity="contrast">
+          <Button severity="primary">
             <NuxtLink
               to="/reservation"
               class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
@@ -1365,7 +1365,7 @@ onUnmounted(() => {
           </Button>
 
           <!-- Lihat Portfolio -->
-          <Button severity="primary">
+          <Button severity="secondary">
             <NuxtLink
               to="/gallery"
               class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
@@ -1376,7 +1376,7 @@ onUnmounted(() => {
           </Button>
 
           <!-- Hitung Harga -->
-          <Button severity="primary">
+          <Button severity="secondary">
             <NuxtLink
               to="/calculator"
               class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"

@@ -14,11 +14,11 @@ useSeoMeta({
         <InputText label="Cari" />
       </InputGroup>
       <div class="flex gap-uniform-4">
-        <Button severity="primary" class="w-full flex items-center gap-uniform-4 justify-between">
+        <Button severity="secondary" class="w-full flex items-center gap-uniform-4 justify-between">
           <Icon name="uil:filter" class="icon-size-4" />
           <p class="text-nowrap paragraph-3">Filter</p>
         </Button>
-        <Button severity="primary" class="w-full flex items-center gap-uniform-4 justify-between">
+        <Button severity="secondary" class="w-full flex items-center gap-uniform-4 justify-between">
           <Icon name="uil:arrows-v-alt" class="icon-size-4" />
           <p class="text-nowrap paragraph-3">Urutkan:</p>
         </Button>

@@ -5,12 +5,19 @@ const props = defineProps({
     required: true,
   },
 });
+
+const emit = defineEmits(['click']);
+
+const handleClick = () => {
+  emit('click', props.media);
+};
 </script>
 
 <template>
   <div
+    @click="handleClick"
     :class="[
-      'overflow-hidden rounded-[2rem] w-full',
+      'overflow-hidden rounded-[2rem] w-full cursor-pointer transition-transform hover:scale-105',
       media.type === 'image' && 'aspect-square',
       media.type === 'video' &&
         media.orientation === 'landscape' &&
@@ -30,16 +37,12 @@ const props = defineProps({
       class="w-full h-full object-cover block !m-0 !p-0"
     />
     <video
-      autoplay
-      muted
-      loop
-      playsinline
       v-else-if="media.type === 'video'"
       :src="media.src"
       :alt="media.title"
       class="w-full h-full object-cover block !m-0 !p-0"
-      controls
       preload="metadata"
+      muted
     />
     <!-- <component
       :is="media.type === 'image' ? 'img' : 'video'"
