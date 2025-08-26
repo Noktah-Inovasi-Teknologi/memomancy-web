@@ -1,0 +1,25 @@
+/* Layout and Spacing System - Tailwind v4 Optimized */
+
+@utility padding-uniform-* {
+  padding: --value(--spacing-uniform-*, [length]);
+  
+  @media (min-width: 640px) {
+    padding: --value(--spacing-uniform-*-sm, [length]);
+  }
+  
+  @media (min-width: 1024px) {
+    padding: --value(--spacing-uniform-*-lg, [length]);
+  }
+}
+
+@utility gap-uniform-* {
+  gap: --value(--spacing-uniform-*, [length]);
+}
+
+@utility m-uniform-* {
+  margin: --value(--spacing-uniform-*, [length]);
+}
+
+@utility p-uniform-* {
+  padding: --value(--spacing-uniform-*, [length]);
+}

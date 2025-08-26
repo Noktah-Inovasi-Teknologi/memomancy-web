@@ -1,0 +1,171 @@
+@import "tailwindcss";
+/* @import url("https://fonts.googleapis.com/css2?family=Hanuman:wght@400;700&display=swap"); */
+@import "./utilities.css";
+@source "../**/*.{vue,js,ts}";
+
+@theme {
+  --font-han: Hanuman, sans-serif;
+  
+  /* Breakpoints */
+  --breakpoint-*: initial;
+  --breakpoint-xs: 20rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-mtl: 60rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+
+  /* Primary Color Scale */
+  --color-primary-50: #fcffe5;
+  --color-primary-100: #f5ffb3;
+  --color-primary-200: #ecff73;
+  --color-primary-300: #e6ff3a;
+  --color-primary-400: #e5ff0f;
+  --color-primary-500: #e3fe01;
+  --color-primary-600: #bada01;
+  --color-primary-700: #91b501;
+  --color-primary-800: #6b8f00;
+  --color-primary-900: #4e6a00;
+  --color-primary-950: #2e4100;
+
+  /* Neutral Color Scale */
+  --color-neutral-50: #F8F6F1;
+  --color-neutral-100: #E8E1D1;
+  --color-neutral-200: #D8CCB0;
+  --color-neutral-300: #C7B78F;
+  --color-neutral-400: #B7A16F;
+  --color-neutral-500: #A98F54;
+  --color-neutral-600: #887444;
+  --color-neutral-700: #675834;
+  --color-neutral-800: #473C23;
+  --color-neutral-900: #262013;
+  --color-neutral-950: #050503;
+
+  /* Background Colors */
+  --color-background: var(--color-neutral-100);
+  --color-background-inverse: var(--color-neutral-900);
+
+  /* Border Colors */
+  --color-border: var(--color-neutral-900);
+  --color-border-inverse: var(--color-neutral-100);
+
+  /* Neutral Colors */
+  --color-neutral: var(--color-neutral-50);
+  --color-neutral-inverse: var(--color-neutral-950);
+
+  /* Primary Button Colors */
+  --color-primary: var(--color-neutral-900);
+  --color-primary-inverse: var(--color-neutral-100);
+  --color-primary-border: var(--color-neutral-900);
+  --color-primary-border-inverse: var(--color-neutral-100);
+  --color-primary-hover: var(--color-neutral-700);
+  --color-primary-hover-inverse: var(--color-neutral-300);
+  --color-primary-hover-border: var(--color-neutral-700);
+  --color-primary-hover-border-inverse: var(--color-neutral-300);
+  --color-primary-active: var(--color-neutral-500);
+
+  /* Secondary Button Colors */
+  --color-secondary: var(--color-neutral-100);
+  --color-secondary-inverse: var(--color-neutral-900);
+  --color-secondary-border: var(--color-neutral-900);
+  --color-secondary-border-inverse: var(--color-neutral-100);
+  --color-secondary-hover: var(--color-neutral-200);
+  --color-secondary-hover-inverse: var(--color-neutral-800);
+  --color-secondary-hover-border: var(--color-neutral-800);
+  --color-secondary-hover-border-inverse: var(--color-neutral-200);
+  --color-secondary-active: var(--color-neutral-500);
+
+  /* Contrast Colors */
+  --color-contrast: var(--color-primary-500);
+  --color-contrast-border: var(--color-primary-500);
+  --color-contrast-hover: var(--color-primary-600);
+  --color-contrast-hover-border: var(--color-primary-600);
+  --color-contrast-active: var(--color-primary-400);
+
+  /* Text Colors */
+  --color-text-primary: var(--color-neutral-100);
+  --color-text-primary-inverse: var(--color-neutral-900);
+  --color-text-secondary: var(--color-neutral-900);
+  --color-text-secondary-inverse: var(--color-neutral-100);
+  --color-text-contrast: var(--color-neutral-950);
+
+  /* Font Weights */
+  --font-weight-memomancy-normal: 400;
+  --font-weight-memomancy-medium: 500;
+  --font-weight-memomancy-semibold: 600;
+  --font-weight-memomancy-bold: 700;
+
+  /* Typography Scale - Headings */
+  --text-heading-1: 1.875rem, 4vw, 5rem;
+  --text-heading-2: 1.5rem, 3.5vw, 4.5rem;
+  --text-heading-3: 1.25rem, 3vw, 4rem;
+  --text-heading-4: 1.125rem, 2.5vw, 3rem;
+  --text-heading-5: 1rem, 2vw, 2rem;
+  --text-heading-6: 0.875rem, 1.5vw, 1.5rem;
+  --text-heading-7: 0.75rem, 1.25vw, 1.25rem;
+
+  /* Typography Scale - Paragraphs */
+  --font-size-paragraph-1: 1.125rem, 1.5vw, 1.5rem;
+  --font-size-paragraph-2: 1rem, 1.25vw, 1.25rem;
+  --font-size-paragraph-3: 0.875rem, 1vw, 1.125rem;
+  --font-size-paragraph-4: 0.75rem, 0.875vw, 1rem;
+  --font-size-paragraph-5: 0.625rem, 0.75vw, 0.875rem;
+
+  /* Icon Sizes */
+  --icon-size-1: 2rem, 4vw, 2.5rem;
+  --icon-size-2: 1.5rem, 3vw, 2rem;
+  --icon-size-3: 1.25rem, 2.5vw, 1.5rem;
+  --icon-size-4: 1rem, 2vw, 1.25rem;
+  --icon-size-5: 0.75rem, 1.5vw, 1rem;
+  --icon-size-6: 0.625rem, 1vw, 0.75rem;
+
+  /* Spacing Scale - Memomancy */
+  --spacing-memomancy-xs: 0.25rem;
+  --spacing-memomancy-sm: 0.5rem;
+  --spacing-memomancy-md: 1rem;
+  --spacing-memomancy-lg: 1.5rem;
+  --spacing-memomancy-xl: 2rem;
+
+  /* Spacing Scale - Uniform */
+  --spacing-uniform-1: 2rem;
+  --spacing-uniform-1-sm: 2.25rem;
+  --spacing-uniform-1-lg: 2.75rem;
+  --spacing-uniform-2: 1.75rem;
+  --spacing-uniform-2-sm: 2rem;
+  --spacing-uniform-2-lg: 2.5rem;
+  --spacing-uniform-3: 1.5rem;
+  --spacing-uniform-3-sm: 1.75rem;
+  --spacing-uniform-3-lg: 2.25rem;
+  --spacing-uniform-4: 1.25rem;
+  --spacing-uniform-4-sm: 1.5rem;
+  --spacing-uniform-4-lg: 2rem;
+  --spacing-uniform-5: 1rem;
+  --spacing-uniform-5-sm: 1.25rem;
+  --spacing-uniform-5-lg: 1.75rem;
+  --spacing-uniform-6: 0.75rem;
+  --spacing-uniform-6-sm: 1rem;
+  --spacing-uniform-6-lg: 1.5rem;
+  --spacing-uniform-7: 0.625rem;
+  --spacing-uniform-7-sm: 0.75rem;
+  --spacing-uniform-7-lg: 1rem;
+  --spacing-uniform-8: 0.5rem;
+  --spacing-uniform-8-sm: 0.625rem;
+  --spacing-uniform-8-lg: 0.875rem;
+
+  /* Responsive Container Padding */
+  --padding-container: clamp(1rem, 4vw, 2rem);
+  --padding-section: clamp(1rem, 3vw, 1.5rem);
+  --padding-card: clamp(1rem, 2.5vw, 1.5rem);
+  --padding-button-y: clamp(0.5rem, 1vw, 0.75rem);
+  --padding-button-x: clamp(0.75rem, 1.5vw, 1rem);
+
+  /* Border Radius */
+  --radius-memomancy: 3rem;
+  --radius-memomancy-lg: 1.5rem;
+
+  /* Effects */
+  --shadow-memomancy: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-memomancy-elevated: 0 2px 8px rgb(0 0 0 / 0.08);
+  --shadow-memomancy-elevated-hover: 0 4px 16px rgb(0 0 0 / 0.12);
+}

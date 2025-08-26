@@ -23,14 +23,6 @@ export const useMemomancyTheme = () => {
 
 export const useMemomancyPassthrough = () => {
   return {
-    button: {
-      root: {
-        class: "!rounded-[3rem] !px-3 !py-[0.375rem] sm:!px-4 sm:!py-2 lg:!px-5 lg:!py-[0.625rem]",
-      },
-      label: {
-        class: "!font-semibold",
-      },
-    },
     inputtext: {
       root: {
         class: "memomancy-input-text",
@@ -42,16 +34,6 @@ export const useMemomancyPassthrough = () => {
     paginator: {
       root: {
         class: "memomancy-paginator",
-      },
-    },
-    menubar: {
-      root: {
-        class: "memomancy-menubar",
-      },
-    },
-    selectbutton: {
-      root: {
-        class: "memomancy-select-button",
       },
     },
     datepicker: {
@@ -67,16 +49,6 @@ export const useMemomancyPassthrough = () => {
     inputnumber: {
       root: {
         class: "memomancy-form-field",
-      },
-    },
-    card: {
-      root: {
-        class: "memomancy-elevated-card",
-      },
-    },
-    panel: {
-      root: {
-        class: "memomancy-elevated-card",
       },
     },
     dialog: {

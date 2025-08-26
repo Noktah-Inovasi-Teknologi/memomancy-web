@@ -34,11 +34,12 @@
   "devDependencies": {
     "@iconify-json/ic": "^1.2.4",
     "@iconify-json/uil": "^1.2.3",
-    "@nuxtjs/tailwindcss": "6.13.2",
     "@primeuix/themes": "^1.0.3",
     "@primevue/nuxt-module": "4.3.7",
+    "@tailwindcss/vite": "^4.1.12",
     "@types/node": "^22.14.1",
     "drizzle-kit": "^0.31.0",
+    "tailwindcss": "^4.1.12",
     "wrangler": "^4.10.0"
   }
 }

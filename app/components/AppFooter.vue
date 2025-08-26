@@ -27,22 +27,22 @@ const footerMenu2 = [
 
 <template>
   <div class="bg-color-alternating">
-    <div class="px-8 pt-8">
+    <div style="padding-left: var(--padding-container); padding-right: var(--padding-container); padding-top: var(--padding-container)">
       <div
-        class="p-6 border-t-2 border-x-2 border-color-alternating-inverted rounded-t-[3rem]"
+        class="border-t-2 border-x-2 border-color-alternating-inverted rounded-t-[3rem]"
+        style="padding: var(--padding-section)"
       >
         <div
-          class="grid grid-cols-1 md:grid-cols-4 gap-8 text-color-alternating"
+          class="grid max-md:grid-cols-1 md:grid-cols-4 gap-8 text-inverse"
         >
           <div class="flex flex-col gap-uniform-6">
             <div class="flex">
               <p
-                class="px-6 py-2 bg-[#E3FE01] heading-4 rounded-t-full rounded-r-full"
-              >
+                class="px-6 py-2 bg-[var(--color-contrast)] rounded-t-full rounded-r-full heading-4 text-color-consistent-charcoal"              >
                 Memomancy
               </p>
             </div>
-            <p class="heading-7">
+            <p class="heading-7 text-inverse">
               Layanan Fotografi & Videografi Profesional Anti Ribet
             </p>
             <p class="text-sm">
@@ -51,7 +51,7 @@ const footerMenu2 = [
             </p>
           </div>
           <div class="flex flex-col gap-3 mt-6">
-            <h3 class="heading-6 mb-2">Kontak</h3>
+            <h3 class="heading-6 mb-2 text-inverse">Kontak</h3>
             <div class="flex items-center gap-2">
               <Icon name="uil:map-marker" class="text-lg flex-shrink-0" />
               <p class="paragraph-4">
@@ -68,7 +68,7 @@ const footerMenu2 = [
             </div>
           </div>
           <div class="flex flex-col gap-2 mt-6">
-            <h3 class="heading-6 mb-2">Menu</h3>
+            <h3 class="heading-6 mb-2 text-inverse">Menu</h3>
             <div
               v-for="item in footerMenu1"
               :key="item.label"
@@ -78,17 +78,14 @@ const footerMenu2 = [
                 v-ripple
                 :to="item.to"
                 :href="item.href"
-                class="px-4 py-2 rounded-full transition-colors duration-200"
-                :class="{
-                  'hover:bg-[#EDEEBB] hover:dark:text-[#1F1F1F]': true,
-                }"
+                class="px-4 py-2 rounded-full transition-colors duration-200 hover:bg-[var(--color-secondary-hover)] hover:text-[var(--color-text-secondary)]"
               >
                 {{ item.label }}
               </NuxtLink>
             </div>
           </div>
           <div class="lg:mr-[15vw] flex flex-col gap-2 mt-6">
-            <h3 class="heading-6 mb-2 text-nowrap">Sosial Media</h3>
+            <h3 class="heading-6 mb-2 text-nowrap text-inverse">Sosial Media</h3>
             <div
               v-for="item in footerMenu2"
               :key="item.label"
@@ -99,7 +96,7 @@ const footerMenu2 = [
                 :href="item.href"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="px-4 py-2 rounded-full transition-colors duration-200 hover:bg-[#EDEEBB] hover:dark:text-[#1F1F1F]"
+                class="px-4 py-2 rounded-full transition-colors duration-200 hover:bg-[var(--color-secondary-hover)] hover:text-[var(--color-text-secondary)]"
               >
                 {{ item.label }}
               </a>

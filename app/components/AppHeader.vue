@@ -10,7 +10,7 @@ const navbarMenu = [
 
 <template>
   <div class="bg-color-alternating sticky top-0 z-50">
-    <div class="p-8">
+    <div style="padding: var(--padding-container)">
       <Menubar
         class="flex justify-between items-center"
         :model="navbarMenu"
@@ -24,12 +24,7 @@ const navbarMenu = [
             ],
           },
           itemContent: {
-            class: '!bg-transparent font-semibold',
-            style: 'border-radius: var(--memomancy-border-radius-lg)',
-          },
-          rootList: {
-            style:
-              'background: var(--memomancy-light); var(--memomancy-dark); border-radius: var(--memomancy-border-radius-lg)',
+            class: 'font-semibold',
           },
         }"
       >
@@ -42,27 +37,11 @@ const navbarMenu = [
             v-bind="props.action"
             :to="item.to"
             class="px-4 py-2 transition-colors duration-200"
-            style="border-radius: var(--memomancy-border-radius)"
-            :style="{
-              background:
-                route.path === item.to
-                  ? 'var(--memomancy-primary)'
-                  : 'transparent',
-              color:
-                route.path === item.to ? 'var(--memomancy-dark)' : 'inherit',
+            style="border-radius: var(--radius-memomancy)"
+            :class="{
+              'memomancy-nav-item-active': route.path === item.to,
+              'memomancy-nav-item': route.path !== item.to,
             }"
-            @mouseover="
-              $event.target.style.background =
-                route.path !== item.to
-                  ? 'var(--memomancy-primary-hover)'
-                  : 'var(--memomancy-primary-hover)'
-            "
-            @mouseleave="
-              $event.target.style.background =
-                route.path === item.to
-                  ? 'var(--memomancy-primary)'
-                  : 'transparent'
-            "
           >
             {{ item.label }}
           </NuxtLink>
@@ -94,7 +73,7 @@ const navbarMenu = [
                   v-ripple
                   to="/api/login"
                   external
-                  class="nuxtlink-btn nuxtlink-btn-primary"
+                  class="nuxtlink-btn nuxtlink-btn-secondary"
                 >
                   Daftar
                 </NuxtLink>

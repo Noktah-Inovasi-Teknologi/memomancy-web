@@ -231,6 +231,94 @@ const categoryImages: Record<string, GalleryImage[]> = {
   ],
 };
 
+// Social media information
+const socialMediaPlatforms = ref([
+  {
+    name: "Instagram",
+    username: instagramName,
+    link: instagramLink,
+    icon: "uil:instagram",
+    iconBgClass: "bg-gradient-to-br from-[#E4405F] to-[#F77737]",
+    buttonText: "Follow",
+    stats: {
+      followers: socialMediaStats.instagram.followers,
+      metric: socialMediaStats.instagram.metric,
+    },
+  },
+  {
+    name: "TikTok",
+    username: tiktokName,
+    link: tiktokLink,
+    icon: "ic:baseline-tiktok",
+    iconBgClass: "bg-black",
+    buttonText: "Follow",
+    stats: {
+      followers: socialMediaStats.tiktok.followers,
+      metric: socialMediaStats.tiktok.metric,
+    },
+  },
+  {
+    name: "Facebook",
+    username: facebookName,
+    link: facebookLink,
+    icon: "uil:facebook-f",
+    iconBgClass: "bg-blue-600",
+    buttonText: "Like",
+    stats: {
+      followers: socialMediaStats.facebook.followers,
+      metric: socialMediaStats.facebook.metric,
+    },
+  },
+  {
+    name: "YouTube",
+    username: youtubeName,
+    link: youtubeLink,
+    icon: "uil:youtube",
+    iconBgClass: "bg-red-600",
+    buttonText: "Subscribe",
+    stats: {
+      followers: socialMediaStats.youtube.followers,
+      metric: socialMediaStats.youtube.metric,
+    },
+  },
+]);
+
+// Calculator and Consult cards data
+const serviceCards = ref([
+  {
+    id: "calculator",
+    title: "Kalkulator Harga",
+    icon: "uil:calculator",
+    iconSecondary: "uil:clock",
+    subtitle: "Estimasi dalam 2 menit",
+    steps: [
+      "1. Pilih jenis layanan",
+      "2. Tentukan lokasi", 
+      "3. Dapatkan harga transparan"
+    ],
+    buttonText: "Hitung Harga",
+    buttonIcon: "uil:arrow-up-right",
+    linkTo: "/calculator",
+    isExternal: false
+  },
+  {
+    id: "consult",
+    title: "Konsultasi Langsung",
+    icon: "uil:comments",
+    iconSecondary: "uil:phone",
+    subtitle: "Respon cepat dalam 15-30 menit",
+    steps: [
+      "- Konsultasi gratis",
+      "- Saran profesional", 
+      "- Paket custom sesuai budget"
+    ],
+    buttonText: "Hubungi Kami",
+    buttonIcon: "uil:whatsapp",
+    linkTo: whatsappLink,
+    isExternal: true
+  }
+]);
+
 // Company information
 const whyUs = ref<WhyUsItem[]>([
   {
@@ -416,13 +504,13 @@ const getCategoryClass = (index: number) => {
   if (index === currentIndex) {
     return {
       class:
-        "text-[#1F1F1F] bg-[#E3FE01] rounded-3xl px-3 pt-1 md:pt-2 lg:pt-3 font-semibold opacity-100 inline-block transition-all duration-500 leading-none",
+        "text-color-consistent-charcoal bg-contrast rounded-3xl px-3 max-md:pt-1 md:max-lg:pt-2 lg:pt-3 font-semibold opacity-100 inline-block transition-all duration-500 leading-none",
       style: "transform: scale(1);",
     };
   } else if (index === prevIndex || index === nextIndex) {
     return {
       class:
-        "text-color-alternating opacity-60 inline-block transition-all duration-500 leading-none",
+        "text-inverse opacity-60 inline-block transition-all duration-500 leading-none",
       style: "transform: scale(0.5);",
     };
   } else {
@@ -507,80 +595,77 @@ onUnmounted(() => {
 
 <template>
   <div class="flex flex-col w-full bg-color-alternating">
-    <div class="flex flex-col m-8 gap-uniform-4" id="hero">
-      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div class="w-full flex flex-col items-center">
-          <p class="w-auto heading-1 main-tagline text-color-alternating">
+    <div class="flex flex-col gap-uniform-4" id="hero" style="margin: var(--padding-container)">
+      <div class="flex flex-col items-center text-center gap-uniform-6">
+        <div class="flex flex-col items-center gap-uniform-2">
+          <h1 class="heading-1 main-tagline text-inverse leading-tight">
             Abadikan Hari Ini
-          </p>
-          <p class="w-auto heading-1 main-tagline text-color-alternating">
+          </h1>
+          <h2 class="heading-1 main-tagline text-inverse leading-tight">
             Ceritakan Selamanya
-          </p>
+          </h2>
+        </div>
+        
+        <div class="flex max-md:flex-col md:flex-row items-center gap-2 text-inverse sub-tagline">
+          <span class="leading-none max-md:text-center">Foto & Video Profesional untuk</span>
           <div
-            class="flex flex-col md:flex-row items-center gap-2 text-color-alternating sub-tagline"
+            class="relative overflow-hidden"
+            :style="`height: ${getItemHeight() * 3}px`"
           >
-            <span class="leading-none pt-2"
-              >Foto & Video Profesional untuk</span
-            >
+            <!-- Text scroller -->
             <div
-              class="relative overflow-hidden"
-              :style="`height: ${getItemHeight() * 3}px`"
+              ref="categoryScroller"
+              class="flex flex-col transition-transform duration-500 ease-in-out"
+              :style="`transform: translateY(-${currentCategoryIndex * getItemHeight()}px)`"
             >
-              <!-- Text scroller -->
+              <!-- Empty item to center the first category -->
               <div
-                ref="categoryScroller"
-                class="flex flex-col transition-transform duration-500 ease-in-out"
-                :style="`transform: translateY(-${
-                  currentCategoryIndex * getItemHeight()
-                }px)`"
+                class="flex items-center justify-center transition-all duration-500 whitespace-nowrap px-4"
+                :style="`height: ${getItemHeight()}px`"
               >
-                <!-- Empty item to center the first category -->
-                <div
-                  class="flex items-center justify-center transition-all duration-500 whitespace-nowrap px-4"
-                  :style="`height: ${getItemHeight()}px`"
-                >
-                  <span class="opacity-0">&nbsp;</span>
-                </div>
+                <span class="opacity-0">&nbsp;</span>
+              </div>
 
-                <div
-                  v-for="(category, index) in categories"
-                  :key="index"
-                  class="flex items-center justify-center transition-all duration-500 whitespace-nowrap px-4"
-                  :style="`height: ${getItemHeight()}px`"
+              <div
+                v-for="(category, index) in categories"
+                :key="index"
+                class="flex items-center justify-center transition-all duration-500 whitespace-nowrap px-4"
+                :style="`height: ${getItemHeight()}px`"
+              >
+                <span
+                  :class="getCategoryClass(index).class"
+                  :style="getCategoryClass(index).style"
                 >
-                  <span
-                    :class="getCategoryClass(index).class"
-                    :style="getCategoryClass(index).style"
-                  >
-                    {{ category }}
-                  </span>
-                </div>
+                  {{ category }}
+                </span>
               </div>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row gap-uniform-4 mt-6 lg:mt-12">
-            <Button severity="primary">
-              <NuxtLink
-                to="/reservation"
-                class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
-              >
-                <p>Reservasi Sekarang</p>
-                <Icon name="uil:arrow-up-right" class="icon-size-4" />
-              </NuxtLink>
-            </Button>
-            <Button severity="secondary">
-              <NuxtLink
-                to="/calculator"
-                class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
-              >
-                <p>Hitung Harga</p>
-                <Icon name="uil:arrow-up-right" class="icon-size-4" />
-              </NuxtLink>
-            </Button>
-          </div>
+        </div>
+        
+        <div class="flex max-sm:flex-col sm:flex-row gap-uniform-4 max-sm:w-full sm:max-w-lg mx-auto">
+          <Button severity="contrast" class="max-sm:w-full">
+            <NuxtLink
+              to="/reservation"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
+            >
+              <p>Reservasi Sekarang</p>
+              <Icon name="uil:arrow-up-right" class="icon-size-4" />
+            </NuxtLink>
+          </Button>
+          <Button severity="secondary" class="max-sm:w-full">
+            <NuxtLink
+              to="/calculator"
+              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
+            >
+              <p>Hitung Harga</p>
+              <Icon name="uil:arrow-up-right" class="icon-size-4" />
+            </NuxtLink>
+          </Button>
         </div>
       </div>
-      <div class="w-full mt-8">
+      
+      <div class="w-full max-sm:mt-6 sm:mt-8">
         <div class="image-container">
           <video
             :src="videoUrl"
@@ -604,79 +689,67 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <div class="flex flex-col m-8 gap-uniform-4" id="gallery">
-      <div class="flex flex-col gap-uniform-8 text-center">
-        <p class="heading-1 text-color-alternating">
-          Cerita yang Udah Kami Abadikan
-        </p>
-        <p class="paragraph-2">
+    <div class="flex flex-col gap-uniform-4" id="gallery" style="margin: var(--padding-container)">
+      <div class="flex flex-col gap-uniform-6 text-center">
+        <h2 class="heading-1 text-inverse">Cerita yang Udah Kami Abadikan</h2>
+        <p class="paragraph-2 max-w-4xl mx-auto">
           Kumpulan momen spesial dari berbagai perjalanan yang pernah kami
           tangkap. Dari kisah cinta, kelahiran, hingga momen penuh semangat.
           Inilah jejak visual yang kami banggakan.
         </p>
       </div>
-      <SelectButton
-        v-model="selectedCategory"
-        :options="categoryOptions"
-        optionLabel="label"
-        optionValue="value"
-        :pt="{
-          pcToggleButton: {
-            content: '!rounded-full',
-          },
-        }"
-      />
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-uniform-4 mt-8">
-        <div
-          v-for="(item, index) in filteredImages.slice(0, 3)"
-          :key="index"
-          class="flex flex-col gap-uniform-4 p-4 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:shadow-lg gallery-item"
-        >
-          <img
-            :src="item.src"
-            :alt="item.alt"
-            class="w-full aspect-square object-cover rounded-2xl"
-          />
-          <div class="flex flex-col gap-uniform-8">
-            <h3 class="heading-5 font-bold text-color-alternating">
-              {{ item.title }}
-            </h3>
-            <div
-              class="flex flex-col lg:flex-row lg:justify-between gap-1 lg:gap-2"
-            >
-              <div class="flex items-center gap-2">
-                <Icon
-                  name="uil:map-marker"
-                  class="w-4 h-4 text-color-alternating"
-                />
-                <p class="paragraph-4 text-color-alternating">
-                  {{ item.location }}
-                </p>
-              </div>
-              <div class="flex items-center gap-2">
-                <Icon
-                  name="uil:camera"
-                  class="w-4 h-4 text-color-alternating"
-                />
-                <p class="paragraph-4 text-color-alternating">
-                  {{ item.serviceType }}
-                </p>
-              </div>
-              <div class="flex items-center gap-2">
-                <Icon
-                  name="uil:calendar-alt"
-                  class="w-4 h-4 text-color-alternating"
-                />
-                <p class="paragraph-4 text-color-alternating">
-                  {{ item.date }}
-                </p>
+      
+      <div class="flex justify-center max-sm:px-2">
+        <SelectButton
+          v-model="selectedCategory"
+          :options="categoryOptions"
+          optionLabel="label"
+          optionValue="value"
+          class="max-sm:text-sm"
+        />
+      </div>
+      
+      <div class="grid max-md:grid-cols-1 md:max-xl:grid-cols-2 xl:grid-cols-3 gap-uniform-4">
+        <Card v-for="(item, index) in filteredImages.slice(0, 3)" :key="index" class="h-full">
+          <template #content>
+            <div class="flex flex-col gap-uniform-4 p-4 h-full">
+              <img
+                :src="item.src"
+                :alt="item.alt"
+                class="w-full aspect-square object-cover rounded-2xl"
+              />
+              <div class="flex flex-col gap-uniform-4 flex-grow">
+                <h3 class="heading-5 font-bold text-inverse">
+                  {{ item.title }}
+                </h3>
+                <div class="flex flex-col gap-2 mt-auto">
+                  <div class="flex items-center gap-2">
+                    <Icon name="uil:map-marker" class="icon-size-6 text-inverse flex-shrink-0" />
+                    <p class="paragraph-4 text-inverse truncate">
+                      {{ item.location }}
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <Icon name="uil:camera" class="icon-size-6 text-inverse flex-shrink-0" />
+                    <p class="paragraph-4 text-inverse truncate">
+                      {{ item.serviceType }}
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <Icon name="uil:calendar-alt" class="icon-size-6 text-inverse flex-shrink-0" />
+                    <p class="paragraph-4 text-inverse truncate">
+                      {{ item.date }}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </template>
+        </Card>
       </div>
-      <div class="flex justify-center">
-        <Button severity="primary">
+      
+      <div class="flex justify-center max-sm:mt-6">
+        <Button severity="contrast" class="max-sm:w-full max-sm:max-w-sm">
           <NuxtLink
             to="/gallery"
             class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
@@ -687,59 +760,50 @@ onUnmounted(() => {
         </Button>
       </div>
     </div>
-    <div class="flex flex-col m-8 gap-uniform-4" id="reservation-steps">
-      <div class="flex flex-col gap-uniform-8 text-center">
-        <p class="paragraph-2">
+    <div class="flex flex-col gap-uniform-4" id="reservation-steps" style="margin: var(--padding-container)">
+      <div class="flex flex-col gap-uniform-6 text-center">
+        <p class="paragraph-2 text-inverse">
           Suka sama hasilnya? Booking-nya juga gampang kok, cuma 5 langkah!
         </p>
-        <p class="heading-1 text-color-alternating">Cara Reservasi</p>
+        <h2 class="heading-1 text-inverse">Cara Reservasi</h2>
       </div>
+      
       <!-- Steps Grid -->
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-uniform-4"
-      >
+      <div class="grid max-sm:grid-cols-1 sm:max-md:grid-cols-2 md:max-lg:grid-cols-3 lg:max-xl:grid-cols-4 xl:grid-cols-5 gap-uniform-4">
         <div
           v-for="(step, index) in reservationSteps"
           :key="index"
-          class="flex flex-col items-center text-center gap-uniform-4 px-8"
+          class="flex flex-col items-center text-center gap-uniform-4 max-sm:px-4 sm:px-6"
         >
           <!-- Icon with Number -->
-          <div class="relative">
-            <div
-              class="flex items-center justify-center w-20 h-20 border-2 border-color-alternating-inverted rounded-2xl bg-color-alternating p-4"
-            >
-              <Icon
-                :name="step.icon"
-                class="w-10 h-10 text-color-alternating"
-              />
+          <div class="relative flex-shrink-0">
+            <div class="flex items-center justify-center max-sm:w-16 max-sm:h-16 sm:w-20 sm:h-20 border-2 border-color-alternating-inverted rounded-2xl bg-color-alternating p-3">
+              <Icon :name="step.icon" class="max-sm:icon-size-3 sm:icon-size-2 text-inverse" />
             </div>
             <!-- Number Badge -->
             <div
-              class="absolute -top-2 -right-2 flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm"
-              style="
-                background: var(--memomancy-primary);
-                border: 2px solid var(--memomancy-dark);
-                color: var(--memomancy-dark);
-              "
+              class="absolute -top-2 -right-2 flex items-center justify-center max-sm:w-6 max-sm:h-6 sm:w-8 sm:h-8 rounded-full font-bold max-sm:text-xs sm:text-sm"
+              style="background: var(--color-contrast); border: 2px solid var(--color-primary-border); color: var(--color-text-contrast);"
             >
               {{ step.number }}
             </div>
           </div>
 
           <!-- Content -->
-          <div class="flex flex-col gap-1">
-            <h3 class="heading-4 font-bold text-color-alternating">
+          <div class="flex flex-col gap-2 min-h-0">
+            <h3 class="max-sm:heading-5 sm:heading-4 font-bold text-inverse leading-tight">
               {{ step.title }}
             </h3>
-            <p class="paragraph-3 text-color-alternating">
+            <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse leading-relaxed">
               {{ step.description }}
             </p>
           </div>
         </div>
       </div>
+      
       <!-- Call to Action Button -->
-      <div class="flex justify-center">
-        <Button severity="primary">
+      <div class="flex justify-center max-sm:mt-6">
+        <Button severity="contrast" class="max-sm:w-full max-sm:max-w-sm">
           <NuxtLink
             to="/reservation"
             class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
@@ -750,148 +814,110 @@ onUnmounted(() => {
         </Button>
       </div>
     </div>
-    <div class="flex flex-col m-8 gap-uniform-4" id="calculate-and-consult">
-      <div class="flex flex-col gap-uniform-8 text-center">
-        <p class="heading-1 text-color-alternating">Mulai Abadikan Momenmu</p>
-        <p class="paragraph-2">
+    <div class="flex flex-col gap-uniform-4" id="calculate-and-consult" style="margin: var(--padding-container)">
+      <div class="flex flex-col gap-uniform-6 text-center">
+        <h2 class="heading-1 text-inverse">Mulai Abadikan Momenmu</h2>
+        <p class="paragraph-2 max-w-3xl mx-auto">
           Dapatkan estimasi harga yang akurat, atau konsultasikan langsung
           dengan tim profesional kami.
         </p>
       </div>
+      
       <!-- Calculator and Consult Options -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-uniform-4">
-        <!-- Calculator -->
-        <div class="memomancy-action-card flex flex-col gap-uniform-4">
-          <div class="flex items-center gap-uniform-2">
-            <div
-              class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
-            >
-              <Icon name="uil:calculator" class="w-6 h-6 text-[#1F1F1F]" />
-            </div>
-            <h3 class="heading-4 font-bold text-[#1F1F1F]">Kalkulator Harga</h3>
-          </div>
+      <div class="grid max-md:grid-cols-1 md:grid-cols-2 gap-uniform-4">
+        <Card v-for="card in serviceCards" :key="card.id" class="card-elevated h-full">
+          <template #content>
+            <div class="flex flex-col gap-uniform-6 h-full">
+              <div class="flex items-center gap-uniform-4">
+                <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
+                  <Icon :name="card.icon" class="max-sm:icon-size-6 sm:icon-size-5 text-color-consistent-charcoal" />
+                </div>
+                <h3 class="max-sm:heading-5 sm:heading-4 font-bold text-color-standard">
+                  {{ card.title }}
+                </h3>
+              </div>
 
-          <div class="flex gap-uniform-2">
-            <div
-              class="flex items-center justify-center w-12 h-12 border-2 border-[#1F1F1F] rounded-full shrink-0"
-            >
-              <Icon name="uil:clock" class="w-6 h-6 text-[#1F1F1F]" />
-            </div>
-            <div class="flex flex-col gap-1">
-              <p class="paragraph-3 text-[#1F1F1F] font-medium">
-                Estimasi dalam 2 menit
-              </p>
-              <div class="space-y-1">
-                <p class="paragraph-3 text-[#1F1F1F]">1. Pilih jenis layanan</p>
-                <p class="paragraph-3 text-[#1F1F1F]">2. Tentukan lokasi</p>
-                <p class="paragraph-3 text-[#1F1F1F]">
-                  3. Dapatkan harga transparan
-                </p>
+              <div class="flex gap-uniform-4 text-color-standard flex-grow">
+                <div class="flex items-center justify-center max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 border-2 bg-transparent rounded-full shrink-0 mt-1">
+                  <Icon :name="card.iconSecondary" class="max-sm:icon-size-6 sm:icon-size-6" />
+                </div>
+                <div class="flex flex-col gap-2 flex-grow">
+                  <p class="max-sm:paragraph-4 sm:paragraph-3 font-medium">{{ card.subtitle }}</p>
+                  <div class="space-y-1">
+                    <p 
+                      v-for="step in card.steps" 
+                      :key="step"
+                      class="max-sm:paragraph-4 sm:paragraph-3"
+                    >
+                      {{ step }}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <Button severity="secondary">
-            <NuxtLink
-              to="/calculator"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
-            >
-              <p>Hitung Harga</p>
-              <Icon name="uil:arrow-up-right" class="icon-size-4" />
-            </NuxtLink>
-          </Button>
-        </div>
-
-        <!-- Consult -->
-        <div class="memomancy-action-card flex flex-col gap-uniform-4">
-          <div class="flex items-center gap-uniform-2">
-            <div
-              class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
-            >
-              <Icon name="uil:comments" class="w-6 h-6 text-[#1F1F1F]" />
-            </div>
-            <h3 class="heading-4 font-bold text-[#1F1F1F]">
-              Konsultasi Langsung
-            </h3>
-          </div>
-
-          <div class="flex gap-uniform-2">
-            <div
-              class="flex items-center justify-center w-12 h-12 border-2 border-[#1F1F1F] rounded-full shrink-0"
-            >
-              <Icon name="uil:phone" class="w-6 h-6 text-[#1F1F1F]" />
-            </div>
-            <div class="flex flex-col gap-1">
-              <p class="paragraph-3 text-[#1F1F1F] font-medium">
-                Respon cepat dalam 15-30 menit
-              </p>
-              <div class="space-y-1">
-                <p class="paragraph-3 text-[#1F1F1F]">- Konsultasi gratis</p>
-                <p class="paragraph-3 text-[#1F1F1F]">- Saran profesional</p>
-                <p class="paragraph-3 text-[#1F1F1F]">
-                  - Paket custom sesuai budget
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <Button severity="secondary">
-            <a
-              :href="whatsappLink"
-              target="_blank"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
-            >
-              <p>Hubungi Kami</p>
-              <Icon name="uil:whatsapp" class="icon-size-4" />
-            </a>
-          </Button>
-        </div>
+          </template>
+          <template #footer>
+            <Button class="w-full" severity="secondary">
+              <NuxtLink
+                v-if="!card.isExternal"
+                :to="card.linkTo"
+                class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-3 sm:paragraph-2 font-semibold"
+              >
+                <p>{{ card.buttonText }}</p>
+                <Icon :name="card.buttonIcon" class="icon-size-4" />
+              </NuxtLink>
+              <a
+                v-else
+                :href="card.linkTo"
+                target="_blank"
+                class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+              >
+                <p>{{ card.buttonText }}</p>
+                <Icon :name="card.buttonIcon" class="icon-size-4" />
+              </a>
+            </Button>
+          </template>
+        </Card>
       </div>
     </div>
     <!-- Interactive East Java Map Section -->
-    <div class="flex flex-col m-8 gap-uniform-4" id="service-areas">
-      <div class="flex flex-col gap-uniform-8 text-center">
-        <p class="heading-1 text-color-alternating">Area Layanan Kami</p>
-        <p class="paragraph-2">
+    <div class="flex flex-col gap-uniform-4" id="service-areas" style="margin: var(--padding-container)">
+      <div class="flex flex-col gap-uniform-6 text-center">
+        <h2 class="heading-1 text-inverse">Area Layanan Kami</h2>
+        <p class="paragraph-2 max-w-2xl mx-auto">
           Klik pada wilayah untuk melihat detail layanan di area tersebut
         </p>
       </div>
-      <div
-        class="flex flex-col lg:flex-row gap-uniform-4 items-center lg:items-start"
-      >
+      
+      <div class="flex max-lg:flex-col lg:flex-row gap-uniform-4 max-lg:items-stretch lg:items-start">
         <!-- Map Container -->
         <div class="flex-1 relative">
-          <div
-            class="bg-color-alternating border-2 border-color-alternating-inverted rounded-3xl p-8"
-          >
+          <div class="bg-color-alternating border-2 border-color-alternating-inverted rounded-3xl" style="padding: var(--padding-section)">
             <!-- Background East Java Map -->
             <div
-              class="relative overflow-hidden rounded-2xl h-80 md:h-96 xl:aspect-[2/1] xl:h-auto bg-[#212830]"
+              class="relative overflow-hidden rounded-2xl max-sm:h-64 sm:max-md:h-80 md:max-lg:h-96 lg:aspect-[2/1] bg-color-alternating-inverted touch-pan-x touch-pan-y"
               ref="mapContainer"
               @wheel="handleWheel"
             >
               <!-- Zoom Controls -->
-              <div class="absolute top-4 right-4 z-10 flex flex-col gap-2">
+              <div class="absolute max-sm:top-2 max-sm:right-2 sm:top-4 sm:right-4 z-10 flex flex-col gap-1 sm:gap-2">
                 <button
                   @click="zoomIn"
-                  class="w-10 h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
+                  class="max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
                 >
-                  <Icon name="uil:plus" class="w-5 h-5 text-gray-700" />
+                  <Icon name="uil:plus" class="icon-size-6 text-gray-700" />
                 </button>
                 <button
                   @click="zoomOut"
-                  class="w-10 h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
+                  class="max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
                 >
-                  <Icon name="uil:minus" class="w-5 h-5 text-gray-700" />
+                  <Icon name="uil:minus" class="icon-size-6 text-gray-700" />
                 </button>
                 <button
                   @click="resetZoom"
-                  class="w-10 h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
+                  class="max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
                 >
-                  <Icon
-                    name="uil:expand-arrows-alt"
-                    class="w-5 h-5 text-gray-700"
-                  />
+                  <Icon name="uil:expand-arrows-alt" class="icon-size-6 text-gray-700" />
                 </button>
               </div>
 
@@ -929,9 +955,9 @@ onUnmounted(() => {
                       :id="'region-' + region.id"
                       :d="region.svgPath"
                       :class="{
-                        'fill-[#E3FE01] stroke-[#1F1F1F]':
+                        'fill-contrast stroke-neutral-800':
                           selectedRegion?.id === region.id,
-                        'fill-[#F5F2EB] stroke-[#1F1F1F] hover:fill-[#E3FE01]':
+                        'fill-neutral-200 stroke-neutral-800 hover:fill-contrast':
                           selectedRegion?.id !== region.id &&
                           region.status === 'covered',
                         'fill-gray-200 stroke-gray-400 hover:fill-gray-300':
@@ -952,9 +978,9 @@ onUnmounted(() => {
                       :cy="region.labelPosition.y"
                       r="15"
                       :class="{
-                        'fill-[#E3FE01] stroke-[#1F1F1F]':
+                        'fill-contrast stroke-neutral-800':
                           selectedRegion?.id === region.id,
-                        'fill-[#F5F2EB] stroke-[#1F1F1F] hover:fill-[#E3FE01]':
+                        'fill-neutral-100 stroke-neutral-800 hover:fill-contrast':
                           selectedRegion?.id !== region.id &&
                           region.status === 'covered',
                         'fill-gray-200 stroke-gray-400 hover:fill-gray-300':
@@ -993,501 +1019,272 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
+        
         <!-- Details Panel -->
-        <div>
-          <div
-            class="bg-color-alternating border-2 border-color-alternating-inverted rounded-3xl p-6"
-          >
+        <div class="max-lg:w-full lg:w-80 xl:w-96">
+          <div class="bg-color-alternating border-2 border-color-alternating-inverted rounded-3xl" style="padding: var(--padding-section)">
             <div v-if="selectedRegion" class="flex flex-col gap-uniform-4">
-              <div class="flex items-center gap-uniform-2">
-                <div
-                  class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
-                >
-                  <Icon name="uil:map-marker" class="w-6 h-6 text-[#1F1F1F]" />
+              <div class="flex items-center gap-uniform-4">
+                <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
+                  <Icon name="uil:map-marker" class="max-sm:icon-size-6 sm:icon-size-5 text-color-consistent-charcoal" />
                 </div>
-                <div>
-                  <h3 class="heading-4 font-bold text-color-alternating">
+                <div class="min-w-0 flex-1">
+                  <h3 class="max-sm:heading-5 sm:heading-4 font-bold text-inverse truncate">
                     {{ selectedRegion.name }}
                   </h3>
                   <p
-                    class="paragraph-3"
+                    class="max-sm:paragraph-4 sm:paragraph-3"
                     :class="{
                       'text-green-600': selectedRegion.status === 'covered',
-                      'text-orange-600':
-                        selectedRegion.status === 'coming_soon',
+                      'text-orange-600': selectedRegion.status === 'coming_soon',
                     }"
                   >
-                    {{
-                      selectedRegion.status === "covered"
-                        ? "Tersedia"
-                        : "Segera Hadir"
-                    }}
+                    {{ selectedRegion.status === "covered" ? "Tersedia" : "Segera Hadir" }}
                   </p>
                 </div>
               </div>
 
               <div class="space-y-3">
                 <div class="flex items-center gap-uniform-2">
-                  <Icon
-                    name="uil:users-alt"
-                    class="w-4 h-4 text-color-alternating"
-                  />
-                  <p class="paragraph-3 text-color-alternating">
+                  <Icon name="uil:users-alt" class="icon-size-6 text-inverse flex-shrink-0" />
+                  <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse">
                     {{ selectedRegion.photographers }}
                   </p>
                 </div>
                 <div class="flex items-center gap-uniform-2">
-                  <Icon
-                    name="uil:clock"
-                    class="w-4 h-4 text-color-alternating"
-                  />
-                  <p class="paragraph-3 text-color-alternating">
+                  <Icon name="uil:clock" class="icon-size-6 text-inverse flex-shrink-0" />
+                  <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse">
                     Respon: {{ selectedRegion.response }}
                   </p>
                 </div>
-                <div
-                  v-if="selectedRegion.popular"
-                  class="flex items-center gap-uniform-2"
-                >
-                  <Icon name="uil:star" class="w-4 h-4 text-yellow-500" />
-                  <p class="paragraph-3 text-color-alternating">Area Populer</p>
+                <div v-if="selectedRegion.popular" class="flex items-center gap-uniform-2">
+                  <Icon name="uil:star" class="icon-size-6 text-yellow-500 flex-shrink-0" />
+                  <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse">Area Populer</p>
                 </div>
               </div>
 
-              <Button v-if="selectedRegion.status === 'covered'">
+              <Button severity="contrast" v-if="selectedRegion.status === 'covered'" class="w-full">
                 <NuxtLink
                   to="/reservation"
-                  class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 text-[#1F1F1F] font-semibold"
+                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-3 sm:paragraph-2 text-color-consistent-charcoal font-semibold"
                 >
-                  <p>Reservasi di {{ selectedRegion.name }}</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
+                  <p class="truncate">Reservasi di {{ selectedRegion.name }}</p>
+                  <Icon name="uil:arrow-up-right" class="icon-size-4 flex-shrink-0" />
                 </NuxtLink>
               </Button>
             </div>
 
-            <div v-else class="text-center py-8">
-              <Icon
-                name="uil:map"
-                class="w-16 h-16 text-color-alternating mx-auto mb-4"
-              />
-              <p class="heading-5 text-color-alternating mb-2">
-                Jelajahi Area Layanan
-              </p>
-              <p class="paragraph-3 text-color-alternating">
+            <div v-else class="text-center max-sm:py-6 sm:py-8">
+              <Icon name="uil:map" class="max-sm:icon-size-2 sm:icon-size-1 text-inverse mx-auto mb-4" />
+              <p class="max-sm:heading-6 sm:heading-5 text-inverse mb-2">Jelajahi Area Layanan</p>
+              <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse">
                 Klik pada peta untuk melihat detail layanan di setiap wilayah
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="flex flex-col memomancy-action-card text-center gap-uniform-6"
-      >
-        <div class="flex items-center justify-center gap-uniform-2">
-          <div
-            class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
-          >
-            <Icon name="uil:map-marker-alt" class="w-6 h-6 text-[#1F1F1F]" />
+      <Card class="card-elevated">
+        <template #content>
+          <div class="flex flex-col text-center gap-uniform-6" style="padding: var(--padding-card)">
+            <div class="flex max-sm:flex-col sm:flex-row items-center justify-center gap-uniform-4">
+              <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
+                <Icon name="uil:map-marker-alt" class="max-sm:icon-size-6 sm:icon-size-5 text-text-contrast" />
+              </div>
+              <h3 class="max-sm:heading-5 sm:heading-4 font-bold text-inverse">
+                Ada Event di Luar Area Layanan?
+              </h3>
+            </div>
+
+            <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse max-w-2xl mx-auto">
+              Kami senang melakukan perjalanan ke luar coverage area untuk acara
+              yang spesial. Yuk, diskusikan visimu biar kita bisa bikin cerita
+              yang luar biasa, bersama.
+            </p>
+
+            <div class="flex justify-center">
+              <Button severity="secondary" class="max-sm:w-auto max-sm:max-w-sm w-auto">
+                <a
+                  :href="whatsappLink"
+                  target="_blank"
+                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                >
+                  <p>Konsultasikan dengan Kami</p>
+                </a>
+              </Button>
+            </div>
           </div>
-          <h3 class="heading-4 font-bold text-color-alternating">
-            Ada Event di Luar Area Layanan?
-          </h3>
-        </div>
-
-        <p class="paragraph-3 text-color-alternating max-w-2xl mx-auto">
-          Kami senang melakukan perjalanan ke luar coverage area untuk acara
-          yang spesial. Yuk, diskusikan visimu biar kita bisa bikin cerita yang
-          luar biasa, bersama.
-        </p>
-
-        <div class="flex justify-center">
-          <Button severity="secondary">
-            <a
-              :href="whatsappLink"
-              target="_blank"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
-            >
-              <p>Konsultasikan dengan Kami</p>
-              <Icon name="uil:whatsapp" class="icon-size-4" />
-            </a>
-          </Button>
-        </div>
+        </template>
+      </Card>
+    </div>
+    <div class="flex flex-col gap-uniform-4" id="why-us" style="margin: var(--padding-container)">
+      <div class="flex flex-col gap-uniform-6 text-center">
+        <h2 class="heading-1 text-inverse">Kenapa Harus Pilih Memomancy?</h2>
+      </div>
+      
+      <div class="grid max-sm:grid-cols-1 sm:max-lg:grid-cols-2 lg:grid-cols-4 gap-uniform-4">
+        <Card v-for="(item, index) in whyUs" :key="index" class="h-full">
+          <template #content>
+            <div class="flex flex-col gap-uniform-4 text-inverse items-center text-center h-full" style="padding: var(--padding-card)">
+              <div class="flex gap-uniform-1 relative flex-shrink-0">
+                <!-- Magical glow effect -->
+                <div class="absolute inset-0 bg-contrast rounded-full blur-sm opacity-20 animate-pulse"></div>
+                <Icon :name="item.icons[1]" class="max-sm:icon-size-2 sm:icon-size-1 relative z-10" />
+              </div>
+              
+              <div class="flex flex-col gap-uniform-2 flex-grow">
+                <h3 class="max-sm:heading-6 sm:heading-5 font-bold text-inverse leading-tight">
+                  {{ item.title }}
+                </h3>
+                <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse leading-relaxed">
+                  {{ item.description }}
+                </p>
+              </div>
+            </div>
+          </template>
+        </Card>
       </div>
     </div>
-    <div class="flex flex-col m-8 gap-uniform-4" id="why-us">
-      <div class="flex flex-col gap-uniform-1 text-center">
-        <p class="heading-1 text-color-alternating">
-          Kenapa Harus Pilih Memomancy?
-        </p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-uniform-4">
-        <div
-          class="flex flex-col gap-uniform-4 text-color-alternating items-center text-center p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
-          v-for="(item, index) in whyUs"
-          :key="index"
-        >
-          <div class="flex gap-uniform-1 relative">
-            <!-- Magical glow effect -->
-            <div
-              class="absolute inset-0 bg-[#E3FE01] rounded-full blur-sm opacity-20 animate-pulse"
-            ></div>
-            <Icon :name="item.icons[1]" class="icon-size-1 relative z-10" />
-          </div>
-          <p class="heading-5 text-color-alternating">
-            {{ item.title }}
-          </p>
-          <p class="paragraph-3 text-color-alternating">
-            {{ item.description }}
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-col m-8 gap-uniform-4" id="contact-us">
-      <div class="flex flex-col gap-uniform-8 text-center">
-        <p class="heading-1 text-color-alternating">
-          Siap mengabadikan momen spesialmu?
-        </p>
-        <p class="paragraph-2 text-color-alternating">
+    <div class="flex flex-col gap-uniform-4" id="contact-us" style="margin: var(--padding-container)">
+      <div class="flex flex-col gap-uniform-6 text-center">
+        <h2 class="heading-1 text-inverse">Siap mengabadikan momen spesialmu?</h2>
+        <p class="paragraph-2 text-inverse max-w-3xl mx-auto">
           Yuk ceritain visimu! Kami siap bantu wujudkan cerita yang luar biasa
           bareng kamu.
         </p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-uniform-4">
-        <div
-          v-for="method in contactMethods"
-          :key="method.title"
-          class="memomancy-action-card flex flex-col gap-uniform-4 text-color-alternating items-center text-center"
-        >
-          <div
-            class="flex items-center justify-center w-12 h-12 bg-[#E3FE01] rounded-full shrink-0"
-          >
-            <Icon :name="method.icon" class="w-6 h-6 text-[#1F1F1F]" />
-          </div>
-          <div class="flex flex-col gap-uniform-8">
-            <h3 class="heading-5 font-bold text-color-alternating">
-              {{ method.title }}
-            </h3>
-            <p class="paragraph-3 text-color-alternating">
-              {{ method.subtitle }}
-            </p>
-            <p class="paragraph-3 text-color-alternating font-semibold">
-              {{ method.contact }}
-            </p>
-          </div>
-          <Button severity="secondary">
-            <a
-              :href="method.href"
-              :target="method.title === 'WhatsApp' ? '_blank' : undefined"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
-            >
-              <p>{{ method.buttonText }}</p>
-              <Icon name="uil:arrow-up-right" class="icon-size-4" />
-            </a>
-          </Button>
-        </div>
+      
+      <div class="grid max-sm:grid-cols-1 sm:max-md:grid-cols-2 md:grid-cols-3 gap-uniform-4">
+        <Card class="card-elevated h-full" v-for="method in contactMethods" :key="method.title">
+          <template #content>
+            <div class="flex flex-col gap-uniform-4 text-inverse items-center text-center h-full" style="padding: var(--padding-card)">
+              <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
+                <Icon :name="method.icon" class="max-sm:icon-size-6 sm:icon-size-5 text-color-consistent-charcoal" />
+              </div>
+              
+              <div class="flex flex-col gap-uniform-4 flex-grow">
+                <h3 class="max-sm:heading-6 sm:heading-5 font-bold text-inverse">
+                  {{ method.title }}
+                </h3>
+                <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse">
+                  {{ method.subtitle }}
+                </p>
+                <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse font-semibold">
+                  {{ method.contact }}
+                </p>
+              </div>
+              
+              <Button severity="secondary" class="w-full mt-auto">
+                <a
+                  :href="method.href"
+                  :target="method.title === 'WhatsApp' ? '_blank' : undefined"
+                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                >
+                  <p>{{ method.buttonText }}</p>
+                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
+                </a>
+              </Button>
+            </div>
+          </template>
+        </Card>
       </div>
     </div>
     <!-- Social Media Section -->
-    <div class="flex flex-col m-8 gap-uniform-4" id="social-media">
-      <div class="flex flex-col gap-uniform-8 text-center">
-        <p class="heading-1 text-color-alternating">Ikuti Sosial Media Kami</p>
-        <p class="paragraph-2 text-color-alternating">
+    <div class="flex flex-col gap-uniform-4" id="social-media" style="margin: var(--padding-container)">
+      <div class="flex flex-col gap-uniform-6 text-center">
+        <h2 class="heading-1 text-inverse">Ikuti Sosial Media Kami</h2>
+        <p class="paragraph-2 text-inverse max-w-2xl mx-auto">
           Ikuti perjalanan kreatif kami dan dapatkan inspirasi terbaru!
         </p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-uniform-4">
-        <!-- Instagram -->
-        <div
-          class="flex items-center gap-uniform-4 text-color-alternating p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
-        >
-          <!-- Icon -->
-          <div
-            class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-[#E4405F] to-[#F77737] rounded-full shrink-0"
-          >
-            <Icon name="uil:instagram" class="w-6 h-6 text-white" />
-          </div>
+      
+      <div class="grid max-md:grid-cols-1 md:grid-cols-2 gap-uniform-4">
+        <Card v-for="platform in socialMediaPlatforms" :key="platform.name" class="h-full">
+          <template #content>
+            <div class="flex items-center gap-uniform-4 text-inverse" style="padding: var(--padding-card)">
+              <!-- Icon -->
+              <div
+                class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 rounded-full shrink-0"
+                :class="platform.iconBgClass"
+              >
+                <Icon :name="platform.icon" class="max-sm:icon-size-6 sm:icon-size-5 text-white" />
+              </div>
 
-          <!-- Info -->
-          <div class="flex flex-col gap-1 flex-grow">
-            <h3 class="heading-5 font-bold text-color-alternating">
-              Instagram
-            </h3>
-            <p class="paragraph-3 text-color-alternating">
-              {{ instagramName }}
-            </p>
-            <p class="paragraph-3 text-color-alternating font-semibold">
-              {{ socialMediaStats.instagram.followers }}
-              {{ socialMediaStats.instagram.metric }}
-            </p>
-          </div>
+              <!-- Info -->
+              <div class="flex flex-col gap-1 flex-grow min-w-0">
+                <h3 class="max-sm:heading-6 sm:heading-5 font-bold text-inverse">
+                  {{ platform.name }}
+                </h3>
+                <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse truncate">{{ platform.username }}</p>
+                <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse font-semibold">
+                  {{ platform.stats.followers }} {{ platform.stats.metric }}
+                </p>
+              </div>
 
-          <!-- Button -->
-          <Button severity="secondary">
-            <a
-              :href="instagramLink"
-              target="_blank"
-              class="flex items-center gap-2 paragraph-3 font-semibold"
-            >
-              <p>Follow</p>
-              <Icon name="uil:arrow-up-right" class="w-4 h-4" />
-            </a>
-          </Button>
-        </div>
-
-        <!-- TikTok -->
-        <div
-          class="flex items-center gap-uniform-4 text-color-alternating p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
-        >
-          <!-- Icon -->
-          <div
-            class="flex items-center justify-center w-12 h-12 bg-[#000000] rounded-full shrink-0"
-          >
-            <Icon name="ic:baseline-tiktok" class="w-6 h-6 text-white" />
-          </div>
-
-          <!-- Info -->
-          <div class="flex flex-col gap-1 flex-grow">
-            <h3 class="heading-5 font-bold text-color-alternating">TikTok</h3>
-            <p class="paragraph-3 text-color-alternating">{{ tiktokName }}</p>
-            <p class="paragraph-3 text-color-alternating font-semibold">
-              {{ socialMediaStats.tiktok.followers }}
-              {{ socialMediaStats.tiktok.metric }}
-            </p>
-          </div>
-
-          <!-- Button -->
-          <Button severity="secondary">
-            <a
-              :href="tiktokLink"
-              target="_blank"
-              class="flex items-center gap-2 paragraph-3 font-semibold"
-            >
-              <p>Follow</p>
-              <Icon name="uil:arrow-up-right" class="w-4 h-4" />
-            </a>
-          </Button>
-        </div>
-
-        <!-- Facebook -->
-        <div
-          class="flex items-center gap-uniform-4 text-color-alternating p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
-        >
-          <!-- Icon -->
-          <div
-            class="flex items-center justify-center w-12 h-12 bg-[#1877F2] rounded-full shrink-0"
-          >
-            <Icon name="uil:facebook-f" class="w-6 h-6 text-white" />
-          </div>
-
-          <!-- Info -->
-          <div class="flex flex-col gap-1 flex-grow">
-            <h3 class="heading-5 font-bold text-color-alternating">Facebook</h3>
-            <p class="paragraph-3 text-color-alternating">
-              {{ facebookName }}
-            </p>
-            <p class="paragraph-3 text-color-alternating font-semibold">
-              {{ socialMediaStats.facebook.followers }}
-              {{ socialMediaStats.facebook.metric }}
-            </p>
-          </div>
-
-          <!-- Button -->
-          <Button severity="secondary">
-            <a
-              :href="facebookLink"
-              target="_blank"
-              class="flex items-center gap-2 paragraph-3 font-semibold"
-            >
-              <p>Like</p>
-              <Icon name="uil:arrow-up-right" class="w-4 h-4" />
-            </a>
-          </Button>
-        </div>
-
-        <!-- YouTube -->
-        <div
-          class="flex items-center gap-uniform-4 text-color-alternating p-6 border-2 border-color-alternating-inverted rounded-3xl bg-color-alternating transition-all duration-300 hover:border-[#E3FE01] hover:shadow-lg"
-        >
-          <!-- Icon -->
-          <div
-            class="flex items-center justify-center w-12 h-12 bg-[#FF0000] rounded-full shrink-0"
-          >
-            <Icon name="uil:youtube" class="w-6 h-6 text-white" />
-          </div>
-
-          <!-- Info -->
-          <div class="flex flex-col gap-1 flex-grow">
-            <h3 class="heading-5 font-bold text-color-alternating">YouTube</h3>
-            <p class="paragraph-3 text-color-alternating">{{ youtubeName }}</p>
-            <p class="paragraph-3 text-color-alternating font-semibold">
-              {{ socialMediaStats.youtube.followers }}
-              {{ socialMediaStats.youtube.metric }}
-            </p>
-          </div>
-
-          <!-- Button -->
-          <Button severity="secondary">
-            <a
-              :href="youtubeLink"
-              target="_blank"
-              class="flex items-center gap-2 paragraph-3 font-semibold"
-            >
-              <p>Subscribe</p>
-              <Icon name="uil:arrow-up-right" class="w-4 h-4" />
-            </a>
-          </Button>
-        </div>
+              <!-- Button -->
+              <Button severity="secondary" class="flex-shrink-0">
+                <a
+                  :href="platform.link"
+                  target="_blank"
+                  class="flex items-center gap-2 max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                >
+                  <p class="max-sm:hidden">{{ platform.buttonText }}</p>
+                  <Icon name="uil:arrow-up-right" class="icon-size-6" />
+                </a>
+              </Button>
+            </div>
+          </template>
+        </Card>
       </div>
     </div>
-    <div class="flex flex-col m-8 gap-uniform-4" id="quick-action">
-      <div
-        class="flex flex-col memomancy-action-card text-color-alternating text-center gap-uniform-6"
-      >
-        <div class="flex flex-col gap-uniform-8">
-          <h2 class="heading-1 font-bold text-color-alternating">
-            Akses Cepat
-          </h2>
-          <p class="paragraph-2 text-color-alternating">
-            Akses langsung ke layanan utama kami dengan sekali klik
-          </p>
-        </div>
+    <div class="flex flex-col gap-uniform-4" id="quick-action" style="margin: var(--padding-container)">
+      <Card class="card-elevated">
+        <template #content>
+          <div class="flex flex-col text-inverse text-center gap-uniform-6" style="padding: var(--padding-card)">
+            <div class="flex flex-col gap-uniform-4">
+              <h2 class="heading-1 font-bold text-inverse">Akses Cepat</h2>
+              <p class="paragraph-2 text-inverse max-w-2xl mx-auto">
+                Akses langsung ke layanan utama kami dengan sekali klik
+              </p>
+            </div>
 
-        <div class="flex flex-col md:flex-row gap-uniform-4 justify-center">
-          <!-- Reservasi Sekarang -->
-          <Button severity="primary">
-            <NuxtLink
-              to="/reservation"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
-            >
-              <p>Reservasi Sekarang</p>
-              <Icon name="uil:arrow-up-right" class="icon-size-4" />
-            </NuxtLink>
-          </Button>
+            <div class="flex max-sm:flex-col sm:max-md:flex-col md:flex-row gap-uniform-4 justify-center max-md:items-stretch">
+              <!-- Reservasi Sekarang -->
+              <Button severity="contrast" class="max-sm:w-full md:min-w-0">
+                <NuxtLink
+                  to="/reservation"
+                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-3 sm:paragraph-2 font-semibold"
+                >
+                  <p>Reservasi Sekarang</p>
+                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
+                </NuxtLink>
+              </Button>
 
-          <!-- Lihat Portfolio -->
-          <Button severity="secondary">
-            <NuxtLink
-              to="/gallery"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
-            >
-              <p>Lihat Galeri Portfolio</p>
-              <Icon name="uil:arrow-up-right" class="icon-size-4" />
-            </NuxtLink>
-          </Button>
+              <!-- Lihat Portfolio -->
+              <Button severity="secondary" class="max-sm:w-full md:min-w-0">
+                <NuxtLink
+                  to="/gallery"
+                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                >
+                  <p>Lihat Galeri Portfolio</p>
+                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
+                </NuxtLink>
+              </Button>
 
-          <!-- Hitung Harga -->
-          <Button severity="secondary">
-            <NuxtLink
-              to="/calculator"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-3 font-semibold"
-            >
-              <p>Hitung Harga</p>
-              <Icon name="uil:arrow-up-right" class="icon-size-4" />
-            </NuxtLink>
-          </Button>
-        </div>
-      </div>
+              <!-- Hitung Harga -->
+              <Button severity="secondary" class="max-sm:w-full md:min-w-0">
+                <NuxtLink
+                  to="/calculator"
+                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                >
+                  <p>Hitung Harga</p>
+                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
+                </NuxtLink>
+              </Button>
+            </div>
+          </div>
+        </template>
+      </Card>
     </div>
   </div>
 </template>
-
-<style scoped>
-.button-styling {
-  @apply !rounded-full border-0;
-  &:hover {
-    background: var(--memomancy-primary);
-  }
-}
-
-.gallery-item:hover {
-  border-color: var(--memomancy-primary);
-}
-
-.feature-card {
-  border-color: var(--memomancy-primary);
-  background: linear-gradient(
-    135deg,
-    var(--memomancy-light),
-    var(--memomancy-primary-hover)
-  );
-}
-
-.feature-card:hover {
-  border-color: var(--memomancy-primary-hover);
-}
-
-.icon-primary {
-  background: var(--memomancy-primary);
-  color: var(--memomancy-dark);
-}
-
-.icon-border {
-  border: 2px solid var(--memomancy-dark);
-}
-
-.text-dark {
-  color: var(--memomancy-dark);
-}
-
-.bg-gradient-primary {
-  background: linear-gradient(
-    135deg,
-    var(--memomancy-primary) / 10,
-    transparent
-  );
-}
-
-.bg-gradient-primary:hover {
-  background: linear-gradient(
-    135deg,
-    var(--memomancy-primary) / 20,
-    transparent
-  );
-  border-color: var(--memomancy-primary);
-}
-
-.testimonial-card:hover {
-  border-color: var(--memomancy-primary);
-}
-
-.contact-card:hover {
-  border-color: var(--memomancy-primary);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  @apply transition-opacity duration-200 ease-in-out;
-}
-.fade-enter-from,
-.fade-leave-to {
-  @apply opacity-0;
-}
-
-.main-tagline {
-  @apply font-system font-bold leading-tight;
-  @apply md:text-nowrap;
-  font-size: clamp(1.5rem, 8vw, 12rem);
-}
-.sub-tagline {
-  @apply mt-8 font-han leading-relaxed;
-  font-size: clamp(0.875rem, 3vw, 4rem);
-}
-.emoji {
-  @apply text-center transition-all duration-200 ease-in-out transform;
-  font-size: clamp(2rem, 8vw, 15rem);
-}
-.image-container {
-  @apply w-full aspect-[2/3] sm:aspect-[2/3] md:aspect-[2/1] lg:aspect-[2/1] xl:aspect-[3/1];
-}
-.main-image {
-  @apply rounded-[3rem] w-full h-full object-cover;
-}
-.text-content-normal {
-  @apply text-white text-sm;
-  @apply md:text-base;
-  @apply lg:text-base;
-}
-.secondary-list {
-  @apply flex rounded-full text-center items-center justify-center;
-}
-</style>

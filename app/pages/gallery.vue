@@ -9,7 +9,7 @@ useSeoMeta({
     <div class="flex flex-col md:flex-row m-8 gap-uniform-4" id="filter">
       <InputGroup>
         <InputGroupAddon
-          ><Icon name="uil:search" style="background: var(--memomancy-dark)"
+          ><Icon name="uil:search" style="background: var(--color-text-secondary)"
         /></InputGroupAddon>
         <InputText label="Cari" />
       </InputGroup>
