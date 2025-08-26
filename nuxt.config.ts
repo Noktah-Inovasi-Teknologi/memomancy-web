@@ -67,6 +67,9 @@ export default defineNuxtConfig({
     experimental: {
       openAPI: true,
     },
+    rollupConfig: {
+      external: ['expo-secure-store']
+    }
   },
   primevue: {
     options: {
