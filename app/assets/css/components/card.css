@@ -1,8 +1,8 @@
 /* PrimeVue Card Styles */
-@utility p-card {
+.p-card {
   @apply border-2 transition-all duration-200 bg-transparent;
-  border-color: var(--color-primary-border) !important;
-  border-radius: var(--radius-memomancy-lg) !important;
+  border-color: var(--color-primary-border);
+  border-radius: var(--radius-memomancy-lg);
 
   @variant hover {
     border-color: var(--color-primary-hover-border);

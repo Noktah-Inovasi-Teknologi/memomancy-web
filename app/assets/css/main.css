@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tailwindcss-primeui";
+
 @import "./utilities.css";
 @import "./typography.css";
 @import "./layout.css";

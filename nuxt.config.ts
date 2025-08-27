@@ -57,6 +57,12 @@ export default defineNuxtConfig({
     options: {
       ripple: true,
       theme: {
+        options: {
+          cssLayer: {
+            name: 'primevue',
+            order: 'theme, base, primevue'
+          }
+        },
         preset: "Aura",
       },
       pt: useMemomancyPassthrough(),
