@@ -9,6 +9,8 @@
 @import "./components/menubar.css";
 @import "./components/select-button.css";
 
+@source "components/*.css";
+
 @source "../**/*.{vue,js,ts}";
 
 @theme {
