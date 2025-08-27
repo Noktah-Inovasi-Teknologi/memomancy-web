@@ -1,5 +1,4 @@
 @import "tailwindcss";
-/* @import url("https://fonts.googleapis.com/css2?family=Hanuman:wght@400;700&display=swap"); */
 @import "./utilities.css";
 @import "./typography.css";
 @import "./layout.css";
@@ -9,9 +8,8 @@
 @import "./components/menubar.css";
 @import "./components/select-button.css";
 
+@source "../**/*.{vue,js,ts,jsx,tsx}";
 @source "components/*.css";
-
-@source "../**/*.{vue,js,ts}";
 
 @theme {
   --font-han: Hanuman, sans-serif;

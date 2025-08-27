@@ -13,25 +13,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: "2025-07-15",
   css: [
-    // Tailwind base
     "@/assets/css/main.css",
-
-    // Core styles
-    "@/assets/css/typography.css",
-    "@/assets/css/layout.css",
-
-    // PrimeVue component styles
-    "@/assets/css/components/menubar.css",
-    "@/assets/css/components/button.css",
-    "@/assets/css/components/select-button.css",
-    "@/assets/css/components/card.css",
-
-    // Utilities and animations
-    "@/assets/css/utilities.css",
-    "@/assets/css/animations.css",
-
-    // Page-specific styles
-    "@/assets/css/pages/index.css",
   ],
   devtools: { enabled: true },
   hub: {
