@@ -2,14 +2,6 @@
 
 @utility padding-uniform-* {
   padding: --value(--spacing-uniform-*, [length]);
-  
-  @media (min-width: 640px) {
-    padding: --value(--spacing-uniform-*-sm, [length]);
-  }
-  
-  @media (min-width: 1024px) {
-    padding: --value(--spacing-uniform-*-lg, [length]);
-  }
 }
 
 @utility gap-uniform-* {

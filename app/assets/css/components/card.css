@@ -2,7 +2,7 @@
 .p-card {
   @apply border-2 transition-all duration-200 bg-transparent;
   border-color: var(--color-primary-border);
-  border-radius: var(--radius-memomancy-lg);
+  border-radius: var(--radius-memomancy);
 
   @variant hover {
     border-color: var(--color-primary-hover-border);
@@ -20,7 +20,7 @@
 .p-card.card-elevated {
   background: var(--color-neutral-50);
   box-shadow: var(--shadow-memomancy-elevated);
-  padding: var(--spacing-memomancy-lg) var(--spacing-memomancy-xl);
+  padding: var(--spacing-uniform-3);
 
   @variant dark {
     background: var(--color-neutral-950);

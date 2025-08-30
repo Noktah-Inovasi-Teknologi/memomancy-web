@@ -1,7 +1,7 @@
 /* PrimeVue Button Styles - Consolidated */
 
 .p-button {
-  @apply transition-all duration-200;
+  @apply transition-all duration-200 text-normal-4;
   font-weight: var(--font-weight-memomancy-semibold);
   border-radius: var(--radius-memomancy) !important;
   padding: var(--padding-button-y) var(--padding-button-x) !important;

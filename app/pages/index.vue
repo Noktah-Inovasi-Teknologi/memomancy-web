@@ -504,7 +504,7 @@ const getCategoryClass = (index: number) => {
   if (index === currentIndex) {
     return {
       class:
-        "text-color-consistent-charcoal bg-contrast rounded-3xl px-3 max-md:pt-1 md:max-lg:pt-2 lg:pt-3 font-semibold opacity-100 inline-block transition-all duration-500 leading-none",
+        "text-color-consistent-charcoal bg-contrast rounded-3xl px-3 max-md:pt-1 md:pt-2 font-semibold opacity-100 inline-block transition-all duration-500 leading-none",
       style: "transform: scale(1);",
     };
   } else if (index === prevIndex || index === nextIndex) {
@@ -596,17 +596,17 @@ onUnmounted(() => {
 <template>
   <div class="flex flex-col w-full bg-color-alternating">
     <div class="flex flex-col gap-uniform-4" id="hero" style="margin: var(--padding-container)">
-      <div class="flex flex-col items-center text-center gap-uniform-6">
-        <div class="flex flex-col items-center gap-uniform-2">
-          <h1 class="heading-1 main-tagline text-inverse leading-tight">
+      <div class="flex flex-col items-center text-center gap-uniform-2">
+        <div class="flex flex-col items-center gap-uniform-6">
+          <h1 class="heading-1 text-inverse leading-tight">
             Abadikan Hari Ini
           </h1>
-          <h2 class="heading-1 main-tagline text-inverse leading-tight">
+          <h2 class="heading-1 text-inverse leading-tight">
             Ceritakan Selamanya
           </h2>
         </div>
         
-        <div class="flex max-md:flex-col md:flex-row items-center gap-2 text-inverse sub-tagline">
+        <div class="flex max-md:flex-col md:flex-row items-center gap-2 text-inverse heading-3">
           <span class="leading-none max-md:text-center">Foto & Video Profesional untuk</span>
           <div
             class="relative overflow-hidden"
@@ -643,20 +643,20 @@ onUnmounted(() => {
           </div>
         </div>
         
-        <div class="flex max-sm:flex-col sm:flex-row gap-uniform-4 max-sm:w-full sm:max-w-lg mx-auto">
-          <Button severity="contrast" class="max-sm:w-full">
+        <div class="flex gap-uniform-4 w-content text-nowrap mx-auto">
+          <Button severity="contrast">
             <NuxtLink
               to="/reservation"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
+              class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
             >
               <p>Reservasi Sekarang</p>
               <Icon name="uil:arrow-up-right" class="icon-size-4" />
             </NuxtLink>
           </Button>
-          <Button severity="secondary" class="max-sm:w-full">
+          <Button severity="secondary">
             <NuxtLink
               to="/calculator"
-              class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
+              class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
             >
               <p>Hitung Harga</p>
               <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -682,17 +682,18 @@ onUnmounted(() => {
             class="main-image"
             v-else-if="imageUrl"
           />
-          <div
+          <Skeleton
             v-else
             class="main-image bg-gray-300 dark:bg-gray-600 animate-pulse"
-          ></div>
+            height="15rem"
+            />
         </div>
       </div>
     </div>
     <div class="flex flex-col gap-uniform-4" id="gallery" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
-        <h2 class="heading-1 text-inverse">Cerita yang Udah Kami Abadikan</h2>
-        <p class="paragraph-2 max-w-4xl mx-auto">
+        <h2 class="heading-2 text-inverse">Cerita yang Udah Kami Abadikan</h2>
+        <p class="text-normal-4 max-w-4xl mx-auto">
           Kumpulan momen spesial dari berbagai perjalanan yang pernah kami
           tangkap. Dari kisah cinta, kelahiran, hingga momen penuh semangat.
           Inilah jejak visual yang kami banggakan.
@@ -712,32 +713,32 @@ onUnmounted(() => {
       <div class="grid max-md:grid-cols-1 md:max-xl:grid-cols-2 xl:grid-cols-3 gap-uniform-4">
         <Card v-for="(item, index) in filteredImages.slice(0, 3)" :key="index" class="h-full">
           <template #content>
-            <div class="flex flex-col gap-uniform-4 p-4 h-full">
+            <div class="flex flex-col gap-uniform-4 padding-uniform-4 h-full">
               <img
                 :src="item.src"
                 :alt="item.alt"
-                class="w-full aspect-square object-cover rounded-2xl"
+                class="w-full aspect-square object-cover rounded-[calc(var(--radius-memomancy)-var(--spacing-uniform-4))]"
               />
               <div class="flex flex-col gap-uniform-4 flex-grow">
-                <h3 class="heading-5 font-bold text-inverse">
+                <h3 class="heading-4 font-bold text-inverse">
                   {{ item.title }}
                 </h3>
                 <div class="flex flex-col gap-2 mt-auto">
                   <div class="flex items-center gap-2">
                     <Icon name="uil:map-marker" class="icon-size-6 text-inverse flex-shrink-0" />
-                    <p class="paragraph-4 text-inverse truncate">
+                    <p class="text-normal-4 text-inverse truncate">
                       {{ item.location }}
                     </p>
                   </div>
                   <div class="flex items-center gap-2">
                     <Icon name="uil:camera" class="icon-size-6 text-inverse flex-shrink-0" />
-                    <p class="paragraph-4 text-inverse truncate">
+                    <p class="text-normal-4 text-inverse truncate">
                       {{ item.serviceType }}
                     </p>
                   </div>
                   <div class="flex items-center gap-2">
                     <Icon name="uil:calendar-alt" class="icon-size-6 text-inverse flex-shrink-0" />
-                    <p class="paragraph-4 text-inverse truncate">
+                    <p class="text-normal-4 text-inverse truncate">
                       {{ item.date }}
                     </p>
                   </div>
@@ -752,7 +753,7 @@ onUnmounted(() => {
         <Button severity="contrast" class="max-sm:w-full max-sm:max-w-sm">
           <NuxtLink
             to="/gallery"
-            class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
+            class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
           >
             <p>Lihat Galeri Portfolio Lengkap</p>
             <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -762,10 +763,10 @@ onUnmounted(() => {
     </div>
     <div class="flex flex-col gap-uniform-4" id="reservation-steps" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
-        <p class="paragraph-2 text-inverse">
+        <p class="text-normal-4 text-inverse">
           Suka sama hasilnya? Booking-nya juga gampang kok, cuma 5 langkah!
         </p>
-        <h2 class="heading-1 text-inverse">Cara Reservasi</h2>
+        <h2 class="heading-2 text-inverse">Cara Reservasi</h2>
       </div>
       
       <!-- Steps Grid -->
@@ -791,10 +792,10 @@ onUnmounted(() => {
 
           <!-- Content -->
           <div class="flex flex-col gap-2 min-h-0">
-            <h3 class="max-sm:heading-5 sm:heading-4 font-bold text-inverse leading-tight">
+            <h3 class="heading-4 font-bold text-inverse leading-tight">
               {{ step.title }}
             </h3>
-            <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse leading-relaxed">
+            <p class="text-normal-4 text-inverse leading-relaxed">
               {{ step.description }}
             </p>
           </div>
@@ -806,7 +807,7 @@ onUnmounted(() => {
         <Button severity="contrast" class="max-sm:w-full max-sm:max-w-sm">
           <NuxtLink
             to="/reservation"
-            class="w-full flex items-center gap-uniform-4 justify-between paragraph-2 font-semibold"
+            class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
           >
             <p>Mulai Reservasi</p>
             <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -816,8 +817,8 @@ onUnmounted(() => {
     </div>
     <div class="flex flex-col gap-uniform-4" id="calculate-and-consult" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
-        <h2 class="heading-1 text-inverse">Mulai Abadikan Momenmu</h2>
-        <p class="paragraph-2 max-w-3xl mx-auto">
+        <h2 class="heading-2 text-inverse">Mulai Abadikan Momenmu</h2>
+        <p class="text-normal-4 max-w-3xl mx-auto">
           Dapatkan estimasi harga yang akurat, atau konsultasikan langsung
           dengan tim profesional kami.
         </p>
@@ -832,7 +833,7 @@ onUnmounted(() => {
                 <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
                   <Icon :name="card.icon" class="max-sm:icon-size-6 sm:icon-size-5 text-color-consistent-charcoal" />
                 </div>
-                <h3 class="max-sm:heading-5 sm:heading-4 font-bold text-color-standard">
+                <h3 class="heading-3 font-bold text-color-standard">
                   {{ card.title }}
                 </h3>
               </div>
@@ -841,13 +842,13 @@ onUnmounted(() => {
                 <div class="flex items-center justify-center max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 border-2 bg-transparent rounded-full shrink-0 mt-1">
                   <Icon :name="card.iconSecondary" class="max-sm:icon-size-6 sm:icon-size-6" />
                 </div>
-                <div class="flex flex-col gap-2 flex-grow">
-                  <p class="max-sm:paragraph-4 sm:paragraph-3 font-medium">{{ card.subtitle }}</p>
+                <div class="flex flex-col gap-2 flex-grow mb-uniform-4">
+                  <p class="text-normal-4 font-medium">{{ card.subtitle }}</p>
                   <div class="space-y-1">
                     <p 
                       v-for="step in card.steps" 
                       :key="step"
-                      class="max-sm:paragraph-4 sm:paragraph-3"
+                      class="text-normal-5"
                     >
                       {{ step }}
                     </p>
@@ -861,7 +862,7 @@ onUnmounted(() => {
               <NuxtLink
                 v-if="!card.isExternal"
                 :to="card.linkTo"
-                class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-3 sm:paragraph-2 font-semibold"
+                class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
               >
                 <p>{{ card.buttonText }}</p>
                 <Icon :name="card.buttonIcon" class="icon-size-4" />
@@ -870,7 +871,7 @@ onUnmounted(() => {
                 v-else
                 :href="card.linkTo"
                 target="_blank"
-                class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
               >
                 <p>{{ card.buttonText }}</p>
                 <Icon :name="card.buttonIcon" class="icon-size-4" />
@@ -883,8 +884,8 @@ onUnmounted(() => {
     <!-- Interactive East Java Map Section -->
     <div class="flex flex-col gap-uniform-4" id="service-areas" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
-        <h2 class="heading-1 text-inverse">Area Layanan Kami</h2>
-        <p class="paragraph-2 max-w-2xl mx-auto">
+        <h2 class="heading-2 text-inverse">Area Layanan Kami</h2>
+        <p class="text-normal-4 max-w-2xl mx-auto">
           Klik pada wilayah untuk melihat detail layanan di area tersebut
         </p>
       </div>
@@ -1033,7 +1034,7 @@ onUnmounted(() => {
                     {{ selectedRegion.name }}
                   </h3>
                   <p
-                    class="max-sm:paragraph-4 sm:paragraph-3"
+                    class="text-normal-4"
                     :class="{
                       'text-green-600': selectedRegion.status === 'covered',
                       'text-orange-600': selectedRegion.status === 'coming_soon',
@@ -1047,26 +1048,26 @@ onUnmounted(() => {
               <div class="space-y-3">
                 <div class="flex items-center gap-uniform-2">
                   <Icon name="uil:users-alt" class="icon-size-6 text-inverse flex-shrink-0" />
-                  <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse">
+                  <p class="text-normal-4 text-inverse">
                     {{ selectedRegion.photographers }}
                   </p>
                 </div>
                 <div class="flex items-center gap-uniform-2">
                   <Icon name="uil:clock" class="icon-size-6 text-inverse flex-shrink-0" />
-                  <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse">
+                  <p class="text-normal-4 text-inverse">
                     Respon: {{ selectedRegion.response }}
                   </p>
                 </div>
                 <div v-if="selectedRegion.popular" class="flex items-center gap-uniform-2">
                   <Icon name="uil:star" class="icon-size-6 text-yellow-500 flex-shrink-0" />
-                  <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse">Area Populer</p>
+                  <p class="text-normal-4 text-inverse">Area Populer</p>
                 </div>
               </div>
 
               <Button severity="contrast" v-if="selectedRegion.status === 'covered'" class="w-full">
                 <NuxtLink
                   to="/reservation"
-                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-3 sm:paragraph-2 text-color-consistent-charcoal font-semibold"
+                  class="w-full flex items-center gap-uniform-4 justify-betweentext-color-consistent-charcoal font-semibold"
                 >
                   <p class="truncate">Reservasi di {{ selectedRegion.name }}</p>
                   <Icon name="uil:arrow-up-right" class="icon-size-4 flex-shrink-0" />
@@ -1077,7 +1078,7 @@ onUnmounted(() => {
             <div v-else class="text-center max-sm:py-6 sm:py-8">
               <Icon name="uil:map" class="max-sm:icon-size-2 sm:icon-size-1 text-inverse mx-auto mb-4" />
               <p class="max-sm:heading-6 sm:heading-5 text-inverse mb-2">Jelajahi Area Layanan</p>
-              <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse">
+              <p class=" text-inverse">
                 Klik pada peta untuk melihat detail layanan di setiap wilayah
               </p>
             </div>
@@ -1091,12 +1092,12 @@ onUnmounted(() => {
               <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
                 <Icon name="uil:map-marker-alt" class="max-sm:icon-size-6 sm:icon-size-5 text-text-contrast" />
               </div>
-              <h3 class="max-sm:heading-5 sm:heading-4 font-bold text-inverse">
+              <h3 class="heading-2 font-bold text-inverse">
                 Ada Event di Luar Area Layanan?
               </h3>
             </div>
 
-            <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse max-w-2xl mx-auto">
+            <p class="text-normal-4 text-inverse max-w-2xl mx-auto mb-uniform-4">
               Kami senang melakukan perjalanan ke luar coverage area untuk acara
               yang spesial. Yuk, diskusikan visimu biar kita bisa bikin cerita
               yang luar biasa, bersama.
@@ -1107,7 +1108,7 @@ onUnmounted(() => {
                 <a
                   :href="whatsappLink"
                   target="_blank"
-                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                  class="w-full flex items-center gap-uniform-4 justify-between  font-semibold"
                 >
                   <p>Konsultasikan dengan Kami</p>
                 </a>
@@ -1119,24 +1120,24 @@ onUnmounted(() => {
     </div>
     <div class="flex flex-col gap-uniform-4" id="why-us" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
-        <h2 class="heading-1 text-inverse">Kenapa Harus Pilih Memomancy?</h2>
+        <h2 class="heading-2 text-inverse">Kenapa Harus Pilih Memomancy?</h2>
       </div>
       
       <div class="grid max-sm:grid-cols-1 sm:max-lg:grid-cols-2 lg:grid-cols-4 gap-uniform-4">
         <Card v-for="(item, index) in whyUs" :key="index" class="h-full">
           <template #content>
-            <div class="flex flex-col gap-uniform-4 text-inverse items-center text-center h-full" style="padding: var(--padding-card)">
-              <div class="flex gap-uniform-1 relative flex-shrink-0">
+            <div class="flex flex-col gap-uniform-4 text-inverse items-center text-center h-full p-uniform-4">
+              <div class="flex gap-uniform-5 relative flex-shrink-0">
                 <!-- Magical glow effect -->
                 <div class="absolute inset-0 bg-contrast rounded-full blur-sm opacity-20 animate-pulse"></div>
-                <Icon :name="item.icons[1]" class="max-sm:icon-size-2 sm:icon-size-1 relative z-10" />
+                <Icon :name="item.icons[1]" class="icon-size-3 relative z-10" />
               </div>
               
-              <div class="flex flex-col gap-uniform-2 flex-grow">
-                <h3 class="max-sm:heading-6 sm:heading-5 font-bold text-inverse leading-tight">
+              <div class="flex flex-col gap-uniform-4 flex-grow">
+                <h3 class="heading-3 font-bold text-inverse leading-tight">
                   {{ item.title }}
                 </h3>
-                <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse leading-relaxed">
+                <p class="text-normal-4 text-inverse leading-relaxed">
                   {{ item.description }}
                 </p>
               </div>
@@ -1147,8 +1148,8 @@ onUnmounted(() => {
     </div>
     <div class="flex flex-col gap-uniform-4" id="contact-us" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
-        <h2 class="heading-1 text-inverse">Siap mengabadikan momen spesialmu?</h2>
-        <p class="paragraph-2 text-inverse max-w-3xl mx-auto">
+        <h2 class="heading-2 text-inverse">Siap mengabadikan momen spesialmu?</h2>
+        <p class="text-normal-4 text-inverse max-w-3xl mx-auto">
           Yuk ceritain visimu! Kami siap bantu wujudkan cerita yang luar biasa
           bareng kamu.
         </p>
@@ -1159,17 +1160,17 @@ onUnmounted(() => {
           <template #content>
             <div class="flex flex-col gap-uniform-4 text-inverse items-center text-center h-full" style="padding: var(--padding-card)">
               <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
-                <Icon :name="method.icon" class="max-sm:icon-size-6 sm:icon-size-5 text-color-consistent-charcoal" />
+                <Icon :name="method.icon" class="icon-sze-4 text-color-consistent-charcoal" />
               </div>
               
               <div class="flex flex-col gap-uniform-4 flex-grow">
-                <h3 class="max-sm:heading-6 sm:heading-5 font-bold text-inverse">
+                <h3 class="heading-3 font-bold text-inverse">
                   {{ method.title }}
                 </h3>
-                <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse">
+                <p class="text-normal-4 text-inverse">
                   {{ method.subtitle }}
                 </p>
-                <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse font-semibold">
+                <p class="text-normal-2 text-inverse font-semibold">
                   {{ method.contact }}
                 </p>
               </div>
@@ -1178,7 +1179,7 @@ onUnmounted(() => {
                 <a
                   :href="method.href"
                   :target="method.title === 'WhatsApp' ? '_blank' : undefined"
-                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                  class="w-full flex items-center gap-uniform-4 justify-between  font-semibold"
                 >
                   <p>{{ method.buttonText }}</p>
                   <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -1192,8 +1193,8 @@ onUnmounted(() => {
     <!-- Social Media Section -->
     <div class="flex flex-col gap-uniform-4" id="social-media" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
-        <h2 class="heading-1 text-inverse">Ikuti Sosial Media Kami</h2>
-        <p class="paragraph-2 text-inverse max-w-2xl mx-auto">
+        <h2 class="heading-2 text-inverse">Ikuti Sosial Media Kami</h2>
+        <p class="text-normal-4 text-inverse max-w-2xl mx-auto">
           Ikuti perjalanan kreatif kami dan dapatkan inspirasi terbaru!
         </p>
       </div>
@@ -1201,22 +1202,22 @@ onUnmounted(() => {
       <div class="grid max-md:grid-cols-1 md:grid-cols-2 gap-uniform-4">
         <Card v-for="platform in socialMediaPlatforms" :key="platform.name" class="h-full">
           <template #content>
-            <div class="flex items-center gap-uniform-4 text-inverse" style="padding: var(--padding-card)">
+            <div class="flex items-center gap-uniform-4 text-inverse p-uniform-4">
               <!-- Icon -->
               <div
-                class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 rounded-full shrink-0"
+                class="flex items-center justify-center rounded-full shrink-0 w-[var(--icon-size-2)] h-[var(--icon-size-2)]"
                 :class="platform.iconBgClass"
               >
-                <Icon :name="platform.icon" class="max-sm:icon-size-6 sm:icon-size-5 text-white" />
+                <Icon :name="platform.icon" class="icon-size-4 text-white" />
               </div>
 
               <!-- Info -->
               <div class="flex flex-col gap-1 flex-grow min-w-0">
-                <h3 class="max-sm:heading-6 sm:heading-5 font-bold text-inverse">
+                <h3 class="heading-3 text-inverse">
                   {{ platform.name }}
                 </h3>
-                <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse truncate">{{ platform.username }}</p>
-                <p class="max-sm:paragraph-4 sm:paragraph-3 text-inverse font-semibold">
+                <p class="text-normal-3 text-inverse truncate">{{ platform.username }}</p>
+                <p class="text-normal-4 text-inverse font-semibold">
                   {{ platform.stats.followers }} {{ platform.stats.metric }}
                 </p>
               </div>
@@ -1226,7 +1227,7 @@ onUnmounted(() => {
                 <a
                   :href="platform.link"
                   target="_blank"
-                  class="flex items-center gap-2 max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                  class="flex items-center gap-2  font-semibold"
                 >
                   <p class="max-sm:hidden">{{ platform.buttonText }}</p>
                   <Icon name="uil:arrow-up-right" class="icon-size-6" />
@@ -1241,9 +1242,9 @@ onUnmounted(() => {
       <Card class="card-elevated">
         <template #content>
           <div class="flex flex-col text-inverse text-center gap-uniform-6" style="padding: var(--padding-card)">
-            <div class="flex flex-col gap-uniform-4">
-              <h2 class="heading-1 font-bold text-inverse">Akses Cepat</h2>
-              <p class="paragraph-2 text-inverse max-w-2xl mx-auto">
+            <div class="flex flex-col gap-uniform-4 mb-uniform-4">
+              <h2 class="heading-2 text-inverse">Akses Cepat</h2>
+              <p class="text-normal-4 text-inverse max-w-2xl mx-auto">
                 Akses langsung ke layanan utama kami dengan sekali klik
               </p>
             </div>
@@ -1253,7 +1254,7 @@ onUnmounted(() => {
               <Button severity="contrast" class="max-sm:w-full md:min-w-0">
                 <NuxtLink
                   to="/reservation"
-                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-3 sm:paragraph-2 font-semibold"
+                  class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
                 >
                   <p>Reservasi Sekarang</p>
                   <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -1264,7 +1265,7 @@ onUnmounted(() => {
               <Button severity="secondary" class="max-sm:w-full md:min-w-0">
                 <NuxtLink
                   to="/gallery"
-                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                  class="w-full flex items-center gap-uniform-4 justify-between  font-semibold"
                 >
                   <p>Lihat Galeri Portfolio</p>
                   <Icon name="uil:arrow-up-right" class="icon-size-4" />
@@ -1275,7 +1276,7 @@ onUnmounted(() => {
               <Button severity="secondary" class="max-sm:w-full md:min-w-0">
                 <NuxtLink
                   to="/calculator"
-                  class="w-full flex items-center gap-uniform-4 justify-between max-sm:paragraph-4 sm:paragraph-3 font-semibold"
+                  class="w-full flex items-center gap-uniform-4 justify-between  font-semibold"
                 >
                   <p>Hitung Harga</p>
                   <Icon name="uil:arrow-up-right" class="icon-size-4" />

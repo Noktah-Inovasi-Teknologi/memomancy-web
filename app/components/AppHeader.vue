@@ -12,6 +12,7 @@ const navbarMenu = [
   <div class="bg-color-alternating sticky top-0 z-50">
     <div style="padding: var(--padding-container)">
       <Menubar
+        breakpoint="767px"
         class="flex justify-between items-center"
         :model="navbarMenu"
         :pt="{
@@ -19,7 +20,7 @@ const navbarMenu = [
             class: [
               'flex !ml-0',
               {
-                'w-full': $viewport.isLessThan('mtl'),
+                'w-full': $viewport.isLessThan('md'),
               },
             ],
           },
@@ -28,19 +29,22 @@ const navbarMenu = [
           },
         }"
       >
-        <template #start v-if="$viewport.isGreaterOrEquals('mtl')">
-          <p class="font-bold memomancy-brand-text">Memomancy</p>
+        <template #start v-if="$viewport.isGreaterOrEquals('md')">
+          <p class="heading-4 han-downed">Memomancy</p>
         </template>
         <template #item="{ item, props }">
           <NuxtLink
             v-ripple
             v-bind="props.action"
             :to="item.to"
-            class="px-4 py-2 transition-colors duration-200"
-            style="border-radius: var(--radius-memomancy)"
+            class="transition-colors duration-200 text-normal-4"
             :class="{
               'memomancy-nav-item-active': route.path === item.to,
               'memomancy-nav-item': route.path !== item.to,
+            }"
+            :style="{
+              padding: 'var(--spacing-uniform-6) var(--spacing-uniform-5)',
+              borderRadius: 'var(--radius-memomancy)',
             }"
           >
             {{ item.label }}
@@ -50,16 +54,13 @@ const navbarMenu = [
           <div
             :class="[
               'flex justify-between items-center gap-4',
-              { 'w-full': $viewport.isLessThan('mtl') },
+              { 'w-full': $viewport.isLessThan('md') },
             ]"
           >
-            <p
-              v-if="$viewport.isLessThan('mtl')"
-              class="font-bold memomancy-brand-text"
-            >
+            <p v-if="$viewport.isLessThan('md')" class="heading-4 han-downed">
               Memomancy
             </p>
-            <div class="flex gap-2 items-center">
+            <div class="flex gap-2 items-center text-normal-4">
               <template v-if="!$auth.loggedIn && $viewport.isGreaterThan('xs')">
                 <NuxtLink
                   v-ripple

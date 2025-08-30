@@ -71,26 +71,22 @@ export default defineNuxtConfig({
   routeRules: {
     "/**": {
       appMiddleware: ["auth-logged-in"],
-      // @ts-ignore
       kinde: {
         redirectUrl: "/api/login",
         external: true,
       },
     },
     "/": {
-      // @ts-ignore
       kinde: {
         public: true,
       },
     },
     "/calculator": {
-      // @ts-ignore
       kinde: {
         public: true,
       },
     },
     "/dashboard": {
-      // @ts-ignore
       kinde: {
         permissions: { dashboard: true },
         redirectUrl: "/api/login",
@@ -98,13 +94,11 @@ export default defineNuxtConfig({
       },
     },
     "/gallery": {
-      // @ts-ignore
       kinde: {
         public: true,
       },
     },
     "/reservation": {
-      // @ts-ignore
       kinde: {
         public: true,
       },

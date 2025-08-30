@@ -63,18 +63,18 @@ onBeforeMount(async () => {
             @submit.prevent="createEventAndMedia"
           >
             <div class="grid grid-cols-4 gap-uniform-6">
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-name">Nama Event</label>
                 <InputText v-model="eventsData.name" id="event-name" />
               </div>
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-description">Deskripsi</label>
                 <InputText
                   v-model="eventsData.description"
                   id="event-description"
                 />
               </div>
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-start-date">Tanggal Mulai</label>
                 <DatePicker
                   v-model="eventsData.startDate"
@@ -82,7 +82,7 @@ onBeforeMount(async () => {
                   selectionMode="single"
                 />
               </div>
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-end-date">Tanggal Berakhir</label>
                 <DatePicker
                   v-model="eventsData.endDate"
@@ -90,18 +90,18 @@ onBeforeMount(async () => {
                   selectionMode="single"
                 />
               </div>
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-location">Lokasi</label>
                 <InputText v-model="eventsData.location" id="event-location" />
               </div>
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-event-type">Jenis Acara</label>
                 <InputText
                   v-model="eventsData.eventType"
                   id="event-event-type"
                 />
               </div>
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-outdoor">Jenis Tempat</label>
                 <SelectButton
                   v-model="eventsData.outdoor"
@@ -109,11 +109,11 @@ onBeforeMount(async () => {
                   :options="optionsOutdoor"
                 />
               </div>
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-capacity">Kapasitas</label>
                 <InputNumber id="event-capacity" name="capacity" />
               </div>
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-region">Daerah</label>
                 <Select
                   v-model="eventsData.region"
@@ -123,7 +123,7 @@ onBeforeMount(async () => {
                   optionValue="value"
                 />
               </div>
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-created-at">Dibuat Tanggal</label>
                 <DatePicker
                   v-model="eventsData.createdAt"
@@ -131,7 +131,7 @@ onBeforeMount(async () => {
                   selectionMode="single"
                 />
               </div>
-              <div class="flex flex-col gap-uniform-8">
+              <div class="flex flex-col gap-uniform-7">
                 <label for="event-updated-at">Terakhir Diubah</label>
                 <DatePicker
                   v-model="eventsData.updatedAt"
@@ -157,7 +157,7 @@ onBeforeMount(async () => {
               </FileUpload>
             </div>
             <Button type="submit">
-              <p class="paragraph-3">Submit</p>
+              <p>Submit</p>
             </Button>
           </Form>
         </div>

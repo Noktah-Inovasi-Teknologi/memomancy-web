@@ -16,11 +16,11 @@ useSeoMeta({
       <div class="flex gap-uniform-4">
         <Button severity="secondary" class="w-full flex items-center gap-uniform-4 justify-between">
           <Icon name="uil:filter" class="icon-size-4" />
-          <p class="text-nowrap paragraph-3">Filter</p>
+          <p class="text-nowrap">Filter</p>
         </Button>
         <Button severity="secondary" class="w-full flex items-center gap-uniform-4 justify-between">
           <Icon name="uil:arrows-v-alt" class="icon-size-4" />
-          <p class="text-nowrap paragraph-3">Urutkan:</p>
+          <p class="text-nowrap">Urutkan:</p>
         </Button>
       </div>
     </div>

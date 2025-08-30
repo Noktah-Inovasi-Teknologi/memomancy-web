@@ -1,8 +1,10 @@
 /* PrimeVue */
 .p-menubar {
-  @apply border-2 bg-transparent;
+  @apply bg-transparent gap-uniform-2;
+  border: var(--border-memomancy) solid;
   border-color: var(--color-border);
-  border-radius: var(--radius-memomancy-lg);
+  border-radius: var(--radius-memomancy);
+  padding: var(--padding-menubar-y) var(--padding-menubar-x);
 
   @variant dark {
     border-color: var(--color-border-inverse);
@@ -10,8 +12,8 @@
 }
 
 .p-menubar-root-list {
-  @apply bg-transparent;
-  border-radius: var(--radius-memomancy-lg);
+  @apply max-md:bg-color-alternating md:bg-transparent gap-uniform-4;
+  border-radius: var(--radius-memomancy);
 }
 
 .p-menubar .p-menubar-item-content {
