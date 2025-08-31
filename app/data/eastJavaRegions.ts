@@ -9,7 +9,7 @@ export const EAST_JAVA_REGIONS: EastJavaRegion[] = [
     type: "kota",
     patches: [68],
     status: "covered",
-    photographers: "15+ Fotografer",
+    photographers: "2+ Fotografer",
     response: "< 30 menit",
     popular: true,
     svgPath:
@@ -22,7 +22,7 @@ export const EAST_JAVA_REGIONS: EastJavaRegion[] = [
     type: "kabupaten",
     patches: [33],
     status: "covered",
-    photographers: "10+ Fotografer",
+    photographers: "2+ Fotografer",
     response: "< 30 menit",
     popular: true,
     svgPath:
@@ -35,7 +35,7 @@ export const EAST_JAVA_REGIONS: EastJavaRegion[] = [
     type: "kabupaten",
     patches: [9], //9, 10
     status: "covered",
-    photographers: "5+ Fotografer",
+    photographers: "2+ Fotografer",
     response: "< 1 jam",
     popular: false,
     svgPath:
@@ -73,7 +73,7 @@ export const EAST_JAVA_REGIONS: EastJavaRegion[] = [
     type: "kabupaten",
     patches: [3],
     status: "covered",
-    photographers: "1+ Fotografer",
+    photographers: "2+ Fotografer",
     response: "< 2 jam",
     popular: false,
     svgPath:
@@ -86,7 +86,7 @@ export const EAST_JAVA_REGIONS: EastJavaRegion[] = [
     type: "kabupaten",
     patches: [32],
     status: "covered",
-    photographers: "1+ Fotografer",
+    photographers: "2+ Fotografer",
     response: "< 2 jam",
     popular: false,
     svgPath:
@@ -99,7 +99,7 @@ export const EAST_JAVA_REGIONS: EastJavaRegion[] = [
     type: "kabupaten",
     patches: [28],
     status: "covered",
-    photographers: "1+ Fotografer",
+    photographers: "2+ Fotografer",
     response: "< 1.5 jam",
     popular: false,
     svgPath:

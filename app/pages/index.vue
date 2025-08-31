@@ -1021,15 +1021,15 @@ onUnmounted(() => {
         </div>
         
         <!-- Details Panel -->
-        <div class="max-lg:w-full lg:w-80 xl:w-96">
+        <div class="max-lg:w-full w-[30%]">
           <div class="bg-color-alternating border-(length:--border-memomancy) border-color-alternating-inverted rounded-3xl" style="padding: var(--padding-section)">
             <div v-if="selectedRegion" class="flex flex-col gap-uniform-4">
               <div class="flex items-center gap-uniform-4">
-                <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
-                  <Icon name="uil:map-marker" class="max-sm:icon-size-6 sm:icon-size-5 text-color-consistent-charcoal" />
+                <div class="flex items-center justify-center w-(--icon-size-1) h-(--icon-size-1) bg-contrast rounded-full shrink-0">
+                  <Icon name="uil:map-marker" class="icon-size-4 text-color-consistent-charcoal" />
                 </div>
                 <div class="min-w-0 flex-1">
-                  <h3 class="max-sm:heading-5 sm:heading-4 font-bold text-inverse truncate">
+                  <h3 class="heading-3 font-bold text-inverse truncate">
                     {{ selectedRegion.name }}
                   </h3>
                   <p
@@ -1044,17 +1044,11 @@ onUnmounted(() => {
                 </div>
               </div>
 
-              <div class="space-y-3">
-                <div class="flex items-center gap-uniform-2">
-                  <Icon name="uil:users-alt" class="icon-size-6 text-inverse flex-shrink-0" />
+              <div class="px-uniform-6">
+                <div class="flex items-center gap-uniform-4">
+                  <Icon name="uil:users-alt" class="icon-size-4 text-inverse flex-shrink-0" />
                   <p class="text-normal-3 text-inverse">
                     {{ selectedRegion.photographers }}
-                  </p>
-                </div>
-                <div class="flex items-center gap-uniform-2">
-                  <Icon name="uil:clock" class="icon-size-6 text-inverse flex-shrink-0" />
-                  <p class="text-normal-3 text-inverse">
-                    Respon: {{ selectedRegion.response }}
                   </p>
                 </div>
                 <div v-if="selectedRegion.popular" class="flex items-center gap-uniform-2">
