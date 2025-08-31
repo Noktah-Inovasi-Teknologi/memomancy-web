@@ -1069,7 +1069,7 @@ onUnmounted(() => {
                   to="/reservation"
                   class="w-full flex items-center gap-uniform-4 justify-betweentext-color-consistent-charcoal font-semibold"
                 >
-                  <p class="truncate">Reservasi di {{ selectedRegion.name }}</p>
+                  <p class="truncate">Reservasi</p>
                   <Icon name="uil:arrow-up-right" class="icon-size-4 flex-shrink-0" />
                 </NuxtLink>
               </Button>
@@ -1159,8 +1159,8 @@ onUnmounted(() => {
         <Card class="card-elevated h-full" v-for="method in contactMethods" :key="method.title">
           <template #content>
             <div class="flex flex-col gap-uniform-4 text-inverse items-center text-center h-full" style="padding: var(--padding-card)">
-              <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
-                <Icon :name="method.icon" class="icon-sze-4 text-color-consistent-charcoal" />
+              <div class="flex items-center justify-center w-[var(--icon-size-3)] h-[var(--icon-size-3)] bg-contrast rounded-full shrink-0">
+                <Icon :name="method.icon" class="icon-size-4 text-color-consistent-charcoal" />
               </div>
               
               <div class="flex flex-col gap-uniform-4 flex-grow">
