@@ -12,7 +12,7 @@
 }
 
 .p-menubar-root-list {
-  @apply max-md:bg-color-alternating md:bg-transparent gap-uniform-4 p-uniform-4 border-(length:--border-memomancy);
+  @apply max-md:bg-color-alternating md:bg-transparent gap-uniform-4 max-md:p-uniform-4 max-md:border-(length:--border-memomancy);
   border-radius: var(--radius-memomancy);
 }
 

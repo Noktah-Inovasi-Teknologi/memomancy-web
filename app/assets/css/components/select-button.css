@@ -1,6 +1,6 @@
 /* PrimeVue */
 .p-selectbutton {
-  @apply flex flex-wrap border-2;
+  @apply flex flex-wrap border-(length:--border-memomancy) items-center justify-center;
   border-radius: var(--radius-memomancy) !important;
   border-color: var(--color-border);
 

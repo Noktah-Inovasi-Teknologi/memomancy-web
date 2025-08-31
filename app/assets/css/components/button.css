@@ -10,7 +10,7 @@
 /* Button Variants Using Consolidated Pattern */
 .p-button.p-button-primary,
 .p-button:not([data-pc-severity]) {
-  @apply !border-2;
+  @apply !border-(length:--border-memomancy);
   background: var(--color-primary) !important;
   border-color: var(--color-primary-border) !important;
   color: var(--color-neutral) !important;
@@ -35,7 +35,7 @@
 }
 
 .p-button.p-button-secondary {
-  @apply !border-2;
+  @apply !border-(length:--border-memomancy);
   background: var(--color-secondary) !important;
   border-color: var(--color-secondary-border) !important;
   color: var(--color-neutral-inverse) !important;
@@ -60,7 +60,7 @@
 }
 
 .p-button.p-button-contrast {
-  @apply !border-2;
+  @apply !border-(length:--border-memomancy);
   background: var(--color-contrast) !important;
   border: 1px solid var(--color-contrast-border) !important;
   color: var(--color-neutral-inverse) !important;

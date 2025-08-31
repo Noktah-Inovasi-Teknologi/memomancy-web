@@ -706,7 +706,6 @@ onUnmounted(() => {
           :options="categoryOptions"
           optionLabel="label"
           optionValue="value"
-          class="max-sm:text-sm"
         />
       </div>
       
@@ -778,7 +777,7 @@ onUnmounted(() => {
         >
           <!-- Icon with Number -->
           <div class="relative flex-shrink-0">
-            <div class="flex items-center justify-center max-sm:w-16 max-sm:h-16 sm:w-20 sm:h-20 border-2 border-color-alternating-inverted rounded-2xl bg-color-alternating p-3">
+            <div class="flex items-center justify-center max-sm:w-16 max-sm:h-16 sm:w-20 sm:h-20 border-(length:--border-memomancy) border-color-alternating-inverted rounded-2xl bg-color-alternating p-3">
               <Icon :name="step.icon" class="max-sm:icon-size-3 sm:icon-size-2 text-inverse" />
             </div>
             <!-- Number Badge -->
@@ -830,8 +829,8 @@ onUnmounted(() => {
           <template #content>
             <div class="flex flex-col gap-uniform-6 h-full">
               <div class="flex items-center gap-uniform-4">
-                <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
-                  <Icon :name="card.icon" class="max-sm:icon-size-6 sm:icon-size-5 text-color-consistent-charcoal" />
+                <div class="flex items-center justify-center w-(--icon-size-2) h-(--icon-size-2) bg-contrast rounded-full shrink-0">
+                  <Icon :name="card.icon" class="icon-size-4 text-color-consistent-charcoal" />
                 </div>
                 <h3 class="heading-3 font-bold text-color-standard">
                   {{ card.title }}
@@ -839,8 +838,8 @@ onUnmounted(() => {
               </div>
 
               <div class="flex gap-uniform-4 text-color-standard flex-grow">
-                <div class="flex items-center justify-center max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 border-2 bg-transparent rounded-full shrink-0 mt-1">
-                  <Icon :name="card.iconSecondary" class="max-sm:icon-size-6 sm:icon-size-6" />
+                <div class="flex items-center justify-center w-(--icon-size-2) h-(--icon-size-2) border-(length:--border-memomancy) bg-transparent rounded-full shrink-0 mt-1">
+                  <Icon :name="card.iconSecondary" class="icon-size-4" />
                 </div>
                 <div class="flex flex-col gap-2 flex-grow mb-uniform-4">
                   <p class="text-normal-3 font-medium">{{ card.subtitle }}</p>
@@ -848,7 +847,7 @@ onUnmounted(() => {
                     <p 
                       v-for="step in card.steps" 
                       :key="step"
-                      class="text-normal-5"
+                      class="text-normal-3"
                     >
                       {{ step }}
                     </p>
@@ -893,7 +892,7 @@ onUnmounted(() => {
       <div class="flex max-lg:flex-col lg:flex-row gap-uniform-4 max-lg:items-stretch lg:items-start">
         <!-- Map Container -->
         <div class="flex-1 relative">
-          <div class="bg-color-alternating border-2 border-color-alternating-inverted rounded-3xl" style="padding: var(--padding-section)">
+          <div class="bg-color-alternating border-(length:--border-memomancy) border-color-alternating-inverted rounded-3xl" style="padding: var(--padding-section)">
             <!-- Background East Java Map -->
             <div
               class="relative overflow-hidden rounded-2xl max-sm:h-64 sm:max-md:h-80 md:max-lg:h-96 lg:aspect-[2/1] bg-color-alternating-inverted touch-pan-x touch-pan-y"
@@ -1023,7 +1022,7 @@ onUnmounted(() => {
         
         <!-- Details Panel -->
         <div class="max-lg:w-full lg:w-80 xl:w-96">
-          <div class="bg-color-alternating border-2 border-color-alternating-inverted rounded-3xl" style="padding: var(--padding-section)">
+          <div class="bg-color-alternating border-(length:--border-memomancy) border-color-alternating-inverted rounded-3xl" style="padding: var(--padding-section)">
             <div v-if="selectedRegion" class="flex flex-col gap-uniform-4">
               <div class="flex items-center gap-uniform-4">
                 <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
@@ -1076,8 +1075,8 @@ onUnmounted(() => {
             </div>
 
             <div v-else class="text-center max-sm:py-6 sm:py-8">
-              <Icon name="uil:map" class="max-sm:icon-size-2 sm:icon-size-1 text-inverse mx-auto mb-4" />
-              <p class="max-sm:heading-6 sm:heading-5 text-inverse mb-2">Jelajahi Area Layanan</p>
+              <Icon name="uil:map" class="icon-size-1 text-inverse mx-auto mb-4" />
+              <p class="heading-3 text-inverse mb-2">Jelajahi Area Layanan</p>
               <p class=" text-inverse">
                 Klik pada peta untuk melihat detail layanan di setiap wilayah
               </p>
@@ -1089,8 +1088,8 @@ onUnmounted(() => {
         <template #content>
           <div class="flex flex-col text-center gap-uniform-6" style="padding: var(--padding-card)">
             <div class="flex max-sm:flex-col sm:flex-row items-center justify-center gap-uniform-4">
-              <div class="flex items-center justify-center max-sm:w-10 max-sm:h-10 sm:w-12 sm:h-12 bg-contrast rounded-full shrink-0">
-                <Icon name="uil:map-marker-alt" class="max-sm:icon-size-6 sm:icon-size-5 text-text-contrast" />
+              <div class="flex items-center justify-center w-(--icon-size-2) h-(--icon-size-2) bg-contrast rounded-full shrink-0">
+                <Icon name="uil:map-marker-alt" class="icon-size-4 text-text-contrast" />
               </div>
               <h3 class="heading-2 font-bold text-inverse">
                 Ada Event di Luar Area Layanan?

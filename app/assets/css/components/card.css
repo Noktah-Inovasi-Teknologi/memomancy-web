@@ -1,6 +1,6 @@
 /* PrimeVue Card Styles */
 .p-card {
-  @apply border-2 transition-all duration-200 bg-transparent;
+  @apply border-(length:--border-memomancy) transition-all duration-200 bg-transparent;
   border-color: var(--color-primary-border);
   border-radius: var(--radius-memomancy);
 

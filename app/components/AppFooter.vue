@@ -27,7 +27,7 @@ const footerMenu2 = [
 
 <template>
   <div class="bg-color-alternating">
-    <div class="p-container">
+    <div class="px-container pt-container">
       <div
         class="p-uniform-2 rounded-t-memomancy border-t-(length:--border-memomancy) border-x-(length:--border-memomancy) border-color-alternating-inverted"
       >
