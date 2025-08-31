@@ -1051,10 +1051,6 @@ onUnmounted(() => {
                     {{ selectedRegion.photographers }}
                   </p>
                 </div>
-                <div v-if="selectedRegion.popular" class="flex items-center gap-uniform-2">
-                  <Icon name="uil:star" class="icon-size-6 text-yellow-500 flex-shrink-0" />
-                  <p class="text-normal-3 text-inverse">Area Populer</p>
-                </div>
               </div>
 
               <Button severity="contrast" v-if="selectedRegion.status === 'covered'" class="w-full">
