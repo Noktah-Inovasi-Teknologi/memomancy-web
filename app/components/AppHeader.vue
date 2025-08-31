@@ -37,7 +37,7 @@ const navbarMenu = [
             v-ripple
             v-bind="props.action"
             :to="item.to"
-            class="transition-colors duration-200 text-normal-4"
+            class="transition-colors duration-200 text-normal-3"
             :class="{
               'memomancy-nav-item-active': route.path === item.to,
               'memomancy-nav-item': route.path !== item.to,
@@ -60,7 +60,7 @@ const navbarMenu = [
             <p v-if="$viewport.isLessThan('md')" class="heading-4 han-downed">
               Memomancy
             </p>
-            <div class="flex gap-2 items-center text-normal-4">
+            <div class="flex gap-2 items-center text-normal-3">
               <template v-if="!$auth.loggedIn && $viewport.isGreaterThan('xs')">
                 <NuxtLink
                   v-ripple

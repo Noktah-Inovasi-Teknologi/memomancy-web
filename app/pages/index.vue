@@ -693,7 +693,7 @@ onUnmounted(() => {
     <div class="flex flex-col gap-uniform-4" id="gallery" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
         <h2 class="heading-2 text-inverse">Cerita yang Udah Kami Abadikan</h2>
-        <p class="text-normal-4 max-w-4xl mx-auto">
+        <p class="text-normal-3 max-w-4xl mx-auto">
           Kumpulan momen spesial dari berbagai perjalanan yang pernah kami
           tangkap. Dari kisah cinta, kelahiran, hingga momen penuh semangat.
           Inilah jejak visual yang kami banggakan.
@@ -726,19 +726,19 @@ onUnmounted(() => {
                 <div class="flex flex-col gap-2 mt-auto">
                   <div class="flex items-center gap-2">
                     <Icon name="uil:map-marker" class="icon-size-6 text-inverse flex-shrink-0" />
-                    <p class="text-normal-4 text-inverse truncate">
+                    <p class="text-normal-3 text-inverse truncate">
                       {{ item.location }}
                     </p>
                   </div>
                   <div class="flex items-center gap-2">
                     <Icon name="uil:camera" class="icon-size-6 text-inverse flex-shrink-0" />
-                    <p class="text-normal-4 text-inverse truncate">
+                    <p class="text-normal-3 text-inverse truncate">
                       {{ item.serviceType }}
                     </p>
                   </div>
                   <div class="flex items-center gap-2">
                     <Icon name="uil:calendar-alt" class="icon-size-6 text-inverse flex-shrink-0" />
-                    <p class="text-normal-4 text-inverse truncate">
+                    <p class="text-normal-3 text-inverse truncate">
                       {{ item.date }}
                     </p>
                   </div>
@@ -763,7 +763,7 @@ onUnmounted(() => {
     </div>
     <div class="flex flex-col gap-uniform-4" id="reservation-steps" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
-        <p class="text-normal-4 text-inverse">
+        <p class="text-normal-3 text-inverse">
           Suka sama hasilnya? Booking-nya juga gampang kok, cuma 5 langkah!
         </p>
         <h2 class="heading-2 text-inverse">Cara Reservasi</h2>
@@ -795,7 +795,7 @@ onUnmounted(() => {
             <h3 class="heading-4 font-bold text-inverse leading-tight">
               {{ step.title }}
             </h3>
-            <p class="text-normal-4 text-inverse leading-relaxed">
+            <p class="text-normal-3 text-inverse leading-relaxed">
               {{ step.description }}
             </p>
           </div>
@@ -818,7 +818,7 @@ onUnmounted(() => {
     <div class="flex flex-col gap-uniform-4" id="calculate-and-consult" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
         <h2 class="heading-2 text-inverse">Mulai Abadikan Momenmu</h2>
-        <p class="text-normal-4 max-w-3xl mx-auto">
+        <p class="text-normal-3 max-w-3xl mx-auto">
           Dapatkan estimasi harga yang akurat, atau konsultasikan langsung
           dengan tim profesional kami.
         </p>
@@ -843,7 +843,7 @@ onUnmounted(() => {
                   <Icon :name="card.iconSecondary" class="max-sm:icon-size-6 sm:icon-size-6" />
                 </div>
                 <div class="flex flex-col gap-2 flex-grow mb-uniform-4">
-                  <p class="text-normal-4 font-medium">{{ card.subtitle }}</p>
+                  <p class="text-normal-3 font-medium">{{ card.subtitle }}</p>
                   <div class="space-y-1">
                     <p 
                       v-for="step in card.steps" 
@@ -885,7 +885,7 @@ onUnmounted(() => {
     <div class="flex flex-col gap-uniform-4" id="service-areas" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
         <h2 class="heading-2 text-inverse">Area Layanan Kami</h2>
-        <p class="text-normal-4 max-w-2xl mx-auto">
+        <p class="text-normal-3 max-w-2xl mx-auto">
           Klik pada wilayah untuk melihat detail layanan di area tersebut
         </p>
       </div>
@@ -1034,7 +1034,7 @@ onUnmounted(() => {
                     {{ selectedRegion.name }}
                   </h3>
                   <p
-                    class="text-normal-4"
+                    class="text-normal-3"
                     :class="{
                       'text-green-600': selectedRegion.status === 'covered',
                       'text-orange-600': selectedRegion.status === 'coming_soon',
@@ -1048,19 +1048,19 @@ onUnmounted(() => {
               <div class="space-y-3">
                 <div class="flex items-center gap-uniform-2">
                   <Icon name="uil:users-alt" class="icon-size-6 text-inverse flex-shrink-0" />
-                  <p class="text-normal-4 text-inverse">
+                  <p class="text-normal-3 text-inverse">
                     {{ selectedRegion.photographers }}
                   </p>
                 </div>
                 <div class="flex items-center gap-uniform-2">
                   <Icon name="uil:clock" class="icon-size-6 text-inverse flex-shrink-0" />
-                  <p class="text-normal-4 text-inverse">
+                  <p class="text-normal-3 text-inverse">
                     Respon: {{ selectedRegion.response }}
                   </p>
                 </div>
                 <div v-if="selectedRegion.popular" class="flex items-center gap-uniform-2">
                   <Icon name="uil:star" class="icon-size-6 text-yellow-500 flex-shrink-0" />
-                  <p class="text-normal-4 text-inverse">Area Populer</p>
+                  <p class="text-normal-3 text-inverse">Area Populer</p>
                 </div>
               </div>
 
@@ -1097,7 +1097,7 @@ onUnmounted(() => {
               </h3>
             </div>
 
-            <p class="text-normal-4 text-inverse max-w-2xl mx-auto mb-uniform-4">
+            <p class="text-normal-3 text-inverse max-w-2xl mx-auto mb-uniform-4">
               Kami senang melakukan perjalanan ke luar coverage area untuk acara
               yang spesial. Yuk, diskusikan visimu biar kita bisa bikin cerita
               yang luar biasa, bersama.
@@ -1137,7 +1137,7 @@ onUnmounted(() => {
                 <h3 class="heading-3 font-bold text-inverse leading-tight">
                   {{ item.title }}
                 </h3>
-                <p class="text-normal-4 text-inverse leading-relaxed">
+                <p class="text-normal-3 text-inverse leading-relaxed">
                   {{ item.description }}
                 </p>
               </div>
@@ -1149,7 +1149,7 @@ onUnmounted(() => {
     <div class="flex flex-col gap-uniform-4" id="contact-us" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
         <h2 class="heading-2 text-inverse">Siap mengabadikan momen spesialmu?</h2>
-        <p class="text-normal-4 text-inverse max-w-3xl mx-auto">
+        <p class="text-normal-3 text-inverse max-w-3xl mx-auto">
           Yuk ceritain visimu! Kami siap bantu wujudkan cerita yang luar biasa
           bareng kamu.
         </p>
@@ -1167,7 +1167,7 @@ onUnmounted(() => {
                 <h3 class="heading-3 font-bold text-inverse">
                   {{ method.title }}
                 </h3>
-                <p class="text-normal-4 text-inverse">
+                <p class="text-normal-3 text-inverse">
                   {{ method.subtitle }}
                 </p>
                 <p class="text-normal-2 text-inverse font-semibold">
@@ -1194,7 +1194,7 @@ onUnmounted(() => {
     <div class="flex flex-col gap-uniform-4" id="social-media" style="margin: var(--padding-container)">
       <div class="flex flex-col gap-uniform-6 text-center">
         <h2 class="heading-2 text-inverse">Ikuti Sosial Media Kami</h2>
-        <p class="text-normal-4 text-inverse max-w-2xl mx-auto">
+        <p class="text-normal-3 text-inverse max-w-2xl mx-auto">
           Ikuti perjalanan kreatif kami dan dapatkan inspirasi terbaru!
         </p>
       </div>
@@ -1217,7 +1217,7 @@ onUnmounted(() => {
                   {{ platform.name }}
                 </h3>
                 <p class="text-normal-3 text-inverse truncate">{{ platform.username }}</p>
-                <p class="text-normal-4 text-inverse font-semibold">
+                <p class="text-normal-3 text-inverse font-semibold">
                   {{ platform.stats.followers }} {{ platform.stats.metric }}
                 </p>
               </div>
@@ -1244,7 +1244,7 @@ onUnmounted(() => {
           <div class="flex flex-col text-inverse text-center gap-uniform-6" style="padding: var(--padding-card)">
             <div class="flex flex-col gap-uniform-4 mb-uniform-4">
               <h2 class="heading-2 text-inverse">Akses Cepat</h2>
-              <p class="text-normal-4 text-inverse max-w-2xl mx-auto">
+              <p class="text-normal-3 text-inverse max-w-2xl mx-auto">
                 Akses langsung ke layanan utama kami dengan sekali klik
               </p>
             </div>

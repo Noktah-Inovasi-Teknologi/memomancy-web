@@ -53,17 +53,17 @@ const footerMenu2 = [
             <h3 class="heading-4 mb-2 text-inverse">Kontak</h3>
             <div class="flex items-center gap-2">
               <Icon name="uil:map-marker" class="icon-size-4 flex-shrink-0" />
-              <p class="text-normal-4">
+              <p class="text-normal-3">
                 {{ address }}
               </p>
             </div>
             <div class="flex items-center gap-2">
               <Icon name="uil:phone" class="icon-size-4 flex-shrink-0" />
-              <p class="text-normal-4">{{ phoneNumber }}</p>
+              <p class="text-normal-3">{{ phoneNumber }}</p>
             </div>
             <div class="flex items-center gap-2">
               <Icon name="uil:envelope" class="icon-size-4 flex-shrink-0" />
-              <p class="text-normal-4">{{ emailAddress }}</p>
+              <p class="text-normal-3">{{ emailAddress }}</p>
             </div>
           </div>
           <div class="flex flex-col gap-2 mt-6">
