@@ -16,7 +16,7 @@
 }
 
 @utility border-color-alternating {
-  border-color: var(--color-background);
+  border-color: var(--color-border);
 
   @variant dark {
     border-color: var(--color-border-inverse);

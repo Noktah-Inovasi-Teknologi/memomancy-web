@@ -69,13 +69,13 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    "/**": {
-      appMiddleware: ["auth-logged-in"],
-      kinde: {
-        redirectUrl: "/api/login",
-        external: true,
-      },
-    },
+    // "/**": {
+    //   appMiddleware: ["auth-logged-in"],
+    //   kinde: {
+    //     redirectUrl: "/api/login",
+    //     external: true,
+    //   },
+    // },
     "/": {
       kinde: {
         public: true,

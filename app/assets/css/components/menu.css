@@ -1,0 +1,27 @@
+/* PrimeVue */
+.p-menu {
+  @apply !bg-color-alternating !border-color-alternating;
+  box-shadow: var(--shadow-memomancy-elevated);
+  border: var(--border-memomancy) solid;
+  border-radius: var(--radius-memomancy);
+  padding: var(--spacing-uniform-6);
+}
+
+.p-menu .p-menu-item {
+  font-size: var(--font-size-normal-4);
+  color: var(--color-secondary-inverse);
+  padding: var(--spacing-uniform-6);
+  border-radius: var(--radius-memomancy);
+
+  @variant dark {
+    color: var(--color-secondary);
+
+    @variant hover {
+      color: var(--color-neutral-inverse);
+    }
+  }
+
+  @variant hover {
+    background: var(--color-neutral) !important;
+  }
+}

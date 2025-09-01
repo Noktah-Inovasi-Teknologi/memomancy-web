@@ -6,6 +6,21 @@ const navbarMenu = [
   { label: "Galeri", to: "/gallery" },
   { label: "Reservasi", to: "/reservation" },
 ];
+
+const navbarMenuUser = ref();
+const userMenuItems = [
+  {
+    label: "Logout",
+    icon: "pi pi-sign-out",
+    command: () => {
+      navigateTo("/api/logout", { external: true });
+    },
+  },
+];
+
+const toggleMenuNavbar = (event: Event) => {
+  navbarMenuUser.value.toggle(event);
+};
 </script>
 
 <template>
@@ -80,8 +95,27 @@ const navbarMenu = [
                 </NuxtLink>
               </template>
               <template v-if="$auth.loggedIn">
-                <p v-if="$viewport.isGreaterThan('sm')">Halo,</p>
-                <p class="font-bold">{{ $auth.user.given_name }}</p>
+                <div class="flex gap-uniform-4">
+                  <div class="flex gap-uniform-6">
+                    <p v-if="$viewport.isGreaterThan('sm')">Halo,</p>
+                    <p class="font-bold">{{ $auth.user.given_name }}</p>
+                  </div>
+                  <Button
+                    type="button"
+                    class="!p-0 w-(--icon-size-4) h-(--icon-size-4)"
+                    @click="toggleMenuNavbar"
+                    aria-haspopup="true"
+                    aria-controls="menu-navbar"
+                  >
+                    <Icon name="uil:ellipsis-v" class="icon-size-5" />
+                  </Button>
+                  <Menu
+                    ref="navbarMenuUser"
+                    id="menu-navbar"
+                    :model="userMenuItems"
+                    :popup="true"
+                  />
+                </div>
               </template>
             </div>
           </div>

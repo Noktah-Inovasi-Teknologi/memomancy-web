@@ -9,6 +9,7 @@
 @import "./components/card.css";
 @import "./components/menubar.css";
 @import "./components/select-button.css";
+@import "./components/menu.css";
 
 @source "../**/*.{vue,js,ts,jsx,tsx}";
 @source "components/*.css";
