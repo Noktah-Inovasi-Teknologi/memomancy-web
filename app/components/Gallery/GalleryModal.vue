@@ -85,7 +85,7 @@ watch(() => props.visible, (newVal) => {
             class="p-2"
             :disabled="!canNavigatePrev"
           >
-            <Icon name="uil:angle-left" class="icon-size-4" />
+            <Icon name="uil:angle-left" class="icon-size-5" />
           </Button>
           <Button
             @click="navigateNext"
@@ -94,7 +94,7 @@ watch(() => props.visible, (newVal) => {
             class="p-2"
             :disabled="!canNavigateNext"
           >
-            <Icon name="uil:angle-right" class="icon-size-4" />
+            <Icon name="uil:angle-right" class="icon-size-5" />
           </Button>
         </div>
       </div>

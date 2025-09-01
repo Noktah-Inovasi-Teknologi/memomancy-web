@@ -650,7 +650,7 @@ onUnmounted(() => {
               class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
             >
               <p>Reservasi Sekarang</p>
-              <Icon name="uil:arrow-up-right" class="icon-size-4" />
+              <Icon name="uil:arrow-up-right" class="icon-size-5" />
             </NuxtLink>
           </Button>
           <Button severity="secondary">
@@ -659,13 +659,13 @@ onUnmounted(() => {
               class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
             >
               <p>Hitung Harga</p>
-              <Icon name="uil:arrow-up-right" class="icon-size-4" />
+              <Icon name="uil:arrow-up-right" class="icon-size-5" />
             </NuxtLink>
           </Button>
         </div>
       </div>
       
-      <div class="w-full max-sm:mt-6 sm:mt-8">
+      <div class="w-full mt-uniform-4">
         <div class="image-container">
           <video
             :src="videoUrl"
@@ -700,7 +700,7 @@ onUnmounted(() => {
         </p>
       </div>
       
-      <div class="flex justify-center max-sm:px-2">
+      <div class="flex justify-center">
         <SelectButton
           v-model="selectedCategory"
           :options="categoryOptions"
@@ -724,19 +724,19 @@ onUnmounted(() => {
                 </h3>
                 <div class="flex flex-col gap-2 mt-auto">
                   <div class="flex items-center gap-2">
-                    <Icon name="uil:map-marker" class="icon-size-6 text-inverse flex-shrink-0" />
+                    <Icon name="uil:map-marker" class="icon-size-7 text-inverse flex-shrink-0" />
                     <p class="text-normal-3 text-inverse truncate">
                       {{ item.location }}
                     </p>
                   </div>
                   <div class="flex items-center gap-2">
-                    <Icon name="uil:camera" class="icon-size-6 text-inverse flex-shrink-0" />
+                    <Icon name="uil:camera" class="icon-size-7 text-inverse flex-shrink-0" />
                     <p class="text-normal-3 text-inverse truncate">
                       {{ item.serviceType }}
                     </p>
                   </div>
                   <div class="flex items-center gap-2">
-                    <Icon name="uil:calendar-alt" class="icon-size-6 text-inverse flex-shrink-0" />
+                    <Icon name="uil:calendar-alt" class="icon-size-7 text-inverse flex-shrink-0" />
                     <p class="text-normal-3 text-inverse truncate">
                       {{ item.date }}
                     </p>
@@ -748,14 +748,14 @@ onUnmounted(() => {
         </Card>
       </div>
       
-      <div class="flex justify-center max-sm:mt-6">
-        <Button severity="contrast" class="max-sm:w-full max-sm:max-w-sm">
+      <div class="flex justify-center mt-uniform-4">
+        <Button severity="contrast" class="max-sm:w-full">
           <NuxtLink
             to="/gallery"
             class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
           >
             <p>Lihat Galeri Portfolio Lengkap</p>
-            <Icon name="uil:arrow-up-right" class="icon-size-4" />
+            <Icon name="uil:arrow-up-right" class="icon-size-5" />
           </NuxtLink>
         </Button>
       </div>
@@ -778,19 +778,18 @@ onUnmounted(() => {
           <!-- Icon with Number -->
           <div class="relative flex-shrink-0">
             <div class="flex items-center justify-center max-sm:w-16 max-sm:h-16 sm:w-20 sm:h-20 border-(length:--border-memomancy) border-color-alternating-inverted rounded-2xl bg-color-alternating p-3">
-              <Icon :name="step.icon" class="max-sm:icon-size-3 sm:icon-size-2 text-inverse" />
+              <Icon :name="step.icon" class="max-sm:icon-size-4 sm:icon-size-3 text-inverse" />
             </div>
             <!-- Number Badge -->
             <div
-              class="absolute -top-2 -right-2 flex items-center justify-center max-sm:w-6 max-sm:h-6 sm:w-8 sm:h-8 rounded-full font-bold max-sm:text-xs sm:text-sm"
-              style="background: var(--color-contrast); border: 2px solid var(--color-primary-border); color: var(--color-text-contrast);"
+              class="bg-contrast text-text-contrast border-color-alternating border-(length:--border-memomancy) absolute -top-2 -right-2 flex items-center justify-center w-(--icon-size-5) h-(--icon-size-5) rounded-full font-bold text-normal-4"
             >
               {{ step.number }}
             </div>
           </div>
 
           <!-- Content -->
-          <div class="flex flex-col gap-2 min-h-0">
+          <div class="flex flex-col gap-uniform-4 min-h-0">
             <h3 class="heading-4 font-bold text-inverse leading-tight">
               {{ step.title }}
             </h3>
@@ -802,14 +801,14 @@ onUnmounted(() => {
       </div>
       
       <!-- Call to Action Button -->
-      <div class="flex justify-center max-sm:mt-6">
+      <div class="flex justify-center mt-uniform-4">
         <Button severity="contrast" class="max-sm:w-full max-sm:max-w-sm">
           <NuxtLink
             to="/reservation"
             class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
           >
             <p>Mulai Reservasi</p>
-            <Icon name="uil:arrow-up-right" class="icon-size-4" />
+            <Icon name="uil:arrow-up-right" class="icon-size-5" />
           </NuxtLink>
         </Button>
       </div>
@@ -829,8 +828,8 @@ onUnmounted(() => {
           <template #content>
             <div class="flex flex-col gap-uniform-6 h-full">
               <div class="flex items-center gap-uniform-4">
-                <div class="flex items-center justify-center w-(--icon-size-2) h-(--icon-size-2) bg-contrast rounded-full shrink-0">
-                  <Icon :name="card.icon" class="icon-size-4 text-color-consistent-charcoal" />
+                <div class="flex items-center justify-center w-(--icon-size-3) h-(--icon-size-3) bg-contrast rounded-full shrink-0">
+                  <Icon :name="card.icon" class="icon-size-5 text-color-consistent-charcoal" />
                 </div>
                 <h3 class="heading-3 font-bold text-color-standard">
                   {{ card.title }}
@@ -838,8 +837,8 @@ onUnmounted(() => {
               </div>
 
               <div class="flex gap-uniform-4 text-color-standard flex-grow">
-                <div class="flex items-center justify-center w-(--icon-size-2) h-(--icon-size-2) border-(length:--border-memomancy) bg-transparent rounded-full shrink-0 mt-1">
-                  <Icon :name="card.iconSecondary" class="icon-size-4" />
+                <div class="flex items-center justify-center w-(--icon-size-3) h-(--icon-size-3) border-(length:--border-memomancy) bg-transparent rounded-full shrink-0 mt-1">
+                  <Icon :name="card.iconSecondary" class="icon-size-5" />
                 </div>
                 <div class="flex flex-col gap-2 flex-grow mb-uniform-4">
                   <p class="text-normal-3 font-medium">{{ card.subtitle }}</p>
@@ -864,7 +863,7 @@ onUnmounted(() => {
                 class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
               >
                 <p>{{ card.buttonText }}</p>
-                <Icon :name="card.buttonIcon" class="icon-size-4" />
+                <Icon :name="card.buttonIcon" class="icon-size-5" />
               </NuxtLink>
               <a
                 v-else
@@ -873,7 +872,7 @@ onUnmounted(() => {
                 class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
               >
                 <p>{{ card.buttonText }}</p>
-                <Icon :name="card.buttonIcon" class="icon-size-4" />
+                <Icon :name="card.buttonIcon" class="icon-size-5" />
               </a>
             </Button>
           </template>
@@ -905,19 +904,19 @@ onUnmounted(() => {
                   @click="zoomIn"
                   class="max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
                 >
-                  <Icon name="uil:plus" class="icon-size-6 text-gray-700" />
+                  <Icon name="uil:plus" class="icon-size-7 text-gray-700" />
                 </button>
                 <button
                   @click="zoomOut"
                   class="max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
                 >
-                  <Icon name="uil:minus" class="icon-size-6 text-gray-700" />
+                  <Icon name="uil:minus" class="icon-size-7 text-gray-700" />
                 </button>
                 <button
                   @click="resetZoom"
                   class="max-sm:w-8 max-sm:h-8 sm:w-10 sm:h-10 bg-white/90 hover:bg-white rounded-lg shadow-md flex items-center justify-center border border-gray-200 transition-all duration-200"
                 >
-                  <Icon name="uil:expand-arrows-alt" class="icon-size-6 text-gray-700" />
+                  <Icon name="uil:expand-arrows-alt" class="icon-size-7 text-gray-700" />
                 </button>
               </div>
 
@@ -1025,8 +1024,8 @@ onUnmounted(() => {
           <div class="bg-color-alternating border-(length:--border-memomancy) border-color-alternating-inverted rounded-3xl" style="padding: var(--padding-section)">
             <div v-if="selectedRegion" class="flex flex-col gap-uniform-4">
               <div class="flex items-center gap-uniform-4">
-                <div class="flex items-center justify-center w-(--icon-size-1) h-(--icon-size-1) bg-contrast rounded-full shrink-0">
-                  <Icon name="uil:map-marker" class="icon-size-4 text-color-consistent-charcoal" />
+                <div class="flex items-center justify-center w-(--icon-size-2) h-(--icon-size-2) bg-contrast rounded-full shrink-0">
+                  <Icon name="uil:map-marker" class="icon-size-5 text-color-consistent-charcoal" />
                 </div>
                 <div class="min-w-0 flex-1">
                   <h3 class="heading-3 font-bold text-inverse truncate">
@@ -1046,7 +1045,7 @@ onUnmounted(() => {
 
               <div class="px-uniform-6">
                 <div class="flex items-center gap-uniform-4">
-                  <Icon name="uil:users-alt" class="icon-size-4 text-inverse flex-shrink-0" />
+                  <Icon name="uil:users-alt" class="icon-size-5 text-inverse flex-shrink-0" />
                   <p class="text-normal-3 text-inverse">
                     {{ selectedRegion.photographers }}
                   </p>
@@ -1059,13 +1058,13 @@ onUnmounted(() => {
                   class="w-full flex items-center gap-uniform-4 justify-betweentext-color-consistent-charcoal font-semibold"
                 >
                   <p class="truncate">Reservasi</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-4 flex-shrink-0" />
+                  <Icon name="uil:arrow-up-right" class="icon-size-5 flex-shrink-0" />
                 </NuxtLink>
               </Button>
             </div>
 
             <div v-else class="text-center max-sm:py-6 sm:py-8">
-              <Icon name="uil:map" class="icon-size-1 text-inverse mx-auto mb-4" />
+              <Icon name="uil:map" class="icon-size-2 text-inverse mx-auto mb-4" />
               <p class="heading-3 text-inverse mb-2">Jelajahi Area Layanan</p>
               <p class=" text-inverse">
                 Klik pada peta untuk melihat detail layanan di setiap wilayah
@@ -1078,8 +1077,8 @@ onUnmounted(() => {
         <template #content>
           <div class="flex flex-col text-center gap-uniform-6" style="padding: var(--padding-card)">
             <div class="flex max-sm:flex-col sm:flex-row items-center justify-center gap-uniform-4">
-              <div class="flex items-center justify-center w-(--icon-size-2) h-(--icon-size-2) bg-contrast rounded-full shrink-0">
-                <Icon name="uil:map-marker-alt" class="icon-size-4 text-text-contrast" />
+              <div class="flex items-center justify-center w-(--icon-size-3) h-(--icon-size-3) bg-contrast rounded-full shrink-0">
+                <Icon name="uil:map-marker-alt" class="icon-size-5 text-text-contrast" />
               </div>
               <h3 class="heading-2 font-bold text-inverse">
                 Ada Event di Luar Area Layanan?
@@ -1119,7 +1118,7 @@ onUnmounted(() => {
               <div class="flex gap-uniform-5 relative flex-shrink-0">
                 <!-- Magical glow effect -->
                 <div class="absolute inset-0 bg-contrast rounded-full blur-sm opacity-20 animate-pulse"></div>
-                <Icon :name="item.icons[1]" class="icon-size-3 relative z-10" />
+                <Icon :name="item.icons[1]" class="icon-size-4 relative z-10" />
               </div>
               
               <div class="flex flex-col gap-uniform-4 flex-grow">
@@ -1148,8 +1147,8 @@ onUnmounted(() => {
         <Card class="card-elevated h-full" v-for="method in contactMethods" :key="method.title">
           <template #content>
             <div class="flex flex-col gap-uniform-4 text-inverse items-center text-center h-full" style="padding: var(--padding-card)">
-              <div class="flex items-center justify-center w-[var(--icon-size-3)] h-[var(--icon-size-3)] bg-contrast rounded-full shrink-0">
-                <Icon :name="method.icon" class="icon-size-4 text-color-consistent-charcoal" />
+              <div class="flex items-center justify-center w-[var(--icon-size-4)] h-[var(--icon-size-4)] bg-contrast rounded-full shrink-0">
+                <Icon :name="method.icon" class="icon-size-5 text-color-consistent-charcoal" />
               </div>
               
               <div class="flex flex-col gap-uniform-4 flex-grow">
@@ -1171,7 +1170,7 @@ onUnmounted(() => {
                   class="w-full flex items-center gap-uniform-4 justify-between  font-semibold"
                 >
                   <p>{{ method.buttonText }}</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
+                  <Icon name="uil:arrow-up-right" class="icon-size-5" />
                 </a>
               </Button>
             </div>
@@ -1194,10 +1193,10 @@ onUnmounted(() => {
             <div class="flex items-center gap-uniform-4 text-inverse p-uniform-4">
               <!-- Icon -->
               <div
-                class="flex items-center justify-center rounded-full shrink-0 w-[var(--icon-size-2)] h-[var(--icon-size-2)]"
+                class="flex items-center justify-center rounded-full shrink-0 w-[var(--icon-size-3)] h-[var(--icon-size-3)]"
                 :class="platform.iconBgClass"
               >
-                <Icon :name="platform.icon" class="icon-size-4 text-white" />
+                <Icon :name="platform.icon" class="icon-size-5 text-white" />
               </div>
 
               <!-- Info -->
@@ -1219,7 +1218,7 @@ onUnmounted(() => {
                   class="flex items-center gap-2  font-semibold"
                 >
                   <p class="max-sm:hidden">{{ platform.buttonText }}</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-6" />
+                  <Icon name="uil:arrow-up-right" class="icon-size-7" />
                 </a>
               </Button>
             </div>
@@ -1246,7 +1245,7 @@ onUnmounted(() => {
                   class="w-full flex items-center gap-uniform-4 justify-between font-semibold"
                 >
                   <p>Reservasi Sekarang</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
+                  <Icon name="uil:arrow-up-right" class="icon-size-5" />
                 </NuxtLink>
               </Button>
 
@@ -1257,7 +1256,7 @@ onUnmounted(() => {
                   class="w-full flex items-center gap-uniform-4 justify-between  font-semibold"
                 >
                   <p>Lihat Galeri Portfolio</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
+                  <Icon name="uil:arrow-up-right" class="icon-size-5" />
                 </NuxtLink>
               </Button>
 
@@ -1268,7 +1267,7 @@ onUnmounted(() => {
                   class="w-full flex items-center gap-uniform-4 justify-between  font-semibold"
                 >
                   <p>Hitung Harga</p>
-                  <Icon name="uil:arrow-up-right" class="icon-size-4" />
+                  <Icon name="uil:arrow-up-right" class="icon-size-5" />
                 </NuxtLink>
               </Button>
             </div>

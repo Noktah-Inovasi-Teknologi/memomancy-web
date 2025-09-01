@@ -15,11 +15,11 @@ useSeoMeta({
       </InputGroup>
       <div class="flex gap-uniform-4">
         <Button severity="secondary" class="w-full flex items-center gap-uniform-4 justify-between">
-          <Icon name="uil:filter" class="icon-size-4" />
+          <Icon name="uil:filter" class="icon-size-5" />
           <p class="text-nowrap">Filter</p>
         </Button>
         <Button severity="secondary" class="w-full flex items-center gap-uniform-4 justify-between">
-          <Icon name="uil:arrows-v-alt" class="icon-size-4" />
+          <Icon name="uil:arrows-v-alt" class="icon-size-5" />
           <p class="text-nowrap">Urutkan:</p>
         </Button>
       </div>
