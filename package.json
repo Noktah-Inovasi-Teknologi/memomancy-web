@@ -8,7 +8,10 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest --watch"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
@@ -35,12 +38,17 @@
   "devDependencies": {
     "@iconify-json/ic": "^1.2.4",
     "@iconify-json/uil": "^1.2.3",
+    "@nuxt/test-utils": "^3.19.2",
     "@primeuix/themes": "^1.0.3",
     "@primevue/nuxt-module": "4.3.7",
     "@tailwindcss/vite": "^4.1.12",
-    "@types/node": "^22.14.1",
+    "@types/node": "^22.17.2",
+    "@vitest/ui": "^3.2.4",
+    "@vue/test-utils": "^2.4.6",
     "drizzle-kit": "^0.31.0",
+    "happy-dom": "^18.0.1",
     "tailwindcss": "^4.1.12",
+    "vitest": "^3.2.4",
     "wrangler": "^4.10.0"
   }
 }

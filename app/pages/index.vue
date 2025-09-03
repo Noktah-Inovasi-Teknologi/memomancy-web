@@ -28,6 +28,7 @@ import type {
 } from "~/types";
 
 const { $viewport } = useNuxtApp();
+const kindeClient = useKindeClient();
 
 // Media URLs and references
 const videoUrl = ref<string | null>(null);

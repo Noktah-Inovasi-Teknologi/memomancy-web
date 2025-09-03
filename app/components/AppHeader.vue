@@ -1,11 +1,25 @@
 <script lang="ts" setup>
 const { $viewport } = useNuxtApp();
 const route = useRoute();
-const navbarMenu = [
-  { label: "Beranda", to: "/" },
-  { label: "Galeri", to: "/gallery" },
-  { label: "Reservasi", to: "/reservation" },
-];
+
+const kindeClient = useKindeClient();
+const { data: hasAccess } = await useAsyncData(async () => {
+  return (await kindeClient?.getPermission("dashboard")) ?? {};
+});
+
+const navbarMenu = computed(() => {
+  const baseMenu = [
+    { label: "Beranda", to: "/" },
+    { label: "Galeri", to: "/gallery" },
+    { label: "Reservasi", to: "/reservation" },
+  ];
+  
+  if (hasAccess.value?.isGranted) {
+    baseMenu.push({ label: "Dashboard", to: "/dashboard" });
+  }
+  
+  return baseMenu;
+});
 
 const navbarMenuUser = ref();
 const userMenuItems = [

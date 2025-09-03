@@ -11,38 +11,43 @@ export default defineNuxtConfig({
     classSuffix: "",
     fallback: "light",
   },
-  compatibilityDate: "2025-07-15",
+  compatibilityDate: "2024-09-19",
   css: [
     "@/assets/css/main.css",
   ],
   devtools: { enabled: true },
-  hub: {
-    blob: true,
-    database: true,
-  },
+  ...(process.env.NODE_ENV !== 'test' ? {
+    hub: {
+      blob: true,
+      database: true,
+    }
+  } : {}),
   icon: {
     mode: "css",
     cssLayer: "base",
   },
-  kinde: {
-    debug: true,
-    authDomain: process.env.NUXT_KINDE_AUTH_DOMAIN,
-    clientId: process.env.NUXT_KINDE_CLIENT_ID,
-    clientSecret: process.env.NUXT_KINDE_CLIENT_SECRET,
-    redirectURL: process.env.NUXT_KINDE_REDIRECT_URL,
-    logoutRedirectURL: process.env.NUXT_KINDE_LOGOUT_REDIRECT_URL,
-    postLoginRedirectURL: process.env.NUXT_KINDE_POST_LOGIN_REDIRECT_URL,
-    password: process.env.NUXT_KINDE_PASSWORD,
-  },
+  ...(process.env.NODE_ENV !== 'test' ? {
+    kinde: {
+      debug: true,
+      authDomain: process.env.NUXT_KINDE_AUTH_DOMAIN,
+      clientId: process.env.NUXT_KINDE_CLIENT_ID,
+      clientSecret: process.env.NUXT_KINDE_CLIENT_SECRET,
+      redirectURL: process.env.NUXT_KINDE_REDIRECT_URL,
+      logoutRedirectURL: process.env.NUXT_KINDE_LOGOUT_REDIRECT_URL,
+      postLoginRedirectURL: process.env.NUXT_KINDE_POST_LOGIN_REDIRECT_URL,
+      password: process.env.NUXT_KINDE_PASSWORD,
+    }
+  } : {}),
   modules: [
-    "@nuxthub/core",
+    ...(process.env.NODE_ENV !== 'test' ? ["@nuxthub/core"] : []),
     "@nuxt/icon",
     "@nuxtjs/color-mode",
-    "@nuxtjs/kinde",
+    ...(process.env.NODE_ENV !== 'test' ? ["@nuxtjs/kinde"] : []),
     "@primevue/nuxt-module",
     "@pinia/nuxt",
     "@nuxt/fonts",
     "@nuxtjs/robots",
+    "@nuxt/test-utils/module",
     "nuxt-viewport",
   ],
   nitro: {
@@ -50,7 +55,22 @@ export default defineNuxtConfig({
       openAPI: true,
     },
     rollupConfig: {
-      external: ['expo-secure-store']
+      external: ['expo-secure-store'],
+      plugins: process.env.NODE_ENV === 'test' ? [] : undefined
+    },
+    minify: process.env.NODE_ENV === 'test' ? false : undefined
+  },
+  vite: {
+    plugins: [tailwindcss()],
+    test: {
+      environment: 'happy-dom',
+      globals: true
+    },
+    build: {
+      minify: process.env.NODE_ENV === 'test' ? false : 'terser',
+      rollupOptions: {
+        plugins: process.env.NODE_ENV === 'test' ? [] : undefined
+      }
     }
   },
   primevue: {
@@ -69,36 +89,32 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    // "/**": {
-    //   appMiddleware: ["auth-logged-in"],
-    //   kinde: {
-    //     redirectUrl: "/api/login",
-    //     external: true,
-    //   },
-    // },
     "/": {
       kinde: {
         public: true,
       },
     },
     "/calculator": {
+      appMiddleware: ['auth-logged-in'],
       kinde: {
         public: true,
       },
     },
     "/dashboard": {
+      appMiddleware: ['auth-logged-in'],
       kinde: {
         permissions: { dashboard: true },
         redirectUrl: "/api/login",
-        external: true,
       },
     },
     "/gallery": {
+      appMiddleware: ['auth-logged-in'],
       kinde: {
         public: true,
       },
     },
     "/reservation": {
+      appMiddleware: ['auth-logged-in'],
       kinde: {
         public: true,
       },
@@ -122,8 +138,5 @@ export default defineNuxtConfig({
       xl: 1280,
       "2xl": 1536,
     },
-  },
-  vite: {
-    plugins: [tailwindcss()],
   },
 });
