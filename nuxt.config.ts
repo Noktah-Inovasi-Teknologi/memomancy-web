@@ -33,7 +33,6 @@ export default defineNuxtConfig({
     }
   } : {}),
   modules: [
-    ...(process.env.NODE_ENV !== 'test' ? ["@nuxthub/core"] : []),
     "@nuxt/icon",
     "@nuxtjs/color-mode",
     ...(process.env.NODE_ENV !== 'test' ? ["@nuxtjs/kinde"] : []),
@@ -61,10 +60,6 @@ export default defineNuxtConfig({
   },
   vite: {
     plugins: [tailwindcss()],
-    test: {
-      environment: 'happy-dom',
-      globals: true
-    },
     build: {
       minify: process.env.NODE_ENV === 'test' ? false : 'terser',
       rollupOptions: {

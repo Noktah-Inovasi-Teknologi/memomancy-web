@@ -532,49 +532,49 @@ const startCategoryAnimation = () => {
 };
 
 // Lifecycle hooks
-onBeforeMount(async () => {
-  // Only load media on client side
-  if (!import.meta.client) return;
+// onBeforeMount(async () => {
+//   // Only load media on client side
+//   if (!import.meta.client) return;
 
-  try {
-    image_thumbnail.value = await $fetch(`/api/media`, {
-      query: {
-        id: "images/image_thumbnail.jpg",
-      },
-    });
-    if (image_thumbnail.value) {
-      handleImageBlob(image_thumbnail.value);
-    }
-  } catch (error) {
-    imageUrl.value = null;
-  }
-});
+//   try {
+//     image_thumbnail.value = await $fetch(`/api/media`, {
+//       query: {
+//         id: "images/image_thumbnail.jpg",
+//       },
+//     });
+//     if (image_thumbnail.value) {
+//       handleImageBlob(image_thumbnail.value);
+//     }
+//   } catch (error) {
+//     imageUrl.value = null;
+//   }
+// });
 
 onMounted(async () => {
-  nextTick(() => {
-    calculateMinZoom();
-  });
+  // nextTick(() => {
+  //   calculateMinZoom();
+  // });
 
-  window.addEventListener("resize", calculateMinZoom);
+  // window.addEventListener("resize", calculateMinZoom);
 
-  // Start category animation
-  startCategoryAnimation();
+  // // Start category animation
+  // startCategoryAnimation();
 
-  // Only load media on client side
-  if (!import.meta.client) return;
+  // // Only load media on client side
+  // if (!import.meta.client) return;
 
-  try {
-    video_thumbnail.value = await $fetch(`/api/media`, {
-      query: {
-        id: "videos/video_thumbnail.mp4",
-      },
-    });
-    if (video_thumbnail.value) {
-      handleVideoBlob(video_thumbnail.value);
-    }
-  } catch (error) {
-    videoUrl.value = null;
-  }
+  // try {
+  //   video_thumbnail.value = await $fetch(`/api/media`, {
+  //     query: {
+  //       id: "videos/video_thumbnail.mp4",
+  //     },
+  //   });
+  //   if (video_thumbnail.value) {
+  //     handleVideoBlob(video_thumbnail.value);
+  //   }
+  // } catch (error) {
+  //   videoUrl.value = null;
+  // }
 });
 
 onUnmounted(() => {
