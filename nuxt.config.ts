@@ -16,12 +16,6 @@ export default defineNuxtConfig({
     "@/assets/css/main.css",
   ],
   devtools: { enabled: true },
-  ...(process.env.NODE_ENV !== 'test' ? {
-    hub: {
-      blob: true,
-      database: true,
-    }
-  } : {}),
   icon: {
     mode: "css",
     cssLayer: "base",
@@ -58,7 +52,12 @@ export default defineNuxtConfig({
       external: ['expo-secure-store'],
       plugins: process.env.NODE_ENV === 'test' ? [] : undefined
     },
-    minify: process.env.NODE_ENV === 'test' ? false : undefined
+    minify: process.env.NODE_ENV === 'test' ? false : undefined,
+    preset: 'cloudflare-module',
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true,
+    }
   },
   vite: {
     plugins: [tailwindcss()],
