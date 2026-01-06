@@ -80,9 +80,9 @@
   font-size: --value(--text-heading-*);
 }
 
-@utility text-normal-* {
+@utility normal-* {
   font-weight: 400;
-  font-size: --value(--font-size-normal-*);
+  font-size: --value(--text-normal-*);
 }
 
 @utility han-downed {

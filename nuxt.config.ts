@@ -2,6 +2,8 @@ import {
   useMemomancyTheme,
   useMemomancyPassthrough,
 } from "./app/composables/usePrimeVueTheme";
+import Aura from "@primeuix/themes/aura";
+
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
@@ -12,30 +14,30 @@ export default defineNuxtConfig({
     fallback: "light",
   },
   compatibilityDate: "2024-09-19",
-  css: [
-    "@/assets/css/main.css",
-  ],
+  css: ["@/assets/css/main.css"],
   devtools: { enabled: true },
   icon: {
     mode: "css",
     cssLayer: "base",
   },
-  ...(process.env.NODE_ENV !== 'test' ? {
-    kinde: {
-      debug: true,
-      authDomain: process.env.NUXT_KINDE_AUTH_DOMAIN,
-      clientId: process.env.NUXT_KINDE_CLIENT_ID,
-      clientSecret: process.env.NUXT_KINDE_CLIENT_SECRET,
-      redirectURL: process.env.NUXT_KINDE_REDIRECT_URL,
-      logoutRedirectURL: process.env.NUXT_KINDE_LOGOUT_REDIRECT_URL,
-      postLoginRedirectURL: process.env.NUXT_KINDE_POST_LOGIN_REDIRECT_URL,
-      password: process.env.NUXT_KINDE_PASSWORD,
-    }
-  } : {}),
+  ...(process.env.NODE_ENV !== "test"
+    ? {
+        kinde: {
+          debug: true,
+          authDomain: process.env.NUXT_KINDE_AUTH_DOMAIN,
+          clientId: process.env.NUXT_KINDE_CLIENT_ID,
+          clientSecret: process.env.NUXT_KINDE_CLIENT_SECRET,
+          redirectURL: process.env.NUXT_KINDE_REDIRECT_URL,
+          logoutRedirectURL: process.env.NUXT_KINDE_LOGOUT_REDIRECT_URL,
+          postLoginRedirectURL: process.env.NUXT_KINDE_POST_LOGIN_REDIRECT_URL,
+          password: process.env.NUXT_KINDE_PASSWORD,
+        },
+      }
+    : {}),
   modules: [
     "@nuxt/icon",
     "@nuxtjs/color-mode",
-    ...(process.env.NODE_ENV !== 'test' ? ["@nuxtjs/kinde"] : []),
+    ...(process.env.NODE_ENV !== "test" ? ["@nuxtjs/kinde"] : []),
     "@primevue/nuxt-module",
     "@pinia/nuxt",
     "@nuxt/fonts",
@@ -48,40 +50,47 @@ export default defineNuxtConfig({
       openAPI: true,
     },
     rollupConfig: {
-      external: ['expo-secure-store'],
-      plugins: process.env.NODE_ENV === 'test' ? [] : undefined
+      external: ["expo-secure-store"],
+      plugins: process.env.NODE_ENV === "test" ? [] : undefined,
     },
-    minify: process.env.NODE_ENV === 'test' ? false : undefined,
-    preset: 'cloudflare-module',
+    minify: process.env.NODE_ENV === "test" ? false : undefined,
+    preset: "cloudflare-module",
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
-    }
+    },
   },
   vite: {
     plugins: [tailwindcss()],
     build: {
-      minify: process.env.NODE_ENV === 'test' ? false : 'terser',
+      minify: process.env.NODE_ENV === "test" ? false : "terser",
       rollupOptions: {
-        plugins: process.env.NODE_ENV === 'test' ? [] : undefined
-      }
-    }
-  },
-  primevue: {
-    options: {
-      ripple: true,
-      theme: {
-        options: {
-          cssLayer: {
-            name: 'primevue',
-            order: 'theme, base, primevue'
-          }
-        },
-        preset: "Aura",
+        plugins: process.env.NODE_ENV === "test" ? [] : undefined,
       },
-      pt: useMemomancyPassthrough(),
     },
   },
+  primevue: {
+    importTheme: {
+      from: "@/theme.ts",
+    },
+  },
+  // primevue: {
+  //   options: {
+  //     ripple: true,
+  //     // theme: {
+  //     //   options: {
+  //     //     cssLayer: false,
+  //     //     darkModeSelector: false,
+  //     //     // cssLayer: {
+  //     //     //   name: 'primevue',
+  //     //     //   order: 'theme, base, primevue'
+  //     //     // }
+  //     //   },
+  //     //   preset: Aura,
+  //     // },
+  //     // pt: useMemomancyPassthrough(),
+  //   },
+  // },
   routeRules: {
     "/": {
       kinde: {
@@ -89,26 +98,26 @@ export default defineNuxtConfig({
       },
     },
     "/calculator": {
-      appMiddleware: ['auth-logged-in'],
+      appMiddleware: ["auth-logged-in"],
       kinde: {
         public: true,
       },
     },
     "/dashboard": {
-      appMiddleware: ['auth-logged-in'],
+      appMiddleware: ["auth-logged-in"],
       kinde: {
         permissions: { dashboard: true },
         redirectUrl: "/api/login",
       },
     },
     "/gallery": {
-      appMiddleware: ['auth-logged-in'],
+      appMiddleware: ["auth-logged-in"],
       kinde: {
         public: true,
       },
     },
     "/reservation": {
-      appMiddleware: ['auth-logged-in'],
+      appMiddleware: ["auth-logged-in"],
       kinde: {
         public: true,
       },
@@ -120,6 +129,11 @@ export default defineNuxtConfig({
       siteUrl: "https://memomancy.com",
       siteTitle: "Memomancy",
     },
+    // Private runtime config (server-side only)
+    r2Endpoint: process.env.NUXT_R2_ENDPOINT || "",
+    r2AccessKeyId: process.env.NUXT_R2_ACCESS_KEY_ID || "",
+    r2SecretAccessKey: process.env.NUXT_R2_SECRET_ACCESS_KEY || "",
+    r2BucketName: process.env.NUXT_R2_BUCKET_NAME || "",
     adminList: process.env.MEMOMANCY_ADMIN_LIST,
   },
   viewport: {
