@@ -15,6 +15,10 @@ export default defineEventHandler(async (event) => {
 
   // Check if R2 is configured
   if (!config.r2Endpoint || !config.r2AccessKeyId) {
+    console.error("R2 not configured:", {
+      hasEndpoint: !!config.r2Endpoint,
+      hasAccessKey: !!config.r2AccessKeyId,
+    });
     throw createError({
       statusCode: 500,
       message: "R2 storage is not configured",
@@ -40,15 +44,30 @@ export default defineEventHandler(async (event) => {
       setHeader(event, "Content-Length", response.ContentLength.toString());
     }
 
-    // Stream the file
-    const stream = response.Body as ReadableStream;
-    return stream;
+    // Convert the body to a buffer and return it
+    // This works better with Cloudflare Workers/Nitro
+    const chunks: Uint8Array[] = [];
+    const stream = response.Body;
+
+    if (stream) {
+      // @ts-ignore - AWS SDK stream types
+      for await (const chunk of stream) {
+        chunks.push(chunk);
+      }
+    }
+
+    const buffer = Buffer.concat(chunks);
+    return buffer;
   } catch (error: any) {
-    console.error("Error fetching from R2:", error);
+    console.error("Error fetching from R2:", {
+      path,
+      error: error.message,
+      stack: error.stack,
+    });
 
     throw createError({
-      statusCode: 404,
-      message: `File not found: ${path}`,
+      statusCode: 500,
+      message: `Error loading media: ${error.message}`,
     });
   }
 });
