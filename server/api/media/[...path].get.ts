@@ -1,7 +1,6 @@
 /**
- * API endpoint to serve media files
- * - In development: Serves from /public folder (handled by Nuxt)
- * - In production: Fetches from R2 and streams to client
+ * API endpoint to serve media files from R2
+ * Fetches files from R2 and streams to client
  */
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
@@ -14,20 +13,22 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // In development (no R2 configured), let Nuxt serve from /public
+  // Check if R2 is configured
   if (!config.r2Endpoint || !config.r2AccessKeyId) {
-    // Redirect to public folder - Nuxt will handle it
-    return sendRedirect(event, `/${path}`, 302);
+    throw createError({
+      statusCode: 500,
+      message: "R2 storage is not configured",
+    });
   }
 
   try {
-    // Fetch from R2 in production
+    // Fetch from R2
     const response = await getFromR2(path);
 
     if (!response.Body) {
       throw createError({
         statusCode: 404,
-        message: "File not found",
+        message: "File not found in R2",
       });
     }
 
@@ -45,14 +46,9 @@ export default defineEventHandler(async (event) => {
   } catch (error: any) {
     console.error("Error fetching from R2:", error);
 
-    // If R2 fails, try to fallback to public folder
-    if (process.env.NODE_ENV === "development") {
-      return sendRedirect(event, `/${path}`, 302);
-    }
-
     throw createError({
       statusCode: 404,
-      message: "File not found",
+      message: `File not found: ${path}`,
     });
   }
 });

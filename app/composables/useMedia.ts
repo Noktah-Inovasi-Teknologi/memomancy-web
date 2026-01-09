@@ -1,7 +1,6 @@
 /**
- * Composable for managing media URLs across environments
- * - In development: Uses local /public folder directly
- * - In production: Uses API endpoint that fetches from R2
+ * Composable for managing media URLs
+ * Always uses API endpoint that fetches from R2 in both dev and production
  */
 export function useMedia() {
   /**
@@ -13,9 +12,7 @@ export function useMedia() {
   const getMediaUrl = (filename: string, folder?: string): string => {
     const path = folder ? `${folder}/${filename}` : filename;
 
-    // Always use API endpoint - it handles both dev and prod
-    // In dev: API redirects to /public folder
-    // In prod: API fetches from R2 and streams
+    // Always use API endpoint to fetch from R2
     return `/api/media/${path}`;
   };
 
