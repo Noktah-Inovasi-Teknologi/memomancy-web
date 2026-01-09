@@ -40,21 +40,12 @@ const servicePoints = [
   },
 ];
 
-const config = useRuntimeConfig();
-
-const getMediaUrl = (filename: string) => {
-  // If R2 base URL is configured (production), use it
-  if (config.public.r2BaseUrl) {
-    return `${config.public.r2BaseUrl}/${filename}`;
-  }
-  // Otherwise use local public folder (development)
-  return `/videos/${filename}`;
-};
+const { getVideoUrl } = useMedia();
 
 const galleryItems = [
-  { type: "video", src: getMediaUrl("Tia.mp4"), label: "Featured Photography" },
-  { type: "video", src: getMediaUrl("Rizvi.mp4"), label: "Featured Videography" },
-  { type: "video", src: getMediaUrl("Tia.mp4"), label: "Recent Work" },
+  { type: "video", src: getVideoUrl("Tia.mp4"), label: "Featured Photography" },
+  { type: "video", src: getVideoUrl("Rizvi.mp4"), label: "Featured Videography" },
+  { type: "video", src: getVideoUrl("Tia.mp4"), label: "Recent Work" },
 ];
 
 const faqItems = [
@@ -110,7 +101,7 @@ useParallax();
   <div class="flex flex-col gap-uniform-3 bg-charcoal" id="hero" data-parallax>
     <div class="aspect-[9/16] md:aspect-[16/9] relative overflow-hidden">
       <video
-        :src="getMediaUrl('Tia.mp4')"
+        :src="getVideoUrl('Tia.mp4')"
         class="w-full h-full object-cover"
         autoplay
         muted

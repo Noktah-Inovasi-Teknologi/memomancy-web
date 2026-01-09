@@ -130,10 +130,12 @@ export default defineNuxtConfig({
       siteTitle: "Memomancy",
     },
     // Private runtime config (server-side only)
-    r2Endpoint: process.env.NUXT_R2_ENDPOINT || "",
-    r2AccessKeyId: process.env.NUXT_R2_ACCESS_KEY_ID || "",
-    r2SecretAccessKey: process.env.NUXT_R2_SECRET_ACCESS_KEY || "",
-    r2BucketName: process.env.NUXT_R2_BUCKET_NAME || "",
+    // R2 credentials - if set, media will be served from R2 via S3 API
+    // If not set, media will be served from /public folder
+    r2Endpoint: process.env.CLOUDFLARE_R2_S3 || "",
+    r2AccessKeyId: process.env.CLOUDFLARE_R2_ACCESS_KEY_ID || "",
+    r2SecretAccessKey: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY || "",
+    r2BucketName: process.env.CLOUDFLARE_R2_BUCKET_NAME || "memomancy",
     adminList: process.env.MEMOMANCY_ADMIN_LIST,
   },
   viewport: {
