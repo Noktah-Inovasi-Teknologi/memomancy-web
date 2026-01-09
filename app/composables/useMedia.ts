@@ -1,11 +1,9 @@
 /**
  * Composable for managing media URLs across environments
- * - In development: Uses local /public folder
+ * - In development: Uses local /public folder directly
  * - In production: Uses API endpoint that fetches from R2
  */
 export function useMedia() {
-  const config = useRuntimeConfig();
-
   /**
    * Get the full URL for a media file
    * @param filename - The filename (e.g., "Tia.mp4")
@@ -15,14 +13,10 @@ export function useMedia() {
   const getMediaUrl = (filename: string, folder?: string): string => {
     const path = folder ? `${folder}/${filename}` : filename;
 
-    // If R2 is configured, use the API endpoint
-    // The API will fetch from R2 in production or redirect to /public in dev
-    if (config.r2Endpoint || import.meta.env.PROD) {
-      return `/api/media/${path}`;
-    }
-
-    // Direct path to public folder for development
-    return `/${path}`;
+    // Always use API endpoint - it handles both dev and prod
+    // In dev: API redirects to /public folder
+    // In prod: API fetches from R2 and streams
+    return `/api/media/${path}`;
   };
 
   /**
@@ -42,14 +36,14 @@ export function useMedia() {
   };
 
   /**
-   * Check if we're using R2 (production) or local files (development)
+   * Check if we're in production mode
    */
-  const isUsingR2 = computed(() => !!config.r2Endpoint);
+  const isProduction = computed(() => import.meta.env.PROD);
 
   return {
     getMediaUrl,
     getVideoUrl,
     getImageUrl,
-    isUsingR2,
+    isProduction,
   };
 }
