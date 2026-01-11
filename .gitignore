@@ -137,6 +137,9 @@ dist
 
 .data
 
+# Wrangler configuration
+wrangler.toml
+
 # Video files
 *.mp4
 *.avi

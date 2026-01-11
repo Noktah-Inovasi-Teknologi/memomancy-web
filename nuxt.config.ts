@@ -44,6 +44,7 @@ export default defineNuxtConfig({
     "@nuxtjs/robots",
     "@nuxt/test-utils/module",
     "nuxt-viewport",
+    "nitro-cloudflare-dev",
   ],
   nitro: {
     experimental: {
