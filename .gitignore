@@ -153,3 +153,5 @@ wrangler.toml
 *.ogv
 
 .vscode/settings.json
+
+.sqlite

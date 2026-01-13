@@ -1,9 +1,8 @@
 /**
  * API endpoint to serve media files from R2
- * Fetches files from R2 and streams to client
+ * Uses Cloudflare R2 binding instead of AWS SDK
  */
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
   const path = getRouterParam(event, "path");
 
   console.log("=== Media Request Start ===");
@@ -17,81 +16,68 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // Check if R2 is configured
-  console.log("R2 Configuration check:", {
-    hasEndpoint: !!config.r2Endpoint,
-    endpoint: config.r2Endpoint?.substring(0, 30) + "...",
-    hasAccessKey: !!config.r2AccessKeyId,
-    accessKey: config.r2AccessKeyId?.substring(0, 10) + "...",
-    hasSecretKey: !!config.r2SecretAccessKey,
-    bucketName: config.r2BucketName,
-  });
-
-  if (!config.r2Endpoint || !config.r2AccessKeyId) {
-    console.error("R2 not configured properly");
-    throw createError({
-      statusCode: 500,
-      message: "R2 storage is not configured",
-    });
-  }
-
   try {
-    console.log("Attempting to fetch from R2:", path);
-    // Fetch from R2
-    const response = await getFromR2(path);
-    console.log("R2 response received:", {
-      hasBody: !!response.Body,
-      contentType: response.ContentType,
-      contentLength: response.ContentLength,
-    });
+    // Access the R2 binding from Cloudflare context
+    const r2 = event.context.cloudflare?.env?.R2;
 
-    if (!response.Body) {
+    if (!r2) {
+      console.error("R2 binding not found");
       throw createError({
-        statusCode: 404,
-        message: "File not found in R2",
+        statusCode: 500,
+        message: "R2 storage is not configured. Make sure R2 binding is set in wrangler.toml",
       });
     }
 
+    console.log("Attempting to fetch from R2:", path);
+
+    // Get the object from R2
+    const object = await r2.get(path);
+
+    if (!object) {
+      console.error("Object not found:", path);
+      throw createError({
+        statusCode: 404,
+        message: `File not found: ${path}`,
+      });
+    }
+
+    console.log("R2 object retrieved:", {
+      key: object.key,
+      size: object.size,
+      httpEtag: object.httpEtag,
+    });
+
+    // Determine content type based on file extension
+    const ext = path.split(".").pop()?.toLowerCase();
+    const contentTypeMap: Record<string, string> = {
+      mp4: "video/mp4",
+      webm: "video/webm",
+      jpg: "image/jpeg",
+      jpeg: "image/jpeg",
+      png: "image/png",
+      gif: "image/gif",
+    };
+    const contentType = contentTypeMap[ext || ""] || "application/octet-stream";
+
     // Set appropriate headers
-    setHeader(event, "Content-Type", response.ContentType || "application/octet-stream");
+    setHeader(event, "Content-Type", contentType);
     setHeader(event, "Cache-Control", "public, max-age=31536000, immutable");
+    setHeader(event, "Content-Length", object.size.toString());
+    setHeader(event, "ETag", object.httpEtag);
 
-    if (response.ContentLength) {
-      setHeader(event, "Content-Length", response.ContentLength.toString());
-    }
-
-    // Convert the body to a buffer and return it
-    // This works better with Cloudflare Workers/Nitro
-    console.log("Converting stream to buffer...");
-    const chunks: Uint8Array[] = [];
-    const stream = response.Body;
-
-    if (stream) {
-      let chunkCount = 0;
-      // @ts-ignore - AWS SDK stream types
-      for await (const chunk of stream) {
-        chunks.push(chunk);
-        chunkCount++;
-        if (chunkCount % 100 === 0) {
-          console.log(`Processed ${chunkCount} chunks`);
-        }
-      }
-      console.log(`Total chunks processed: ${chunkCount}`);
-    }
-
-    console.log("Concatenating buffer...");
-    const buffer = Buffer.concat(chunks);
-    console.log("Buffer size:", buffer.length);
+    // Return the body as array buffer
+    console.log("Streaming R2 object...");
+    const arrayBuffer = await object.arrayBuffer();
     console.log("=== Media Request Success ===");
-    return buffer;
+
+    return arrayBuffer;
   } catch (error: any) {
     console.error("=== Media Request Failed ===");
     console.error("Error fetching from R2:", {
       path,
       errorName: error.name,
       errorMessage: error.message,
-      errorCode: error.code,
-      stack: error.stack?.split('\n').slice(0, 5).join('\n'),
+      stack: error.stack?.split("\n").slice(0, 5).join("\n"),
     });
 
     throw createError({
