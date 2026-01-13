@@ -65,12 +65,11 @@ export default defineEventHandler(async (event) => {
     setHeader(event, "Content-Length", object.size.toString());
     setHeader(event, "ETag", object.httpEtag);
 
-    // Return the body as array buffer
+    // Stream the body directly - DO NOT use arrayBuffer() for large files
     console.log("Streaming R2 object...");
-    const arrayBuffer = await object.arrayBuffer();
     console.log("=== Media Request Success ===");
 
-    return arrayBuffer;
+    return object.body;
   } catch (error: any) {
     console.error("=== Media Request Failed ===");
     console.error("Error fetching from R2:", {
