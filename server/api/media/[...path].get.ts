@@ -1,6 +1,6 @@
 /**
  * API endpoint to serve media files from R2
- * Uses Cloudflare R2 binding instead of AWS SDK
+ * Supports HTTP Range requests for video streaming
  */
 export default defineEventHandler(async (event) => {
   const path = getRouterParam(event, "path");
@@ -28,17 +28,56 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    console.log("Attempting to fetch from R2:", path);
+    // Check for Range header (needed for video streaming)
+    const rangeHeader = getHeader(event, "range");
+    console.log("Range header:", rangeHeader);
 
-    // Get the object from R2
-    const object = await r2.get(path);
+    let object;
 
-    if (!object) {
-      console.error("Object not found:", path);
-      throw createError({
-        statusCode: 404,
-        message: `File not found: ${path}`,
+    if (rangeHeader) {
+      // Parse range header: "bytes=start-end"
+      const parts = rangeHeader.replace(/bytes=/, "").split("-");
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : undefined;
+
+      console.log("Range request:", { start, end });
+
+      // Get object with range
+      object = await r2.get(path, {
+        range: end !== undefined
+          ? { offset: start, length: end - start + 1 }
+          : { offset: start }
       });
+
+      if (!object) {
+        throw createError({
+          statusCode: 404,
+          message: `File not found: ${path}`,
+        });
+      }
+
+      // Set 206 Partial Content status
+      setResponseStatus(event, 206);
+
+      // Calculate content range
+      const rangeEnd = end !== undefined ? end : object.size - 1;
+      const contentLength = rangeEnd - start + 1;
+
+      setHeader(event, "Content-Range", `bytes ${start}-${rangeEnd}/${object.size}`);
+      setHeader(event, "Content-Length", contentLength.toString());
+    } else {
+      // Normal request without range
+      console.log("Full file request");
+      object = await r2.get(path);
+
+      if (!object) {
+        throw createError({
+          statusCode: 404,
+          message: `File not found: ${path}`,
+        });
+      }
+
+      setHeader(event, "Content-Length", object.size.toString());
     }
 
     console.log("R2 object retrieved:", {
@@ -59,16 +98,14 @@ export default defineEventHandler(async (event) => {
     };
     const contentType = contentTypeMap[ext || ""] || "application/octet-stream";
 
-    // Set appropriate headers
+    // Set common headers
     setHeader(event, "Content-Type", contentType);
+    setHeader(event, "Accept-Ranges", "bytes");
     setHeader(event, "Cache-Control", "public, max-age=31536000, immutable");
-    setHeader(event, "Content-Length", object.size.toString());
     setHeader(event, "ETag", object.httpEtag);
 
-    // Stream the body directly - DO NOT use arrayBuffer() for large files
-    console.log("Streaming R2 object...");
+    // Stream the body
     console.log("=== Media Request Success ===");
-
     return object.body;
   } catch (error: any) {
     console.error("=== Media Request Failed ===");
