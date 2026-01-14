@@ -1,15 +1,16 @@
+import { readFile, stat } from 'fs/promises';
+import { join } from 'path';
+import { createReadStream } from 'fs';
+
 /**
- * API endpoint to serve media files from R2
- * Supports HTTP Range requests for video streaming
+ * API endpoint to serve media files
+ * - Production: Serves from R2 with range support for video streaming
+ * - Development: Serves from /public folder
  */
 export default defineEventHandler(async (event) => {
   const path = getRouterParam(event, "path");
 
-  console.log("=== Media Request Start ===");
-  console.log("Path requested:", path);
-
   if (!path) {
-    console.error("No path provided");
     throw createError({
       statusCode: 400,
       message: "File path is required",
@@ -17,21 +18,89 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    // Access the R2 binding from Cloudflare context
+    // Check if we're in development mode
+    const isDev = process.env.NODE_ENV === 'development' || !process.env.CLOUDFLARE_ACCOUNT_ID;
+
+    if (isDev) {
+      // Development mode: Serve from public folder
+      const publicPath = join(process.cwd(), 'public', path);
+
+      try {
+        const stats = await stat(publicPath);
+
+        if (!stats.isFile()) {
+          throw createError({
+            statusCode: 404,
+            message: `File not found: ${path}`,
+          });
+        }
+
+        // Determine content type based on file extension
+        const ext = path.split(".").pop()?.toLowerCase();
+        const contentTypeMap: Record<string, string> = {
+          mp4: "video/mp4",
+          webm: "video/webm",
+          jpg: "image/jpeg",
+          jpeg: "image/jpeg",
+          png: "image/png",
+          gif: "image/gif",
+        };
+        const contentType = contentTypeMap[ext || ""] || "application/octet-stream";
+
+        // Check for Range header (needed for video streaming)
+        const rangeHeader = getHeader(event, "range");
+
+        if (rangeHeader) {
+          // Parse range header: "bytes=start-end"
+          const parts = rangeHeader.replace(/bytes=/, "").split("-");
+          const start = parseInt(parts[0], 10);
+          const end = parts[1] ? parseInt(parts[1], 10) : stats.size - 1;
+          const contentLength = end - start + 1;
+
+          // Set 206 Partial Content status
+          setResponseStatus(event, 206);
+          setHeader(event, "Content-Range", `bytes ${start}-${end}/${stats.size}`);
+          setHeader(event, "Content-Length", contentLength.toString());
+          setHeader(event, "Content-Type", contentType);
+          setHeader(event, "Accept-Ranges", "bytes");
+          setHeader(event, "Cache-Control", "public, max-age=31536000, immutable");
+
+          // Read and return the file chunk
+          const fileBuffer = await readFile(publicPath);
+          return fileBuffer.slice(start, end + 1);
+        } else {
+          // Full file request
+          setHeader(event, "Content-Type", contentType);
+          setHeader(event, "Content-Length", stats.size.toString());
+          setHeader(event, "Accept-Ranges", "bytes");
+          setHeader(event, "Cache-Control", "public, max-age=31536000, immutable");
+
+          const fileBuffer = await readFile(publicPath);
+          return fileBuffer;
+        }
+      } catch (error: any) {
+        if (error.code === 'ENOENT') {
+          throw createError({
+            statusCode: 404,
+            message: `File not found: ${path}`,
+          });
+        }
+        throw error;
+      }
+    }
+
+    // Production mode: Serve from R2
     const r2 = event.context.cloudflare?.env?.R2;
 
     if (!r2) {
-      console.error("R2 binding not found");
       throw createError({
         statusCode: 500,
-        message: "R2 storage is not configured. Make sure R2 binding is set in wrangler.toml",
+        message: "R2 storage is not configured",
       });
     }
 
     // Check for Range header (needed for video streaming)
     const rangeHeader = getHeader(event, "range");
-    console.log("Range header:", rangeHeader);
-
     let object;
 
     if (rangeHeader) {
@@ -39,8 +108,6 @@ export default defineEventHandler(async (event) => {
       const parts = rangeHeader.replace(/bytes=/, "").split("-");
       const start = parseInt(parts[0], 10);
       const end = parts[1] ? parseInt(parts[1], 10) : undefined;
-
-      console.log("Range request:", { start, end });
 
       // Get object with range
       object = await r2.get(path, {
@@ -67,7 +134,6 @@ export default defineEventHandler(async (event) => {
       setHeader(event, "Content-Length", contentLength.toString());
     } else {
       // Normal request without range
-      console.log("Full file request");
       object = await r2.get(path);
 
       if (!object) {
@@ -79,12 +145,6 @@ export default defineEventHandler(async (event) => {
 
       setHeader(event, "Content-Length", object.size.toString());
     }
-
-    console.log("R2 object retrieved:", {
-      key: object.key,
-      size: object.size,
-      httpEtag: object.httpEtag,
-    });
 
     // Determine content type based on file extension
     const ext = path.split(".").pop()?.toLowerCase();
@@ -105,17 +165,8 @@ export default defineEventHandler(async (event) => {
     setHeader(event, "ETag", object.httpEtag);
 
     // Stream the body
-    console.log("=== Media Request Success ===");
     return object.body;
   } catch (error: any) {
-    console.error("=== Media Request Failed ===");
-    console.error("Error fetching from R2:", {
-      path,
-      errorName: error.name,
-      errorMessage: error.message,
-      stack: error.stack?.split("\n").slice(0, 5).join("\n"),
-    });
-
     throw createError({
       statusCode: 500,
       message: `Error loading media: ${error.message}`,

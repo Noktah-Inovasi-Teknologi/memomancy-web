@@ -1,6 +1,7 @@
 /**
  * Composable for managing media URLs
- * Always uses API endpoint that fetches from R2 in both dev and production
+ * - Production: API endpoint fetches from R2
+ * - Development: API endpoint fetches from /public folder
  */
 export function useMedia() {
   /**
@@ -12,13 +13,13 @@ export function useMedia() {
   const getMediaUrl = (filename: string, folder?: string): string => {
     const path = folder ? `${folder}/${filename}` : filename;
 
-    // Always use API endpoint to fetch from R2
+    // Always use API endpoint (auto-detects R2 or local /public folder)
     return `/api/media/${path}`;
   };
 
   /**
    * Get URL for a video file
-   * Assumes videos are stored in /videos folder locally and R2
+   * Assumes videos are stored in /public/videos folder locally and R2 in production
    */
   const getVideoUrl = (filename: string): string => {
     return getMediaUrl(filename, "videos");
@@ -26,7 +27,7 @@ export function useMedia() {
 
   /**
    * Get URL for an image file
-   * Assumes images are stored in /images folder locally and R2
+   * Assumes images are stored in /public/images folder locally and R2 in production
    */
   const getImageUrl = (filename: string): string => {
     return getMediaUrl(filename, "images");
