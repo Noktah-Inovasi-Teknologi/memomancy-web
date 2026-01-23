@@ -74,7 +74,6 @@ const footerMenu2 = [
               class="flex items-center"
             >
               <NuxtLink
-                v-ripple
                 :to="item.to"
                 :href="item.href"
                 class="px-uniform-4 py-uniform-6 rounded-full transition-colors duration-200 hover:bg-[var(--color-secondary-hover)] hover:text-[var(--color-text-secondary)] text-normal-3"
@@ -91,7 +90,6 @@ const footerMenu2 = [
               class="flex items-center"
             >
               <a
-                v-ripple
                 :href="item.href"
                 target="_blank"
                 rel="noopener noreferrer"

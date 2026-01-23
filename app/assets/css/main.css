@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "tailwindcss-primeui";
+@import "@nuxt/ui";
 
 /* @import "./utilities.css";
 @import "./typography.css";
@@ -160,4 +160,13 @@
   --shadow-memomancy: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   --shadow-memomancy-elevated: 0 2px 8px rgb(0 0 0 / 0.08);
   --shadow-memomancy-elevated-hover: 0 4px 16px rgb(0 0 0 / 0.12); */
+}
+
+:root {
+  --ui-text: var(--color-charcoal);
+  --ui-text-muted: var(--color-charcoal);
+  --ui-text-dimmed: var(--color-charcoal);
+  --ui-text-highlighted: var(--color-charcoal);
+  --ui-bg: transparent;
+  --ui-bg-elevated: transparent;
 }
