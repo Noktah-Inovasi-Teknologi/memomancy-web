@@ -45,6 +45,20 @@ export default defineNuxtConfig({
       deployConfig: true,
       nodeCompat: true,
     },
+    externals: {
+      inline: ["@kinde/js-utils"],
+    },
+    rollupConfig: {
+      external: ["expo-secure-store"],
+      output: {
+        globals: {
+          "expo-secure-store": "{}",
+        },
+      },
+    },
+    alias: {
+      "expo-secure-store": "unenv/runtime/mock/empty",
+    },
   },
   routeRules: {
     "/": {
