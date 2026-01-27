@@ -73,7 +73,6 @@ export default defineNuxtConfig({
       },
     },
     "/gallery": {
-      appMiddleware: ["auth-logged-in"],
       kinde: {
         public: true,
       },

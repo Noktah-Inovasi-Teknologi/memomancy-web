@@ -17,41 +17,33 @@ const handleClick = () => {
   <div
     @click="handleClick"
     :class="[
-      'overflow-hidden rounded-[2rem] w-full cursor-pointer transition-transform hover:scale-105',
-      media.type === 'image' && 'aspect-square',
+      'overflow-hidden rounded-4xl w-full cursor-pointer transition-transform hover:scale-105',
+      media.type === 'photo' && 'aspect-square',
       media.type === 'video' &&
         media.orientation === 'landscape' &&
-        'aspect-[2/1]',
+        'aspect-2/1',
       media.type === 'video' &&
         media.orientation === 'portrait' &&
-        'aspect-[1/2]',
+        'aspect-1/2',
       media.type === 'video' &&
         media.orientation === 'square' &&
         'aspect-square',
     ]"
   >
     <img
-      v-if="media.type === 'image'"
+      v-if="media.type === 'photo'"
       :src="media.src"
       :alt="media.title"
-      class="w-full h-full object-cover block !m-0 !p-0"
+      class="w-full h-full object-cover block m-0! p-0!"
     />
     <video
       v-else-if="media.type === 'video'"
       :src="media.src"
       :alt="media.title"
-      class="w-full h-full object-cover block !m-0 !p-0"
+      class="w-full h-full object-cover block m-0! p-0!"
       preload="metadata"
       muted
     />
-    <!-- <component
-      :is="media.type === 'image' ? 'img' : 'video'"
-      :src="media.src"
-      :alt="media.title"
-      class="w-full h-full object-cover block !m-0 !p-0"
-      :controls="media.type === 'video'"
-      preload="metadata"
-    /> -->
   </div>
 </template>
 

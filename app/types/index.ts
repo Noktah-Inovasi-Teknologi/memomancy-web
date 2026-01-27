@@ -53,6 +53,29 @@ export interface GalleryImage {
   date?: string;
 }
 
+export interface ProjectMedia {
+  id: number;
+  type: "photo" | "video";
+  src: string;
+  title?: string;
+}
+
+export interface ProjectThumbnail {
+  type: "photo" | "video";
+  src: string;
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  location: string;
+  day: number;
+  month: number;
+  year: number;
+  thumbnail: ProjectThumbnail;
+  media: ProjectMedia[];
+}
+
 // Contact interfaces
 export interface ContactMethod {
   icon: string;

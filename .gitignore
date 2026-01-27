@@ -149,6 +149,18 @@ dist
 *.3gp
 *.ogv
 
+# Image files
+*.png
+*.jpg
+*.JPG
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.svg
+*.heic
+*.webp
+
 .vscode/settings.json
 
 *.sqlite
