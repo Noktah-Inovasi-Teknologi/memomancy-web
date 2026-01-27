@@ -99,6 +99,20 @@ export default defineEventHandler(async (event) => {
       });
     }
 
+    // Try alternate extension case (.jpg <-> .JPG) if exact key not found
+    const getWithFallback = async (key: string, options?: any) => {
+      let obj = await r2.get(key, options);
+      if (!obj) {
+        const ext = key.split(".").pop() || "";
+        const altExt = ext === ext.toLowerCase() ? ext.toUpperCase() : ext.toLowerCase();
+        if (altExt !== ext) {
+          const altKey = key.slice(0, -ext.length) + altExt;
+          obj = await r2.get(altKey, options);
+        }
+      }
+      return obj;
+    };
+
     // Check for Range header (needed for video streaming)
     const rangeHeader = getHeader(event, "range");
     let object;
@@ -110,7 +124,7 @@ export default defineEventHandler(async (event) => {
       const end = parts[1] ? parseInt(parts[1], 10) : undefined;
 
       // Get object with range
-      object = await r2.get(path, {
+      object = await getWithFallback(path, {
         range: end !== undefined
           ? { offset: start, length: end - start + 1 }
           : { offset: start }
@@ -134,7 +148,7 @@ export default defineEventHandler(async (event) => {
       setHeader(event, "Content-Length", contentLength.toString());
     } else {
       // Normal request without range
-      object = await r2.get(path);
+      object = await getWithFallback(path);
 
       if (!object) {
         throw createError({
@@ -167,6 +181,9 @@ export default defineEventHandler(async (event) => {
     // Stream the body
     return object.body;
   } catch (error: any) {
+    if (error.statusCode) {
+      throw error;
+    }
     throw createError({
       statusCode: 500,
       message: `Error loading media: ${error.message}`,
