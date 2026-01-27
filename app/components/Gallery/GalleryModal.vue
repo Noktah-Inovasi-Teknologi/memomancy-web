@@ -15,6 +15,7 @@ const { getMediaUrl, formatDate } = useGalleryProjects();
 
 const currentMediaIndex = ref(0);
 const scrollContainer = ref<HTMLElement | null>(null);
+const loadedMedia = reactive<Record<number, boolean>>({});
 
 const close = () => {
   emit("update:visible", false);
@@ -85,6 +86,7 @@ watch(
   (visible) => {
     if (visible) {
       currentMediaIndex.value = 0;
+      Object.keys(loadedMedia).forEach((key) => delete loadedMedia[Number(key)]);
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -140,8 +142,9 @@ watch(
               <div
                 v-for="(media, index) in project.media"
                 :key="media.id"
-                class="shrink-0 snap-center w-full h-full flex items-center justify-center"
+                class="shrink-0 snap-center w-full h-full flex items-center justify-center relative"
               >
+                <USkeleton v-if="!loadedMedia[media.id]" class="absolute inset-0 w-full h-full rounded-none" />
                 <video
                   v-if="media.type === 'video'"
                   :src="getMediaUrl(media)"
@@ -149,12 +152,16 @@ watch(
                   controls
                   :autoplay="index === currentMediaIndex"
                   playsinline
+                  preload="metadata"
+                  @loadeddata="loadedMedia[media.id] = true"
                 />
                 <img
                   v-else
                   :src="getMediaUrl(media)"
                   :alt="media.title || project.title"
                   class="max-w-full max-h-full object-contain rounded-[1rem]"
+                  loading="lazy"
+                  @load="loadedMedia[media.id] = true"
                 />
               </div>
             </div>

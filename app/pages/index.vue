@@ -97,6 +97,8 @@ const closeNavMenu = () => {
   isNavMenuOpen.value = false;
 };
 
+const heroLoaded = ref(false);
+
 // Initialize parallax effect
 useParallax();
 </script>
@@ -135,7 +137,8 @@ useParallax();
     </div>
   </div>
 
-  <div class="bg-offwhite aspect-9/16 md:aspect-video overflow-hidden" id="hero" data-parallax-media>
+  <div class="bg-offwhite aspect-9/16 md:aspect-video overflow-hidden relative" id="hero" data-parallax-media>
+    <USkeleton v-if="!heroLoaded" class="absolute inset-0 w-full h-full rounded-none" />
     <video
       :src="getVideoUrl('Tia.mp4')"
       class="w-full h-full object-cover"
@@ -143,6 +146,8 @@ useParallax();
       muted
       loop
       playsinline
+      preload="metadata"
+      @loadeddata="heroLoaded = true"
     />
   </div>
 
