@@ -22,7 +22,7 @@ const handleClick = () => {
   <div
     @click="handleClick"
     :class="[
-      'relative overflow-hidden rounded-4xl w-full cursor-pointer transition-transform hover:scale-105',
+      'relative overflow-hidden rounded-none w-full cursor-pointer transition-transform hover:scale-105',
       media.type === 'photo' && 'aspect-square',
       media.type === 'video' &&
         media.orientation === 'landscape' &&

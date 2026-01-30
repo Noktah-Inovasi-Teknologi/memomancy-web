@@ -107,20 +107,20 @@ watch(
 
         <div class="relative w-full h-full flex flex-col p-uniform-4 md:p-uniform-3">
           <div class="flex justify-between items-center mb-uniform-4">
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-uniform-6">
               <h2 class="font-playfair text-heading-3 text-offwhite">
                 {{ project.title }}
               </h2>
-              <p class="font-lato text-normal-5 text-offwhite/70">
+              <p class="font-lato text-normal-4 text-offwhite/70">
                 {{ project.location }} &middot; {{ formatDate(project) }}
               </p>
             </div>
             <button
               @click="close"
-              class="text-offwhite hover:text-gold transition-colors p-2"
+              class="text-offwhite hover:text-gold transition-colors p-uniform-6"
               aria-label="Close modal"
             >
-              <Icon name="solar:close-circle-linear" class="text-icon-size-4" />
+              <Icon name="solar:close-circle-linear" class="text-icon-size-5" />
             </button>
           </div>
 
@@ -128,10 +128,10 @@ watch(
             <button
               v-if="currentMediaIndex > 0"
               @click="prevMedia"
-              class="absolute left-0 z-10 text-offwhite hover:text-gold transition-colors p-2 md:p-4"
+              class="absolute left-0 z-10 text-offwhite hover:text-gold transition-colors p-uniform-6 md:p-uniform-5"
               aria-label="Previous media"
             >
-              <Icon name="solar:arrow-left-linear" class="text-icon-size-3" />
+              <Icon name="solar:arrow-left-linear" class="text-icon-size-4" />
             </button>
 
             <div
@@ -148,7 +148,7 @@ watch(
                 <video
                   v-if="media.type === 'video'"
                   :src="getMediaUrl(media)"
-                  class="max-w-full max-h-full object-contain rounded-[1rem]"
+                  class="max-w-full max-h-full object-contain rounded-none"
                   controls
                   :autoplay="index === currentMediaIndex"
                   playsinline
@@ -159,7 +159,7 @@ watch(
                   v-else
                   :src="getMediaUrl(media)"
                   :alt="media.title || project.title"
-                  class="max-w-full max-h-full object-contain rounded-[1rem]"
+                  class="max-w-full max-h-full object-contain rounded-none"
                   loading="lazy"
                   @load="loadedMedia[media.id] = true"
                 />
@@ -169,21 +169,21 @@ watch(
             <button
               v-if="currentMediaIndex < project.media.length - 1"
               @click="nextMedia"
-              class="absolute right-0 z-10 text-offwhite hover:text-gold transition-colors p-2 md:p-4"
+              class="absolute right-0 z-10 text-offwhite hover:text-gold transition-colors p-uniform-6 md:p-uniform-5"
               aria-label="Next media"
             >
-              <Icon name="solar:arrow-right-linear" class="text-icon-size-3" />
+              <Icon name="solar:arrow-right-linear" class="text-icon-size-4" />
             </button>
           </div>
 
-          <div class="flex justify-center items-center gap-uniform-6 mt-uniform-4">
-            <div class="flex gap-2">
+          <div class="flex justify-center items-center gap-uniform-5 mt-uniform-4">
+            <div class="flex gap-uniform-6">
               <button
                 v-for="(_, index) in project.media"
                 :key="index"
                 @click="goToMedia(index)"
                 :class="[
-                  'w-uniform-7 h-uniform-7 border border-offwhite transition-colors',
+                  'w-uniform-6 h-uniform-6 border border-offwhite transition-colors',
                   currentMediaIndex === index
                     ? 'bg-gold border-gold'
                     : 'bg-transparent hover:bg-offwhite/30',
@@ -191,7 +191,7 @@ watch(
                 :aria-label="`Go to media ${index + 1}`"
               />
             </div>
-            <p class="font-lato text-normal-5 text-offwhite/70">
+            <p class="font-lato text-normal-4 text-offwhite/70">
               {{ currentMediaIndex + 1 }} / {{ project.media.length }}
             </p>
           </div>
@@ -213,7 +213,7 @@ watch(
 
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-normal) ease;
 }
 
 .modal-enter-from,

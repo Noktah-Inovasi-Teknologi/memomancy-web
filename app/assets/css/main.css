@@ -105,37 +105,47 @@
   */
 
 
-  --text-heading-1: clamp(3rem, calc(2.8571vw + 1.4286rem), 9rem);
-  --text-heading-2: clamp(1.5rem, calc(2.1429vw + 0.7143rem), 4.5rem);
-  --text-heading-3: clamp(1rem, calc(1.4286vw + 0.7143rem), 3rem);
-  --text-heading-4: clamp(0.75rem, calc(1.0714vw + 0.5357rem), 2.25rem);
-  --text-heading-5: clamp(0.5rem, calc(0.7143vw + 0.3571rem), 1.5rem);
-  --text-heading-6: clamp(0.25rem, calc(0.3571vw + 0.1786rem), 0.75rem);
-  --text-heading-7: clamp(0.125rem, calc(0.1786vw + 0.0893rem), 0.375rem);
+  /* Transition durations */
+  --transition-fast: 150ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
 
-  --text-normal-1: clamp(1.5rem, calc(2.1429vw + 1.0714rem), 4.5rem);
-  --text-normal-2: clamp(1rem, calc(1.4286vw + .7143rem), 3rem);
-  --text-normal-3: clamp(.75rem, calc(1.0714vw + .5357rem), 2.25rem);
-  --text-normal-4: clamp(.5rem, calc(.7143vw + .3571rem), 1.5rem);
-  --text-normal-5: clamp(.375rem, calc(.5357vw + .2679rem), 1.125rem);
-  --text-normal-6: clamp(.25rem, calc(.3571vw + .1786rem), .75rem);
-  --text-normal-7: clamp(.125rem, calc(.1786vw + .0893rem), .375rem);
+  /* Headings: 2.5x for h1-h3 (dramatic), 2x for h4-h7 (moderate) */
+  /* Viewport range: 375px → 1440px */
+  --text-heading-1: clamp(3rem, calc(6.76vw + 1.416rem), 7.5rem);      /* 3rem → 7.5rem (2.5x) */
+  --text-heading-2: clamp(1.5rem, calc(3.38vw + 0.708rem), 3.75rem);   /* 1.5rem → 3.75rem (2.5x) */
+  --text-heading-3: clamp(1rem, calc(2.25vw + 0.473rem), 2.5rem);      /* 1rem → 2.5rem (2.5x) */
+  --text-heading-4: clamp(0.75rem, calc(1.13vw + 0.486rem), 1.5rem);   /* 0.75rem → 1.5rem (2x) */
+  --text-heading-5: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);      /* 0.5rem → 1rem (2x) */
+  --text-heading-6: clamp(0.25rem, calc(0.376vw + 0.162rem), 0.5rem);  /* 0.25rem → 0.5rem (2x) */
+  --text-heading-7: clamp(0.125rem, calc(0.188vw + 0.081rem), 0.25rem);/* 0.125rem → 0.25rem (2x) */
 
-  --icon-size-1: clamp(4rem, calc(5.7143vw + 2.8571rem), 12rem);
-  --icon-size-2: clamp(2rem, calc(2.8571vw + 1.4286rem), 6rem);
-  --icon-size-3: clamp(1.5rem, calc(2.1429vw + 1.0714rem), 4.5rem);
-  --icon-size-4: clamp(1.25rem, calc(1.7857vw + 0.8929rem), 3.75rem);
-  --icon-size-5: clamp(1rem, calc(1.4286vw + 0.7143rem), 3rem);
-  --icon-size-6: clamp(0.75rem, calc(1.0714vw + 0.5357rem), 2.25rem);
-  --icon-size-7: clamp(0.5rem, calc(0.7143vw + 0.3571rem), 1.5rem);
+  /* Normal text: 2x for n1-n3 (subheadings), 1.5x for n4-n7 (body text) */
+  --text-normal-1: clamp(1.5rem, calc(2.25vw + 0.972rem), 3rem);       /* 1.5rem → 3rem (2x) */
+  --text-normal-2: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);          /* 1rem → 2rem (2x) */
+  --text-normal-3: clamp(0.75rem, calc(1.13vw + 0.486rem), 1.5rem);    /* 0.75rem → 1.5rem (2x) */
+  --text-normal-4: clamp(0.5rem, calc(0.376vw + 0.412rem), 0.75rem);   /* 0.5rem → 0.75rem (1.5x) */
+  --text-normal-5: clamp(0.375rem, calc(0.282vw + 0.309rem), 0.5625rem);/* 0.375rem → 0.5625rem (1.5x) */
+  --text-normal-6: clamp(0.25rem, calc(0.188vw + 0.206rem), 0.375rem); /* 0.25rem → 0.375rem (1.5x) */
+  --text-normal-7: clamp(0.125rem, calc(0.094vw + 0.103rem), 0.1875rem);/* 0.125rem → 0.1875rem (1.5x) */
 
-  --spacing-uniform-1: clamp(3rem, 2.143rem + 4.286vw, 9rem);
-  --spacing-uniform-2: clamp(2rem, 1.429rem + 2.857vw, 6rem);
-  --spacing-uniform-3: clamp(1.5rem, 1.071rem + 2.143vw, 4.5rem);
-  --spacing-uniform-4: clamp(1rem, 0.714rem + 1.429vw, 3rem);
-  --spacing-uniform-5: clamp(0.75rem, 0.536rem + 1.071vw, 2.25rem);
-  --spacing-uniform-6: clamp(0.5rem, 0.357rem + 0.714vw, 1.5rem);
-  --spacing-uniform-7: clamp(0.25rem, 0.179rem + 0.357vw, 0.75rem);
+  /* Icons: 2x multiplier */
+  --icon-size-1: clamp(4rem, calc(6.01vw + 2.591rem), 8rem);           /* 4rem → 8rem (2x) */
+  --icon-size-2: clamp(2rem, calc(3vw + 1.296rem), 4rem);              /* 2rem → 4rem (2x) */
+  --icon-size-3: clamp(1.5rem, calc(2.25vw + 0.972rem), 3rem);         /* 1.5rem → 3rem (2x) */
+  --icon-size-4: clamp(1.25rem, calc(1.88vw + 0.81rem), 2.5rem);       /* 1.25rem → 2.5rem (2x) */
+  --icon-size-5: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);            /* 1rem → 2rem (2x) */
+  --icon-size-6: clamp(0.75rem, calc(1.13vw + 0.486rem), 1.5rem);      /* 0.75rem → 1.5rem (2x) */
+  --icon-size-7: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);         /* 0.5rem → 1rem (2x) */
+
+  /* Spacing: 2x multiplier */
+  --spacing-uniform-1: clamp(3rem, calc(4.51vw + 1.944rem), 6rem);     /* 3rem → 6rem (2x) */
+  --spacing-uniform-2: clamp(2rem, calc(3vw + 1.296rem), 4rem);        /* 2rem → 4rem (2x) */
+  --spacing-uniform-3: clamp(1.5rem, calc(2.25vw + 0.972rem), 3rem);   /* 1.5rem → 3rem (2x) */
+  --spacing-uniform-4: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);      /* 1rem → 2rem (2x) */
+  --spacing-uniform-5: clamp(0.75rem, calc(1.13vw + 0.486rem), 1.5rem);/* 0.75rem → 1.5rem (2x) */
+  --spacing-uniform-6: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);   /* 0.5rem → 1rem (2x) */
+  --spacing-uniform-7: clamp(0.25rem, calc(0.376vw + 0.162rem), 0.5rem);/* 0.25rem → 0.5rem (2x) */
 
   /* --spacing-uniform-1: clamp(2rem, calc(2.8571vw + 1.4286rem), 6rem);
   --spacing-uniform-2: clamp(1.5rem, calc(2.1429vw + 1.0714rem), 4.5rem);
@@ -145,13 +155,14 @@
   --spacing-uniform-6: clamp(0.25rem, calc(0.3571vw + 0.1786rem), 0.75rem);
   --spacing-uniform-7: clamp(0.125rem, calc(0.1786vw + 0.0893rem), 0.375rem); */
 
-  --padding-container: clamp(1rem, calc(1.4286vw + 0.7143rem), 3rem);
-  --padding-section: clamp(0.5rem, calc(0.7143vw + 0.3571rem), 1.5rem);
-  --padding-card: clamp(0.25rem, calc(0.3571vw + 0.1786rem), 0.75rem);
-  --padding-button-y: clamp(0.25rem, calc(0.3571vw + 0.1786rem), 0.75rem);
-  --padding-button-x: clamp(0.5rem, calc(0.7143vw + 0.3571rem), 1.5rem);
-  --padding-menubar-y: clamp(0.5rem, calc(0.7143vw + 0.3571rem), 1.5rem);
-  --padding-menubar-x: clamp(1rem, calc(1.4286vw + 0.7143rem), 3rem);
+  /* Padding: 2x multiplier */
+  --padding-container: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);      /* 1rem → 2rem (2x) */
+  --padding-section: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);     /* 0.5rem → 1rem (2x) */
+  --padding-card: clamp(0.25rem, calc(0.376vw + 0.162rem), 0.5rem);    /* 0.25rem → 0.5rem (2x) */
+  --padding-button-y: clamp(0.25rem, calc(0.376vw + 0.162rem), 0.5rem);/* 0.25rem → 0.5rem (2x) */
+  --padding-button-x: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);    /* 0.5rem → 1rem (2x) */
+  --padding-menubar-y: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);   /* 0.5rem → 1rem (2x) */
+  --padding-menubar-x: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);      /* 1rem → 2rem (2x) */
 
     /*
   --radius-memomancy: clamp(1.5rem, calc(2.1429vw + 1.0714rem), 4.5rem);
@@ -163,10 +174,24 @@
 }
 
 :root {
+  /* UI overrides */
   --ui-text: var(--color-charcoal);
   --ui-text-muted: var(--color-charcoal);
   --ui-text-dimmed: var(--color-charcoal);
   --ui-text-highlighted: var(--color-charcoal);
   --ui-bg: transparent;
   --ui-bg-elevated: transparent;
+}
+
+/* Focus states for accessibility */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Remove default focus outline and use custom */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
 }

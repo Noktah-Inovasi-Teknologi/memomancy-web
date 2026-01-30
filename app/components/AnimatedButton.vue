@@ -23,9 +23,9 @@ defineProps<Props>();
   bottom: 0;
   left: 0;
   width: 100%;
-  height: var(--text-normal-7);
-  background-color: var(--color-gold);
-  transition: width 0.3s ease-out;
+  height: 1px;
+  background-color: currentColor;
+  transition: width var(--transition-normal) ease-out;
 }
 
 .border-line-animate:hover::after {
