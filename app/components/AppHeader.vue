@@ -14,11 +14,24 @@ const closeNavMenu = () => {
 
 <template>
   <div
-    class="fixed top-0 left-0 right-0 flex p-uniform-5 sm:p-uniform-4 md:p-uniform-3 font-playfair font-medium text-heading-4 sm:text-heading-3 justify-between items-center mix-blend-difference z-999"
+    class="fixed top-0 left-0 right-0 flex p-uniform-5 sm:p-uniform-4 md:p-uniform-3 font-playfair font-medium text-heading-4 sm:text-heading-3 md:text-heading-4 lg:text-heading-5 justify-between items-center mix-blend-difference z-999"
     id="menubar"
   >
     <NuxtLink to="/" class="text-white mix-blend-difference">Memomancy</NuxtLink>
 
+    <!-- Desktop horizontal navigation (md+) -->
+    <nav class="hidden md:flex items-center gap-uniform-4 lg:gap-uniform-3">
+      <NuxtLink
+        v-for="route in navigationRoutes"
+        :key="route.to"
+        :to="route.to"
+        class="text-white mix-blend-difference font-playfair text-normal-3 lg:text-normal-4 hover:text-gold/80 transition-colors relative nav-link"
+      >
+        {{ route.label }}
+      </NuxtLink>
+    </nav>
+
+    <!-- Mobile drawer navigation (< md) -->
     <UDrawer
       v-model:open="isNavMenuOpen"
       direction="bottom"
@@ -29,6 +42,7 @@ const closeNavMenu = () => {
         handle: 'bg-charcoal/30',
         body: 'p-0'
       }"
+      class="md:hidden"
     >
       <button
         aria-label="Open navigation menu"
@@ -53,3 +67,20 @@ const closeNavMenu = () => {
     </UDrawer>
   </div>
 </template>
+
+<style scoped>
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width var(--transition-normal) ease-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+</style>
