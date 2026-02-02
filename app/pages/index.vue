@@ -105,189 +105,201 @@ useParallax();
     />
   </div>
 
-  <section class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 bg-offwhite" id="hero-cta" data-parallax>
-    <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 text-charcoal md:max-w-3xl lg:max-w-4xl">
-      <h1 class="font-playfair text-heading-2 sm:text-heading-1 md:text-heading-1 lg:text-heading-1">Where moments become legacy.</h1>
-      <p class="font-lato text-normal-3 sm:text-normal-2 md:text-normal-2 lg:text-normal-3">
-        Premium photography & videography for those who value narrative.
-      </p>
-    </div>
-    <AnimatedButton
-      to="/gallery"
-      classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-4 lg:text-normal-5 py-uniform-6"
-    >
-      Explore Our Gallery
-    </AnimatedButton>
-  </section>
-
-  <USeparator />
-
-  <section
-    class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 bg-offwhite"
-    id="philosophy"
-    data-parallax
-  >
-    <header class="font-playfair text-charcoal text-heading-6 sm:text-heading-5 md:text-heading-6 lg:text-heading-6 tracking-wider uppercase">■ OUR PHILOSOPHIES</header>
-    <div class="flex flex-col md:max-w-2xl lg:max-w-3xl">
-      <UAccordion
-        :items="philosophyItems"
-        type="single"
-        collapsible
-        :ui="{
-          item: 'border-b border-charcoal',
-          trigger: 'font-playfair text-heading-4 sm:text-heading-3 md:text-heading-4 lg:text-heading-5 text-charcoal bg-transparent rounded-none py-uniform-5 md:py-uniform-4 lg:py-uniform-3 hover:bg-transparent focus:outline-none',
-          content: 'pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3',
-          body: 'text-normal-4 sm:text-normal-3 md:text-normal-4 lg:text-normal-5 font-lato text-charcoal'
-        }"
-      />
-    </div>
-  </section>
-
-  <USeparator />
-
-  <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 bg-offwhite" id="service" data-parallax>
-    <header class="font-playfair text-charcoal text-heading-6 sm:text-heading-5 md:text-heading-6 lg:text-heading-6 tracking-wider uppercase">■ SERVICES</header>
-    <div class="flex flex-col md:max-w-2xl lg:max-w-3xl">
-      <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3">
-        <div
-          v-for="(item, index) in servicePoints"
-          :key="item.title"
-          class="border-b border-charcoal"
-        >
-          <button
-            @click="toggleService(index)"
-            class="w-full flex justify-between items-center font-playfair text-heading-4 sm:text-heading-3 md:text-heading-4 lg:text-heading-5 text-charcoal bg-transparent p-0 pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 gap-uniform-5"
-          >
-            <span class="font-playfair text-left">{{ item.title }}</span>
-            <Icon
-              :name="openServiceIndex === index ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'"
-              class="text-charcoal text-icon-size-4 sm:text-icon-size-5 md:text-icon-size-5 lg:text-icon-size-6 shrink-0"
-            />
-          </button>
-          <div
-            v-if="openServiceIndex === index"
-            class="pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3"
-          >
-            <p class="text-normal-4 sm:text-normal-3 md:text-normal-4 lg:text-normal-5 font-lato">{{ item.description }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-5 lg:text-normal-6">M✦ - 02</footer>
-  </section>
-
-  <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 bg-offwhite" id="gallery-showcase" data-parallax>
-    <header class="font-playfair text-charcoal text-heading-6 sm:text-heading-5 md:text-heading-6 lg:text-heading-6 tracking-wider uppercase">■ RECENT WORK</header>
-    <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 md:max-w-4xl lg:max-w-5xl">
-      <div class="relative">
-        <div class="aspect-video bg-charcoal overflow-hidden">
-          <video
-            v-for="(item, index) in galleryItems"
-            v-show="currentSlide === index"
-            :key="index"
-            :src="item.src"
-            class="w-full h-full object-cover"
-            autoplay
-            muted
-            loop
-            playsinline
-          />
-        </div>
-        <div class="flex justify-center items-center gap-uniform-4 sm:gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 mt-uniform-5 sm:mt-uniform-4 md:mt-uniform-4 lg:mt-uniform-3">
-          <button
-            @click="prevSlide"
-            class="text-charcoal bg-transparent hover:bg-transparent active:text-gold min-w-11 min-h-11 flex items-center justify-center"
-          >
-            <Icon name="solar:arrow-left-linear" class="text-charcoal text-icon-size-4 sm:text-icon-size-5 md:text-icon-size-5 lg:text-icon-size-6" />
-          </button>
-          <div class="flex gap-uniform-5 sm:gap-uniform-6 md:gap-uniform-5 lg:gap-uniform-4">
-            <button
-              v-for="(_, index) in galleryItems"
-              :key="index"
-              @click="currentSlide = index"
-              :class="[
-                'w-3 h-3 sm:w-4 sm:h-4 md:w-3 md:h-3 lg:w-2.5 lg:h-2.5 border border-charcoal transition-colors',
-                currentSlide === index ? 'bg-charcoal' : 'bg-transparent hover:bg-charcoal/50 active:bg-charcoal/70'
-              ]"
-            />
-          </div>
-          <button
-            @click="nextSlide"
-            class="text-charcoal bg-transparent hover:bg-transparent active:text-gold min-w-11 min-h-11 flex items-center justify-center"
-          >
-            <Icon name="solar:arrow-right-linear" class="text-charcoal text-icon-size-4 sm:text-icon-size-5 md:text-icon-size-5 lg:text-icon-size-6" />
-          </button>
-        </div>
-      </div>
-      <AnimatedButton
-        to="/gallery"
-        classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-4 lg:text-normal-5 py-uniform-6"
-      >
-        View Full Gallery
-      </AnimatedButton>
-    </div>
-    <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-5 lg:text-normal-6">M✦ - 03</footer>
-  </section>
-
-  <USeparator />
-
-  <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 bg-offwhite" id="pricing-cta" data-parallax>
-    <header class="font-playfair text-charcoal text-heading-6 sm:text-heading-5 md:text-heading-6 lg:text-heading-6 tracking-wider uppercase">■ TRANSPARENT PRICING</header>
-    <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 md:max-w-2xl lg:max-w-3xl">
-      <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3">
-        <h2 class="font-playfair text-heading-4 sm:text-heading-3 md:text-heading-4 lg:text-heading-5 text-charcoal">
-          No hidden fees. No surprises.
-        </h2>
-        <p class="text-normal-4 sm:text-normal-3 md:text-normal-4 lg:text-normal-5 font-lato text-charcoal">
-          Our interactive pricing calculator lets you build a custom package that fits your needs and budget. Get an instant estimate based on your project requirements.
+  <div class="bg-offwhite">
+    <section class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 xl:max-w-6xl xl:mx-auto" id="hero-cta" data-parallax>
+      <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3 text-charcoal md:max-w-3xl lg:max-w-4xl xl:max-w-4xl">
+        <h1 class="font-playfair text-heading-2 sm:text-heading-1 md:text-heading-1 lg:text-heading-1 xl:text-heading-1">Where moments become legacy.</h1>
+        <p class="font-lato text-normal-3 sm:text-normal-2 md:text-normal-2 lg:text-normal-2 xl:text-normal-2">
+          Premium photography & videography for those who value narrative.
         </p>
       </div>
       <AnimatedButton
-        to="/calculator"
-        classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-4 lg:text-normal-5 py-uniform-6"
+        to="/gallery"
+        classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 py-uniform-6"
       >
-        Calculate Your Project
+        Explore Our Gallery
       </AnimatedButton>
-    </div>
-    <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-5 lg:text-normal-6">M✦ - 04</footer>
-  </section>
+    </section>
+  </div>
 
-  <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 bg-offwhite" id="faq" data-parallax>
-    <header class="font-playfair text-charcoal text-heading-6 sm:text-heading-5 md:text-heading-6 lg:text-heading-6 tracking-wider uppercase">■ COMMON QUESTIONS</header>
-    <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 md:max-w-2xl lg:max-w-3xl">
-      <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3">
-        <div
-          v-for="(item, index) in faqItems"
-          :key="item.question"
-          class="border-b border-charcoal"
-        >
-          <button
-            @click="toggleFaq(index)"
-            class="w-full flex justify-between items-center font-playfair text-heading-4 sm:text-heading-3 md:text-heading-4 lg:text-heading-5 text-charcoal bg-transparent p-0 pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 gap-uniform-5"
-          >
-            <span class="font-playfair text-left">{{ item.question }}</span>
-            <Icon
-              :name="openFaqIndex === index ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'"
-              class="text-charcoal text-icon-size-4 sm:text-icon-size-5 md:text-icon-size-5 lg:text-icon-size-6 shrink-0"
-            />
-          </button>
+  <USeparator />
+
+  <div class="bg-offwhite">
+    <section
+      class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto"
+      id="philosophy"
+      data-parallax
+    >
+      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ OUR PHILOSOPHIES</header>
+      <div class="flex flex-col md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+        <UAccordion
+          :items="philosophyItems"
+          type="single"
+          collapsible
+          :ui="{
+            item: 'border-b border-charcoal',
+            trigger: 'font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-charcoal bg-transparent rounded-none py-uniform-5 md:py-uniform-4 lg:py-uniform-3 xl:py-uniform-3 hover:bg-transparent focus:outline-none',
+            content: 'pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3',
+            body: 'text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 font-lato text-charcoal'
+          }"
+        />
+      </div>
+    </section>
+  </div>
+
+  <USeparator />
+
+  <div class="bg-offwhite">
+    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="service" data-parallax>
+      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ SERVICES</header>
+      <div class="flex flex-col md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+        <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3">
           <div
-            v-if="openFaqIndex === index"
-            class="pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3"
+            v-for="(item, index) in servicePoints"
+            :key="item.title"
+            class="border-b border-charcoal"
           >
-            <p class="text-normal-4 sm:text-normal-3 md:text-normal-4 lg:text-normal-5 font-lato">{{ item.answer }}</p>
+            <button
+              @click="toggleService(index)"
+              class="w-full flex justify-between items-center font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-charcoal bg-transparent p-0 pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3 gap-uniform-5"
+            >
+              <span class="font-playfair text-left">{{ item.title }}</span>
+              <Icon
+                :name="openServiceIndex === index ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'"
+                class="text-charcoal text-icon-size-4 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-5 xl:text-icon-size-5 shrink-0"
+              />
+            </button>
+            <div
+              v-if="openServiceIndex === index"
+              class="pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3"
+            >
+              <p class="text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 font-lato">{{ item.description }}</p>
+            </div>
           </div>
         </div>
       </div>
-      <AnimatedButton
-        to="/"
-        classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-4 lg:text-normal-5 py-uniform-6"
-      >
-        View All FAQs
-      </AnimatedButton>
-    </div>
-    <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-5 lg:text-normal-6">M✦ - 05</footer>
-  </section>
+      <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-4 lg:text-normal-5 xl:text-normal-5">M✦ - 02</footer>
+    </section>
+  </div>
+
+  <div class="bg-offwhite">
+    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="gallery-showcase" data-parallax>
+      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ RECENT WORK</header>
+      <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 md:max-w-4xl lg:max-w-5xl xl:max-w-full">
+        <div class="relative">
+          <div class="aspect-video bg-charcoal overflow-hidden">
+            <video
+              v-for="(item, index) in galleryItems"
+              v-show="currentSlide === index"
+              :key="index"
+              :src="item.src"
+              class="w-full h-full object-cover"
+              autoplay
+              muted
+              loop
+              playsinline
+            />
+          </div>
+          <div class="flex justify-center items-center gap-uniform-4 sm:gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3 mt-uniform-5 sm:mt-uniform-4 md:mt-uniform-4 lg:mt-uniform-3 xl:mt-uniform-3">
+            <button
+              @click="prevSlide"
+              class="text-charcoal bg-transparent hover:bg-transparent active:text-gold min-w-11 min-h-11 flex items-center justify-center"
+            >
+              <Icon name="solar:arrow-left-linear" class="text-charcoal text-icon-size-4 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-5 xl:text-icon-size-5" />
+            </button>
+            <div class="flex gap-uniform-5 sm:gap-uniform-6 md:gap-uniform-5 lg:gap-uniform-4 xl:gap-uniform-4">
+              <button
+                v-for="(_, index) in galleryItems"
+                :key="index"
+                @click="currentSlide = index"
+                :class="[
+                  'w-3 h-3 sm:w-4 sm:h-4 md:w-3 md:h-3 lg:w-2.5 lg:h-2.5 xl:w-2.5 xl:h-2.5 border border-charcoal transition-colors',
+                  currentSlide === index ? 'bg-charcoal' : 'bg-transparent hover:bg-charcoal/50 active:bg-charcoal/70'
+                ]"
+              />
+            </div>
+            <button
+              @click="nextSlide"
+              class="text-charcoal bg-transparent hover:bg-transparent active:text-gold min-w-11 min-h-11 flex items-center justify-center"
+            >
+              <Icon name="solar:arrow-right-linear" class="text-charcoal text-icon-size-4 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-5 xl:text-icon-size-5" />
+            </button>
+          </div>
+        </div>
+        <AnimatedButton
+          to="/gallery"
+          classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 py-uniform-6"
+        >
+          View Full Gallery
+        </AnimatedButton>
+      </div>
+      <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-4 lg:text-normal-5 xl:text-normal-5">M✦ - 03</footer>
+    </section>
+  </div>
+
+  <USeparator />
+
+  <div class="bg-offwhite">
+    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="pricing-cta" data-parallax>
+      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ TRANSPARENT PRICING</header>
+      <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+        <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3">
+          <h2 class="font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-charcoal">
+            No hidden fees. No surprises.
+          </h2>
+          <p class="text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 font-lato text-charcoal">
+            Our interactive pricing calculator lets you build a custom package that fits your needs and budget. Get an instant estimate based on your project requirements.
+          </p>
+        </div>
+        <AnimatedButton
+          to="/calculator"
+          classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 py-uniform-6"
+        >
+          Calculate Your Project
+        </AnimatedButton>
+      </div>
+      <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-4 lg:text-normal-5 xl:text-normal-5">M✦ - 04</footer>
+    </section>
+  </div>
+
+  <div class="bg-offwhite">
+    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="faq" data-parallax>
+      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ COMMON QUESTIONS</header>
+      <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+        <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3">
+          <div
+            v-for="(item, index) in faqItems"
+            :key="item.question"
+            class="border-b border-charcoal"
+          >
+            <button
+              @click="toggleFaq(index)"
+              class="w-full flex justify-between items-center font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-charcoal bg-transparent p-0 pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3 gap-uniform-5"
+            >
+              <span class="font-playfair text-left">{{ item.question }}</span>
+              <Icon
+                :name="openFaqIndex === index ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'"
+                class="text-charcoal text-icon-size-4 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-5 xl:text-icon-size-5 shrink-0"
+              />
+            </button>
+            <div
+              v-if="openFaqIndex === index"
+              class="pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3"
+            >
+              <p class="text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 font-lato">{{ item.answer }}</p>
+            </div>
+          </div>
+        </div>
+        <AnimatedButton
+          to="/"
+          classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 py-uniform-6"
+        >
+          View All FAQs
+        </AnimatedButton>
+      </div>
+      <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-4 lg:text-normal-5 xl:text-normal-5">M✦ - 05</footer>
+    </section>
+  </div>
 
   <AppFooter />
 </template>

@@ -105,13 +105,13 @@ watch(
       >
         <div class="absolute inset-0 bg-charcoal/95" @click="close" />
 
-        <div class="relative w-full h-full flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2">
-          <div class="flex justify-between items-start gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 mb-uniform-5 sm:mb-uniform-4 md:mb-uniform-3 lg:mb-uniform-2">
-            <div class="flex flex-col gap-uniform-7 sm:gap-uniform-6 md:gap-uniform-5 lg:gap-uniform-4 flex-1 min-w-0">
-              <h2 class="font-playfair text-heading-4 sm:text-heading-3 md:text-heading-4 lg:text-heading-5 text-offwhite line-clamp-2">
+        <div class="relative w-full h-full flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 xl:p-uniform-2 xl:max-w-6xl xl:mx-auto">
+          <div class="flex justify-between items-start gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3 mb-uniform-5 sm:mb-uniform-4 md:mb-uniform-3 lg:mb-uniform-2 xl:mb-uniform-2">
+            <div class="flex flex-col gap-uniform-7 sm:gap-uniform-6 md:gap-uniform-5 lg:gap-uniform-4 xl:gap-uniform-4 flex-1 min-w-0">
+              <h2 class="font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-offwhite line-clamp-2">
                 {{ project.title }}
               </h2>
-              <p class="font-lato text-normal-5 sm:text-normal-4 md:text-normal-5 lg:text-normal-6 text-offwhite/70 truncate">
+              <p class="font-lato text-normal-5 sm:text-normal-4 md:text-normal-4 lg:text-normal-5 xl:text-normal-5 text-offwhite/70 truncate">
                 {{ project.location }} &middot; {{ formatDate(project) }}
               </p>
             </div>
@@ -120,7 +120,7 @@ watch(
               class="text-offwhite hover:text-gold active:text-gold transition-colors min-w-11 min-h-11 flex items-center justify-center shrink-0"
               aria-label="Close modal"
             >
-              <Icon name="solar:close-circle-linear" class="text-icon-size-4 sm:text-icon-size-5 md:text-icon-size-5 lg:text-icon-size-6" />
+              <Icon name="solar:close-circle-linear" class="text-icon-size-4 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-5 xl:text-icon-size-5" />
             </button>
           </div>
 
@@ -131,12 +131,12 @@ watch(
               class="absolute left-0 z-10 text-offwhite hover:text-gold active:text-gold transition-colors min-w-11 min-h-11 flex items-center justify-center"
               aria-label="Previous media"
             >
-              <Icon name="solar:arrow-left-linear" class="text-icon-size-5 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-6" />
+              <Icon name="solar:arrow-left-linear" class="text-icon-size-5 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-5 xl:text-icon-size-5" />
             </button>
 
             <div
               ref="scrollContainer"
-              class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-uniform-5 sm:gap-uniform-4 md:gap-uniform-3 lg:gap-uniform-2 w-full h-full items-center"
+              class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-uniform-5 sm:gap-uniform-4 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 w-full h-full items-center"
               @scroll="handleScroll"
             >
               <div
@@ -172,18 +172,18 @@ watch(
               class="absolute right-0 z-10 text-offwhite hover:text-gold active:text-gold transition-colors min-w-11 min-h-11 flex items-center justify-center"
               aria-label="Next media"
             >
-              <Icon name="solar:arrow-right-linear" class="text-icon-size-5 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-6" />
+              <Icon name="solar:arrow-right-linear" class="text-icon-size-5 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-5 xl:text-icon-size-5" />
             </button>
           </div>
 
-          <div class="flex justify-center items-center gap-uniform-4 sm:gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 mt-uniform-5 sm:mt-uniform-4 md:mt-uniform-3 lg:mt-uniform-2">
-            <div class="flex gap-uniform-5 sm:gap-uniform-6 md:gap-uniform-5 lg:gap-uniform-4">
+          <div class="flex justify-center items-center gap-uniform-4 sm:gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3 mt-uniform-5 sm:mt-uniform-4 md:mt-uniform-3 lg:mt-uniform-2 xl:mt-uniform-2">
+            <div class="flex gap-uniform-5 sm:gap-uniform-6 md:gap-uniform-5 lg:gap-uniform-4 xl:gap-uniform-4">
               <button
                 v-for="(_, index) in project.media"
                 :key="index"
                 @click="goToMedia(index)"
                 :class="[
-                  'w-3 h-3 sm:w-4 sm:h-4 md:w-3 md:h-3 lg:w-2.5 lg:h-2.5 border border-offwhite transition-colors',
+                  'w-3 h-3 sm:w-4 sm:h-4 md:w-3 md:h-3 lg:w-2.5 lg:h-2.5 xl:w-2.5 xl:h-2.5 border border-offwhite transition-colors',
                   currentMediaIndex === index
                     ? 'bg-gold border-gold'
                     : 'bg-transparent hover:bg-offwhite/30 active:bg-offwhite/50',
@@ -191,7 +191,7 @@ watch(
                 :aria-label="`Go to media ${index + 1}`"
               />
             </div>
-            <p class="font-lato text-normal-5 sm:text-normal-4 md:text-normal-5 lg:text-normal-6 text-offwhite/70">
+            <p class="font-lato text-normal-5 sm:text-normal-4 md:text-normal-4 lg:text-normal-5 xl:text-normal-5 text-offwhite/70">
               {{ currentMediaIndex + 1 }} / {{ project.media.length }}
             </p>
           </div>
