@@ -42,15 +42,15 @@ useParallax();
     <AppHeader />
 
     <div
-      class="flex flex-col p-uniform-3 gap-uniform-3 pt-[calc(var(--spacing-uniform-3)*2+var(--text-heading-3)+var(--spacing-uniform-3))]"
+      class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 gap-uniform-4 sm:gap-uniform-3 pt-[calc(var(--spacing-uniform-3)*2+var(--text-heading-3)+var(--spacing-uniform-5))] sm:pt-[calc(var(--spacing-uniform-3)*2+var(--text-heading-3)+var(--spacing-uniform-4))] md:pt-[calc(var(--spacing-uniform-3)*2+var(--text-heading-3)+var(--spacing-uniform-3))]"
       id="gallery"
     >
-      <h1 class="font-playfair text-charcoal text-heading-2">
+      <h1 class="font-playfair text-charcoal text-heading-3 sm:text-heading-2">
         Gallery
       </h1>
 
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-uniform-3"
+      class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-uniform-5 sm:gap-uniform-4 md:gap-uniform-3"
     >
       <GalleryProjectCard
         v-for="project in currentPageProjects"
@@ -61,29 +61,29 @@ useParallax();
       />
     </div>
 
-    <div class="flex justify-center items-center gap-uniform-5 py-uniform-4">
+    <div class="flex justify-center items-center gap-uniform-4 sm:gap-uniform-5 py-uniform-5 sm:py-uniform-4">
       <button
         @click="prevPage"
         :disabled="currentPage === 0"
         :class="[
-          'text-charcoal transition-colors p-uniform-6',
-          currentPage === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:text-gold',
+          'text-charcoal transition-colors min-w-11 min-h-11 flex items-center justify-center',
+          currentPage === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:text-gold active:text-gold',
         ]"
         aria-label="Previous page"
       >
-        <Icon name="solar:arrow-left-linear" class="text-icon-size-5" />
+        <Icon name="solar:arrow-left-linear" class="text-icon-size-4 sm:text-icon-size-5" />
       </button>
 
-      <div class="flex gap-uniform-6">
+      <div class="flex gap-uniform-5 sm:gap-uniform-6">
         <button
           v-for="page in totalPages"
           :key="page"
           @click="goToPage(page - 1)"
           :class="[
-            'w-uniform-6 h-uniform-6 border border-charcoal transition-colors',
+            'w-3 h-3 sm:w-4 sm:h-4 border border-charcoal transition-colors',
             currentPage === page - 1
               ? 'bg-charcoal'
-              : 'bg-transparent hover:bg-charcoal/30',
+              : 'bg-transparent hover:bg-charcoal/30 active:bg-charcoal/50',
           ]"
           :aria-label="`Go to page ${page}`"
         />
@@ -93,12 +93,12 @@ useParallax();
         @click="nextPage"
         :disabled="currentPage === totalPages - 1"
         :class="[
-          'text-charcoal transition-colors p-uniform-6',
-          currentPage === totalPages - 1 ? 'opacity-30 cursor-not-allowed' : 'hover:text-gold',
+          'text-charcoal transition-colors min-w-11 min-h-11 flex items-center justify-center',
+          currentPage === totalPages - 1 ? 'opacity-30 cursor-not-allowed' : 'hover:text-gold active:text-gold',
         ]"
         aria-label="Next page"
       >
-        <Icon name="solar:arrow-right-linear" class="text-icon-size-5" />
+        <Icon name="solar:arrow-right-linear" class="text-icon-size-4 sm:text-icon-size-5" />
       </button>
     </div>
 

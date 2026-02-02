@@ -7,10 +7,6 @@ const navigationRoutes = [
   { label: "Pricing", to: "/calculator" },
 ];
 
-const toggleNavMenu = () => {
-  isNavMenuOpen.value = !isNavMenuOpen.value;
-};
-
 const closeNavMenu = () => {
   isNavMenuOpen.value = false;
 };
@@ -18,35 +14,42 @@ const closeNavMenu = () => {
 
 <template>
   <div
-    class="fixed top-0 left-0 right-0 flex p-uniform-3 font-playfair font-medium text-heading-3 justify-between items-center mix-blend-difference z-999"
+    class="fixed top-0 left-0 right-0 flex p-uniform-5 sm:p-uniform-4 md:p-uniform-3 font-playfair font-medium text-heading-4 sm:text-heading-3 justify-between items-center mix-blend-difference z-999"
     id="menubar"
   >
     <NuxtLink to="/" class="text-white mix-blend-difference">Memomancy</NuxtLink>
-    <div class="flex gap-uniform-7 relative">
+
+    <UDrawer
+      v-model:open="isNavMenuOpen"
+      direction="bottom"
+      :handle="true"
+      :ui="{
+        overlay: 'bg-charcoal/80',
+        content: 'bg-offwhite rounded-none',
+        handle: 'bg-charcoal/30',
+        body: 'p-0'
+      }"
+    >
       <button
-        aria-controls="navigation_menu"
-        aria-haspopup="true"
-        @click="toggleNavMenu"
-        class="text-white p-uniform-7"
+        aria-label="Open navigation menu"
+        class="text-white min-w-11 min-h-11 flex items-center justify-center"
       >
-        <Icon name="solar:hamburger-menu-linear" class="text-icon-size-5" />
+        <Icon name="solar:hamburger-menu-linear" class="text-icon-size-4 sm:text-icon-size-5" />
       </button>
 
-      <nav
-        v-if="isNavMenuOpen"
-        id="navigation_menu"
-        class="absolute top-full right-0 mt-uniform-7 bg-offwhite rounded-none py-uniform-6 min-w-40"
-        @click="closeNavMenu"
-      >
-        <NuxtLink
-          v-for="route in navigationRoutes"
-          :key="route.to"
-          :to="route.to"
-          class="block px-uniform-5 py-uniform-6 text-charcoal text-normal-3 hover:bg-taupe/20"
-        >
-          {{ route.label }}
-        </NuxtLink>
-      </nav>
-    </div>
+      <template #body>
+        <nav class="flex flex-col py-uniform-5">
+          <NuxtLink
+            v-for="route in navigationRoutes"
+            :key="route.to"
+            :to="route.to"
+            class="flex items-center px-uniform-4 py-uniform-5 text-charcoal font-playfair text-heading-4 hover:bg-taupe/20 active:bg-taupe/30 border-b border-charcoal/10 last:border-b-0"
+            @click="closeNavMenu"
+          >
+            {{ route.label }}
+          </NuxtLink>
+        </nav>
+      </template>
+    </UDrawer>
   </div>
 </template>

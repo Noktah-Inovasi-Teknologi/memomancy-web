@@ -105,22 +105,22 @@ watch(
       >
         <div class="absolute inset-0 bg-charcoal/95" @click="close" />
 
-        <div class="relative w-full h-full flex flex-col p-uniform-4 md:p-uniform-3">
-          <div class="flex justify-between items-center mb-uniform-4">
-            <div class="flex flex-col gap-uniform-6">
-              <h2 class="font-playfair text-heading-3 text-offwhite">
+        <div class="relative w-full h-full flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3">
+          <div class="flex justify-between items-start gap-uniform-5 mb-uniform-5 sm:mb-uniform-4">
+            <div class="flex flex-col gap-uniform-7 sm:gap-uniform-6 flex-1 min-w-0">
+              <h2 class="font-playfair text-heading-4 sm:text-heading-3 text-offwhite line-clamp-2">
                 {{ project.title }}
               </h2>
-              <p class="font-lato text-normal-4 text-offwhite/70">
+              <p class="font-lato text-normal-5 sm:text-normal-4 text-offwhite/70 truncate">
                 {{ project.location }} &middot; {{ formatDate(project) }}
               </p>
             </div>
             <button
               @click="close"
-              class="text-offwhite hover:text-gold transition-colors p-uniform-6"
+              class="text-offwhite hover:text-gold active:text-gold transition-colors min-w-11 min-h-11 flex items-center justify-center shrink-0"
               aria-label="Close modal"
             >
-              <Icon name="solar:close-circle-linear" class="text-icon-size-5" />
+              <Icon name="solar:close-circle-linear" class="text-icon-size-4 sm:text-icon-size-5" />
             </button>
           </div>
 
@@ -128,15 +128,15 @@ watch(
             <button
               v-if="currentMediaIndex > 0"
               @click="prevMedia"
-              class="absolute left-0 z-10 text-offwhite hover:text-gold transition-colors p-uniform-6 md:p-uniform-5"
+              class="absolute left-0 z-10 text-offwhite hover:text-gold active:text-gold transition-colors min-w-11 min-h-11 flex items-center justify-center"
               aria-label="Previous media"
             >
-              <Icon name="solar:arrow-left-linear" class="text-icon-size-4" />
+              <Icon name="solar:arrow-left-linear" class="text-icon-size-5 sm:text-icon-size-4" />
             </button>
 
             <div
               ref="scrollContainer"
-              class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-uniform-4 w-full h-full items-center"
+              class="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-uniform-5 sm:gap-uniform-4 w-full h-full items-center"
               @scroll="handleScroll"
             >
               <div
@@ -169,29 +169,29 @@ watch(
             <button
               v-if="currentMediaIndex < project.media.length - 1"
               @click="nextMedia"
-              class="absolute right-0 z-10 text-offwhite hover:text-gold transition-colors p-uniform-6 md:p-uniform-5"
+              class="absolute right-0 z-10 text-offwhite hover:text-gold active:text-gold transition-colors min-w-11 min-h-11 flex items-center justify-center"
               aria-label="Next media"
             >
-              <Icon name="solar:arrow-right-linear" class="text-icon-size-4" />
+              <Icon name="solar:arrow-right-linear" class="text-icon-size-5 sm:text-icon-size-4" />
             </button>
           </div>
 
-          <div class="flex justify-center items-center gap-uniform-5 mt-uniform-4">
-            <div class="flex gap-uniform-6">
+          <div class="flex justify-center items-center gap-uniform-4 sm:gap-uniform-5 mt-uniform-5 sm:mt-uniform-4">
+            <div class="flex gap-uniform-5 sm:gap-uniform-6">
               <button
                 v-for="(_, index) in project.media"
                 :key="index"
                 @click="goToMedia(index)"
                 :class="[
-                  'w-uniform-6 h-uniform-6 border border-offwhite transition-colors',
+                  'w-3 h-3 sm:w-4 sm:h-4 border border-offwhite transition-colors',
                   currentMediaIndex === index
                     ? 'bg-gold border-gold'
-                    : 'bg-transparent hover:bg-offwhite/30',
+                    : 'bg-transparent hover:bg-offwhite/30 active:bg-offwhite/50',
                 ]"
                 :aria-label="`Go to media ${index + 1}`"
               />
             </div>
-            <p class="font-lato text-normal-4 text-offwhite/70">
+            <p class="font-lato text-normal-5 sm:text-normal-4 text-offwhite/70">
               {{ currentMediaIndex + 1 }} / {{ project.media.length }}
             </p>
           </div>

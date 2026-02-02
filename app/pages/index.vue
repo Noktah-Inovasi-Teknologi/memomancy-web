@@ -105,16 +105,16 @@ useParallax();
     />
   </div>
 
-  <section class="flex flex-col gap-uniform-3 p-uniform-3 bg-offwhite" id="hero-cta" data-parallax>
+  <section class="flex flex-col gap-uniform-4 sm:gap-uniform-3 p-uniform-5 sm:p-uniform-4 md:p-uniform-3 bg-offwhite" id="hero-cta" data-parallax>
     <div class="flex flex-col gap-uniform-5 text-charcoal">
-      <h1 class="font-playfair text-heading-1">Where moments become legacy.</h1>
-      <p class="font-lato text-normal-2">
+      <h1 class="font-playfair text-heading-2 sm:text-heading-1">Where moments become legacy.</h1>
+      <p class="font-lato text-normal-3 sm:text-normal-2">
         Premium photography & videography for those who value narrative.
       </p>
     </div>
     <AnimatedButton
       to="/gallery"
-      classes="self-center text-gold font-lato text-normal-3 px-uniform-5 py-uniform-6"
+      classes="self-center text-gold font-lato text-normal-4 sm:text-normal-3 py-uniform-6"
     >
       Explore Our Gallery
     </AnimatedButton>
@@ -123,11 +123,11 @@ useParallax();
   <USeparator />
 
   <section
-    class="flex flex-col p-uniform-3 gap-uniform-3 bg-offwhite"
+    class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 gap-uniform-4 sm:gap-uniform-3 bg-offwhite"
     id="philosophy"
     data-parallax
   >
-    <header class="font-playfair text-charcoal text-heading-5 tracking-wider uppercase">■ OUR PHILOSOPHIES</header>
+    <header class="font-playfair text-charcoal text-heading-6 sm:text-heading-5 tracking-wider uppercase">■ OUR PHILOSOPHIES</header>
     <div class="flex flex-col basis-2/5">
       <UAccordion
         :items="philosophyItems"
@@ -135,9 +135,9 @@ useParallax();
         collapsible
         :ui="{
           item: 'border-b border-charcoal',
-          trigger: 'font-playfair text-heading-3 text-charcoal bg-transparent rounded-none py-uniform-5 hover:bg-transparent focus:outline-none',
+          trigger: 'font-playfair text-heading-4 sm:text-heading-3 text-charcoal bg-transparent rounded-none py-uniform-5 hover:bg-transparent focus:outline-none',
           content: 'pb-uniform-5',
-          body: 'text-normal-3 font-lato text-charcoal'
+          body: 'text-normal-4 sm:text-normal-3 font-lato text-charcoal'
         }"
       />
     </div>
@@ -145,8 +145,8 @@ useParallax();
 
   <USeparator />
 
-  <section class="flex flex-col p-uniform-3 gap-uniform-3 bg-offwhite" id="service" data-parallax>
-    <header class="font-playfair text-charcoal text-heading-5 tracking-wider uppercase">■ SERVICES</header>
+  <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 gap-uniform-4 sm:gap-uniform-3 bg-offwhite" id="service" data-parallax>
+    <header class="font-playfair text-charcoal text-heading-6 sm:text-heading-5 tracking-wider uppercase">■ SERVICES</header>
     <div class="flex flex-col basis-2/5">
       <div class="flex flex-col gap-uniform-5">
         <div
@@ -156,29 +156,29 @@ useParallax();
         >
           <button
             @click="toggleService(index)"
-            class="w-full flex justify-between items-center font-playfair text-heading-3 text-charcoal bg-transparent p-0 pb-uniform-5"
+            class="w-full flex justify-between items-center font-playfair text-heading-4 sm:text-heading-3 text-charcoal bg-transparent p-0 pb-uniform-5 gap-uniform-5"
           >
-            <span class="font-playfair">{{ item.title }}</span>
+            <span class="font-playfair text-left">{{ item.title }}</span>
             <Icon
               :name="openServiceIndex === index ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'"
-              class="text-charcoal text-icon-size-5"
+              class="text-charcoal text-icon-size-4 sm:text-icon-size-5 shrink-0"
             />
           </button>
           <div
             v-if="openServiceIndex === index"
             class="pb-uniform-5"
           >
-            <p class="text-normal-3 font-lato">{{ item.description }}</p>
+            <p class="text-normal-4 sm:text-normal-3 font-lato">{{ item.description }}</p>
           </div>
         </div>
       </div>
     </div>
-    <footer class="text-end text-charcoal text-normal-4">M✦ - 02</footer>
+    <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4">M✦ - 02</footer>
   </section>
 
-  <section class="flex flex-col p-uniform-3 gap-uniform-3 bg-offwhite" id="gallery-showcase" data-parallax>
-    <header class="font-playfair text-charcoal text-heading-5 tracking-wider uppercase">■ RECENT WORK</header>
-    <div class="flex flex-col basis-2/5 gap-uniform-3">
+  <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 gap-uniform-4 sm:gap-uniform-3 bg-offwhite" id="gallery-showcase" data-parallax>
+    <header class="font-playfair text-charcoal text-heading-6 sm:text-heading-5 tracking-wider uppercase">■ RECENT WORK</header>
+    <div class="flex flex-col basis-2/5 gap-uniform-4 sm:gap-uniform-3">
       <div class="relative">
         <div class="aspect-video bg-charcoal overflow-hidden">
           <video
@@ -193,68 +193,68 @@ useParallax();
             playsinline
           />
         </div>
-        <div class="flex justify-center items-center gap-uniform-5 mt-uniform-4">
+        <div class="flex justify-center items-center gap-uniform-4 sm:gap-uniform-5 mt-uniform-5 sm:mt-uniform-4">
           <button
             @click="prevSlide"
-            class="text-charcoal bg-transparent hover:bg-transparent p-uniform-6"
+            class="text-charcoal bg-transparent hover:bg-transparent active:text-gold min-w-11 min-h-11 flex items-center justify-center"
           >
-            <Icon name="solar:arrow-left-linear" class="text-charcoal text-icon-size-5" />
+            <Icon name="solar:arrow-left-linear" class="text-charcoal text-icon-size-4 sm:text-icon-size-5" />
           </button>
-          <div class="flex gap-uniform-6">
+          <div class="flex gap-uniform-5 sm:gap-uniform-6">
             <button
               v-for="(_, index) in galleryItems"
               :key="index"
               @click="currentSlide = index"
               :class="[
-                'w-uniform-6 h-uniform-6 border border-charcoal transition-colors',
-                currentSlide === index ? 'bg-charcoal' : 'bg-transparent hover:bg-charcoal/50'
+                'w-3 h-3 sm:w-4 sm:h-4 border border-charcoal transition-colors',
+                currentSlide === index ? 'bg-charcoal' : 'bg-transparent hover:bg-charcoal/50 active:bg-charcoal/70'
               ]"
             />
           </div>
           <button
             @click="nextSlide"
-            class="text-charcoal bg-transparent hover:bg-transparent p-uniform-6"
+            class="text-charcoal bg-transparent hover:bg-transparent active:text-gold min-w-11 min-h-11 flex items-center justify-center"
           >
-            <Icon name="solar:arrow-right-linear" class="text-charcoal text-icon-size-5" />
+            <Icon name="solar:arrow-right-linear" class="text-charcoal text-icon-size-4 sm:text-icon-size-5" />
           </button>
         </div>
       </div>
       <AnimatedButton
         to="/gallery"
-        classes="self-center text-gold font-lato text-normal-3 px-uniform-5 py-uniform-6"
+        classes="self-center text-gold font-lato text-normal-4 sm:text-normal-3 py-uniform-6"
       >
         View Full Gallery
       </AnimatedButton>
     </div>
-    <footer class="text-end text-charcoal text-normal-4">M✦ - 03</footer>
+    <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4">M✦ - 03</footer>
   </section>
 
   <USeparator />
 
-  <section class="flex flex-col p-uniform-3 gap-uniform-3 bg-offwhite" id="pricing-cta" data-parallax>
-    <header class="font-playfair text-charcoal text-heading-5 tracking-wider uppercase">■ TRANSPARENT PRICING</header>
-    <div class="flex flex-col gap-uniform-3">
+  <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 gap-uniform-4 sm:gap-uniform-3 bg-offwhite" id="pricing-cta" data-parallax>
+    <header class="font-playfair text-charcoal text-heading-6 sm:text-heading-5 tracking-wider uppercase">■ TRANSPARENT PRICING</header>
+    <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3">
       <div class="flex flex-col gap-uniform-5">
-        <h2 class="font-playfair text-heading-3 text-charcoal">
+        <h2 class="font-playfair text-heading-4 sm:text-heading-3 text-charcoal">
           No hidden fees. No surprises.
         </h2>
-        <p class="text-normal-3 font-lato text-charcoal">
+        <p class="text-normal-4 sm:text-normal-3 font-lato text-charcoal">
           Our interactive pricing calculator lets you build a custom package that fits your needs and budget. Get an instant estimate based on your project requirements.
         </p>
       </div>
       <AnimatedButton
         to="/calculator"
-        classes="self-center text-gold font-lato text-normal-3 px-uniform-5 py-uniform-6"
+        classes="self-center text-gold font-lato text-normal-4 sm:text-normal-3 py-uniform-6"
       >
         Calculate Your Project
       </AnimatedButton>
     </div>
-    <footer class="text-end text-charcoal text-normal-4">M✦ - 04</footer>
+    <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4">M✦ - 04</footer>
   </section>
 
-  <section class="flex flex-col p-uniform-3 gap-uniform-3 bg-offwhite" id="faq" data-parallax>
-    <header class="font-playfair text-charcoal text-heading-5 tracking-wider uppercase">■ COMMON QUESTIONS</header>
-    <div class="flex flex-col gap-uniform-3">
+  <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 gap-uniform-4 sm:gap-uniform-3 bg-offwhite" id="faq" data-parallax>
+    <header class="font-playfair text-charcoal text-heading-6 sm:text-heading-5 tracking-wider uppercase">■ COMMON QUESTIONS</header>
+    <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3">
       <div class="flex flex-col gap-uniform-5">
         <div
           v-for="(item, index) in faqItems"
@@ -263,30 +263,30 @@ useParallax();
         >
           <button
             @click="toggleFaq(index)"
-            class="w-full flex justify-between items-center font-playfair text-heading-3 text-charcoal bg-transparent p-0 pb-uniform-5"
+            class="w-full flex justify-between items-center font-playfair text-heading-4 sm:text-heading-3 text-charcoal bg-transparent p-0 pb-uniform-5 gap-uniform-5"
           >
             <span class="font-playfair text-left">{{ item.question }}</span>
             <Icon
               :name="openFaqIndex === index ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'"
-              class="text-charcoal text-icon-size-5 shrink-0 ml-uniform-6"
+              class="text-charcoal text-icon-size-4 sm:text-icon-size-5 shrink-0"
             />
           </button>
           <div
             v-if="openFaqIndex === index"
             class="pb-uniform-5"
           >
-            <p class="text-normal-3 font-lato">{{ item.answer }}</p>
+            <p class="text-normal-4 sm:text-normal-3 font-lato">{{ item.answer }}</p>
           </div>
         </div>
       </div>
       <AnimatedButton
         to="/"
-        classes="self-center text-gold font-lato text-normal-3 px-uniform-5 py-uniform-6"
+        classes="self-center text-gold font-lato text-normal-4 sm:text-normal-3 py-uniform-6"
       >
         View All FAQs
       </AnimatedButton>
     </div>
-    <footer class="text-end text-charcoal text-normal-4">M✦ - 05</footer>
+    <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4">M✦ - 05</footer>
   </section>
 
   <AppFooter />

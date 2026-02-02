@@ -26,7 +26,7 @@ const handleClick = () => {
 <template>
   <div
     @click="handleClick"
-    class="flex flex-col gap-uniform-6 cursor-pointer group"
+    class="flex flex-col gap-uniform-7 sm:gap-uniform-6 cursor-pointer group"
   >
     <div class="relative overflow-hidden rounded-none aspect-3/4">
       <USkeleton v-if="!loaded" class="absolute inset-0 w-full h-full rounded-none" />
@@ -50,12 +50,12 @@ const handleClick = () => {
         @load="loaded = true"
       />
     </div>
-    <div class="flex flex-col gap-uniform-6">
-      <h3 class="font-playfair text-heading-4 text-charcoal">
+    <div class="flex flex-col gap-uniform-7 sm:gap-uniform-6">
+      <h3 class="font-playfair text-heading-5 sm:text-heading-4 text-charcoal line-clamp-2">
         {{ project.title }}
       </h3>
-      <div class="flex flex-col gap-uniform-7 font-lato text-normal-3 text-charcoal/70">
-        <p>{{ project.location }}</p>
+      <div class="flex flex-col gap-uniform-7 font-lato text-normal-4 sm:text-normal-3 text-charcoal/70">
+        <p class="truncate">{{ project.location }}</p>
         <p>{{ formatDate(project) }}</p>
       </div>
     </div>
