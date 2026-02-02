@@ -1,265 +1,264 @@
 # Frontend Development Standards - Memomancy Web
 
-## Tech Stack Compliance
+## Tech Stack
 - **Framework**: Nuxt 4 with Vue 3 Composition API
-- **UI Library**: PrimeVue 4.3.7 (use PrimeVue components over custom implementations)
-- **Styling**: TailwindCSS utility classes + PrimeVue theme system
+- **UI Library**: Nuxt UI 4.3.0 (use Nuxt UI components over custom implementations)
+- **Styling**: TailwindCSS 4 with custom `@theme` tokens
 - **State Management**: Pinia stores for shared state
-- **TypeScript**: Preferred for type safety
+- **TypeScript**: Required for type safety
 
 ## Component Standards
 
 ### File Naming
-- Use PascalCase for component files
+- Use PascalCase for component files: `AnimatedButton.vue`
 - Place in `/app/components/` directory
-- Group related components in subdirectories
+- Group related components in subdirectories: `Gallery/GalleryProjectCard.vue`
 
 ### Component Structure
-- Use Composition API with `<script setup>` syntax exclusively
-- Define props with TypeScript interfaces or typed defineProps
-- Emit events using typed defineEmits
-- Keep components focused and single-responsibility
-- Component files should have three sections: script, template, style (in that order)
+```vue
+<script lang="ts" setup>
+// 1. Type imports
+// 2. Interface definitions
+// 3. Props & Emits
+// 4. Composables
+// 5. Reactive state
+// 6. Computed properties
+// 7. Functions
+// 8. Lifecycle hooks
+</script>
+
+<template>
+  <!-- Template content -->
+</template>
+
+<style scoped>
+/* Scoped styles when necessary */
+</style>
+```
+
+### Props & Emits
+```ts
+interface Props {
+  project: Project;
+  isActive?: boolean;
+}
+
+const props = defineProps<Props>();
+
+const emit = defineEmits<{
+  click: [project: Project];
+}>();
+```
 
 ## Styling Guidelines
 
-### TailwindCSS Best Practices
-- Prefer Tailwind utility classes over custom CSS
-- Use `@apply` sparingly in component styles
-- Follow mobile-first responsive design
-- Use custom breakpoints defined in project config
-- Leverage PrimeVue theme tokens when available
+### TailwindCSS 4 Usage
+- Use custom theme tokens defined in `main.css`
+- Typography: `text-heading-*`, `text-normal-*`
+- Spacing: `p-uniform-*`, `gap-uniform-*`, `m-uniform-*`
+- Icons: `text-icon-size-*`
+- Colors: `text-charcoal`, `bg-offwhite`, `text-gold`
 
-### Class Organization
-- Group related utilities in logical order: layout → spacing → typography → colors → effects
-- Maintain consistent class ordering across the project
+### Responsive Design
+Mobile-first with consistent breakpoint progression:
+```html
+<div class="
+  text-heading-5
+  sm:text-heading-4
+  md:text-heading-4
+  lg:text-heading-5
+  xl:text-heading-5
+">
+```
 
-### Color Mode Support
-- Use theme-aware classes or CSS variables
-- Test components in light/dark/system modes
-- Avoid hardcoded color values
-- Ensure proper contrast ratios in all color modes
+### Color Mode
+- Dark mode is disabled (`colorMode: false` in config)
+- Use brand colors: charcoal, offwhite, gold, taupe
+- Light theme only with warm neutrals
 
-## PrimeVue Integration
+## Nuxt UI Integration
 
-### Component Usage
-- Always use PrimeVue components when available (Button, InputText, Dialog, DataTable, etc.)
-- Follow PrimeVue naming conventions and prop patterns
-- Leverage unstyled mode if custom styling is needed
-- Reference PrimeVue 4.3.7 documentation for API compatibility
+### Available Components
+Use Nuxt UI components when available:
+- `UDrawer` - Mobile navigation drawer
+- `USeparator` - Section dividers
+- `USkeleton` - Loading placeholders
+- `UAccordion` - Expandable content
 
-### Theme Customization
-- Use the project's custom theme via composables
-- Never override PrimeVue CSS directly
-- Extend theme tokens in theme configuration
-- Maintain consistency with PrimeVue design system
+### Component Customization
+Use the `:ui` prop for styling:
+```vue
+<UAccordion
+  :items="items"
+  :ui="{
+    item: 'border-b border-charcoal',
+    trigger: 'font-playfair text-heading-4 text-charcoal bg-transparent rounded-none',
+    content: 'pb-uniform-5',
+    body: 'text-normal-4 font-lato text-charcoal'
+  }"
+/>
+```
 
 ## State Management
 
-### When to Use Pinia
-- Shared state across multiple components/pages
-- Complex state logic requiring actions and getters
-- Data that persists across route changes
-- Global application state
-
-### When to Use Composables
-- Reusable logic without global state
+### Composables (Preferred)
+Use composables for:
+- Reusable logic: `useMedia()`, `useParallax()`
+- Data management: `useGalleryProjects()`
 - Component-specific reactive state
-- Utility functions and helpers
-- Business logic that doesn't need persistence
 
-### Store Guidelines
-- Use setup syntax for Pinia stores
-- Keep stores focused on specific domains
-- Avoid over-centralization of state
-- Use getters for computed state
+### Pinia Stores
+Use for:
+- Global application state
+- State that persists across route changes
+- Complex state with actions/getters
 
 ## Routing & Navigation
 
 ### Page Components
-- Place all pages in `/app/pages/` directory
+- Place in `/app/pages/` directory
 - Use file-based routing convention
-- Add route middleware for protected routes
-- Use `definePageMeta()` for page-specific configuration
-- Keep page components lightweight, delegate logic to composables/components
+- Keep pages lightweight, delegate to composables/components
 
 ### Navigation
-- Use `<NuxtLink>` for internal navigation
-- Use `navigateTo()` for programmatic navigation
-- Avoid full page reloads
-- Implement proper loading states during navigation
+```vue
+<!-- Internal links -->
+<NuxtLink to="/gallery">Gallery</NuxtLink>
 
-## Authentication & Authorization
+<!-- Animated links -->
+<AnimatedButton to="/gallery" classes="text-gold">
+  View Gallery
+</AnimatedButton>
+```
+
+## Authentication
 
 ### Route Protection
-- **Public routes**: `/`, `/calculator`, `/gallery`, `/reservation`
-- **Authenticated routes**: All others except dashboard
-- **Permission-based**: `/dashboard` (requires dashboard permission)
+| Route | Access |
+|-------|--------|
+| `/` | Public |
+| `/calculator` | Public (auth middleware) |
+| `/gallery` | Public |
+| `/reservation` | Public (auth middleware) |
+| `/dashboard` | Requires permission |
 
-### Kinde Auth Integration
-- Use Kinde composable for authentication state
-- Check authentication status before protected operations
-- Verify permissions for role-based access
-- Handle authentication redirects properly
+### Kinde Integration
+Authentication handled via `@nuxtjs/kinde` module with route rules in `nuxt.config.ts`.
 
-## Performance Best Practices
+## Performance
 
-### Code Splitting
-- Use dynamic imports for heavy components
-- Lazy load routes (handled automatically by Nuxt)
-- Split vendor bundles appropriately
+### Media Loading
+Always show skeleton while loading:
+```vue
+<USkeleton v-if="!loaded" class="absolute inset-0 w-full h-full rounded-none" />
+<video @loadeddata="loaded = true" ... />
+```
 
 ### Image Optimization
-- Use `<NuxtImg>` or `<NuxtPicture>` components
-- Provide appropriate sizes and formats
-- Use lazy loading for below-fold images
-- Optimize image assets before uploading
+- Use lazy loading: `loading="lazy"`
+- Provide appropriate `preload` hints
+- Use `object-cover` for consistent sizing
 
-### Reactivity
-- Avoid unnecessary reactive wrappers
-- Use `shallowRef` for large objects
-- Unref values in computed properties
-- Minimize watchers and computed dependencies
+### Parallax
+Use `useParallax()` composable with data attributes:
+```vue
+<section data-parallax>Content</section>
+<div data-parallax-media>Media</div>
+```
 
-## Accessibility (a11y)
+## Accessibility
 
-### Semantic HTML
-- Use proper heading hierarchy (h1 → h6)
-- Use semantic elements: `<nav>`, `<main>`, `<article>`, `<section>`
-- Label form inputs properly with associated labels
+### Touch Targets
+Minimum 44x44px:
+```html
+<button class="min-w-11 min-h-11 flex items-center justify-center">
+```
 
-### Keyboard Navigation
-- Ensure all interactive elements are keyboard accessible
-- Maintain logical tab order
-- Provide visible focus indicators
-- Support standard keyboard shortcuts
+### ARIA Labels
+```html
+<button aria-label="Previous page">
+<button :aria-label="`Go to page ${page}`">
+```
 
-### ARIA Attributes
-- Use ARIA labels for screen readers where needed
-- Provide alt text for all images
-- Use appropriate ARIA roles
-- Don't override semantic HTML with unnecessary ARIA
-
-### Form Accessibility
-- Associate labels with inputs
-- Provide error messages in accessible format
-- Use proper input types
-- Include helpful placeholder text
+### Focus States
+Gold outline for keyboard focus (defined in `main.css`):
+```css
+button:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+```
 
 ## Code Quality
 
-### TypeScript Usage
+### TypeScript
 - Define interfaces for props, emits, and data structures
-- Avoid `any` type unless absolutely necessary
-- Use type inference where possible
-- Leverage TypeScript for better IDE support
+- Import types from `~/types`
+- Avoid `any` type
 
-### Error Handling
-- Handle async errors with try-catch blocks
-- Provide user-friendly error feedback
-- Log errors appropriately for debugging
-- Don't expose sensitive error details to users
-
-### Testing Considerations
-- Write testable, modular code
-- Keep business logic separate from UI
-- Use composables for complex logic
-- Ensure components can be tested in isolation
-
-## Development Workflow
-
-### Before Committing
-- Test in multiple viewports and devices
-- Test light/dark mode functionality
-- Check console for warnings/errors
-- Verify authentication flows work correctly
-- Test with realistic data when possible
-- Ensure no broken links or navigation issues
-
-### Code Review Checklist
-- Follows component structure standards
-- Uses PrimeVue components appropriately
-- Implements responsive design
-- Handles loading and error states
-- Accessible to keyboard and screen readers
-- TypeScript types properly defined
-- No console.log statements in production code
-- Proper error handling implemented
+### Auto-imports
+These are auto-imported (no explicit import needed):
+- Vue: `ref`, `computed`, `watch`, `onMounted`
+- Nuxt: `useRoute`, `navigateTo`, `$fetch`
+- Project composables: `useMedia`, `useParallax`
+- Components in `/app/components/`
 
 ## File Organization
 
-### Component Structure
-- `/app/components/ui/` - Reusable UI components
-- `/app/components/layout/` - Layout components (header, footer, sidebar)
-- `/app/components/features/` - Feature-specific components
+### Current Structure
+```
+/app/components/
+  AppHeader.vue
+  AppFooter.vue
+  SectionLayout.vue
+  AnimatedButton.vue
+  /Gallery/
+    GalleryProjectCard.vue
+    GalleryModal.vue
+    GalleryItem.vue
 
-### Composables
-- `/app/composables/` - Reusable composition functions
-- Name composables with `use` prefix
-- Keep composables focused on single responsibility
+/app/composables/
+  useMedia.ts
+  useParallax.ts
+  useGalleryProjects.ts
+  useR2.ts
 
-### Utils
-- `/app/utils/` - Pure utility functions
-- Include validators, formatters, constants
-- Keep utilities framework-agnostic when possible
+/app/data/
+  commonInformations.ts
+  eastJavaRegions.ts
 
-### Types
-- Define TypeScript interfaces in component files or shared types directory
-- Use meaningful names for types and interfaces
-- Export reusable types
+/app/types/
+  index.ts
+```
 
 ## Anti-Patterns to Avoid
 
-- Mixing Options API and Composition API
-- Direct DOM manipulation (use template refs instead)
-- Mutating props directly
-- Using `var` (use `const` or `let`)
-- Creating global state without Pinia
-- Hardcoding API URLs (use runtime config)
-- Ignoring TypeScript errors
-- Over-nesting components (keep component tree flat)
-- Creating custom components when PrimeVue equivalents exist
-- Using inline styles (prefer Tailwind classes)
-- Large components (break down into smaller, focused components)
-- Unnecessary watchers (prefer computed properties)
-- Props drilling (use provide/inject or Pinia for deep hierarchies)
+- Using PrimeVue components (project uses Nuxt UI)
+- Mixing Options API with Composition API
+- Arbitrary spacing/sizing values (use tokens)
+- Rounded corners (use `rounded-none`)
+- Box shadows (flat design)
+- Solid button backgrounds (use text-based buttons)
+- Direct DOM manipulation (use template refs)
+- Hardcoded API URLs (use runtime config)
 
 ## Naming Conventions
 
-### Variables and Functions
-- Use camelCase for variables and functions
-- Use descriptive names that indicate purpose
-- Boolean variables should start with `is`, `has`, `should`
-- Event handlers should start with `on` or `handle`
+### Variables & Functions
+- camelCase: `isActive`, `handleClick`
+- Boolean prefix: `is`, `has`, `should`
+- Event handlers: `on*`, `handle*`
 
-### Constants
-- Use UPPER_SNAKE_CASE for true constants
-- Place constants in dedicated files or at top of file
-
-### Files and Directories
+### Files
 - Components: PascalCase
 - Composables: camelCase with `use` prefix
-- Utils: camelCase
+- Data files: camelCase
 - Pages: lowercase with hyphens
-
-## Best Practices Summary
-
-- Always prefer PrimeVue components over building custom ones
-- Keep components small and focused
-- Use TypeScript for type safety
-- Follow mobile-first responsive design
-- Test across multiple browsers and devices
-- Maintain accessibility standards
-- Write self-documenting code
-- Use semantic HTML
-- Optimize performance from the start
-- Follow the principle of least surprise
 
 ## Resources
 
 - [Nuxt 4 Documentation](https://nuxt.com)
+- [Nuxt UI Documentation](https://ui.nuxt.com)
 - [Vue 3 Documentation](https://vuejs.org)
-- [PrimeVue 4 Documentation](https://primevue.org)
-- [TailwindCSS Documentation](https://tailwindcss.com)
+- [TailwindCSS v4 Documentation](https://tailwindcss.com)
 - [Pinia Documentation](https://pinia.vuejs.org)
-- [Kinde Nuxt Module](https://github.com/nuxt-modules/kinde)

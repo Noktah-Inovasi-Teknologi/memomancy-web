@@ -15,433 +15,334 @@ Memomancy is a premium photography and videography brand focused on narrative-fi
 ### Tagline
 "Where moments become legacy."
 
-## Color Palette
+---
 
-### Primary Colors
-- **Charcoal**: Deep dark background color for hero sections and contrast
-- **Offwhite**: Light, warm background for content sections
-- **Gold**: Accent color for CTAs and emphasis
-- **Taupe**: Supporting neutral for subtle elements
+## Color System
 
-### Color Usage Philosophy
-- Use charcoal for dramatic, high-impact sections
-- Use offwhite for readable content areas
-- Gold as accent for interactive elements and CTAs
-- Maintain high contrast between text and backgrounds
-- Ensure accessibility across all color combinations
+### Brand Colors (CSS Variables)
+```css
+--color-charcoal: #121417;  /* Deep dark - hero backgrounds, text on light */
+--color-offwhite: #F5F3EE;  /* Warm light - main backgrounds */
+--color-taupe: #C8B89A;     /* Supporting neutral - subtle elements */
+--color-gold: #B89C5D;      /* Accent - CTAs, emphasis, focus states */
+```
 
-### Color Mode Strategy
-- Primary mode: Light with warm neutrals
-- Dark mode: Currently disabled in theme configuration
-- Use mix-blend-difference for fixed navigation to ensure visibility over any background
+### Tailwind Usage
+```html
+<!-- Backgrounds -->
+<div class="bg-charcoal">Dark sections</div>
+<div class="bg-offwhite">Light sections</div>
 
-## Typography
+<!-- Text -->
+<p class="text-charcoal">Primary text</p>
+<p class="text-offwhite">Text on dark</p>
+<span class="text-gold">Accent text</span>
+<span class="text-charcoal/70">Muted text</span>
+```
+
+### Color Mode
+- Dark mode is **disabled** in this project
+- Light theme only with warm neutrals
+- `colorMode: false` in Nuxt config
+
+---
+
+## Typography System
 
 ### Font Families
+```css
+--font-playfair: Playfair Display, serif;
+--font-lato: Lato, sans-serif;
+```
 
-#### Playfair Display (Serif)
-- **Purpose**: Headings, brand name, section markers, navigation
-- **Character**: Elegant, sophisticated, traditional
-- **Usage**: All display text, titles, emphasis
-- **Weight**: Medium (500) as standard
+| Font | Purpose | Weight |
+|------|---------|--------|
+| **Playfair Display** | Headings, brand name, section markers, navigation | Medium (500) |
+| **Lato** | Body text, descriptions, UI elements | Regular (400) |
 
-#### Lato (Sans-serif)
-- **Purpose**: Body text, descriptions, UI elements
-- **Character**: Clean, readable, modern
-- **Usage**: All content paragraphs, supporting text, UI copy
-- **Weight**: Regular (400) as standard
+### Heading Scale (2.5x dramatic scaling)
+```css
+/* Viewport range: 375px - 1440px */
+--text-heading-1: clamp(3rem, calc(6.76vw + 1.416rem), 7.5rem);    /* 48px → 120px */
+--text-heading-2: clamp(1.5rem, calc(3.38vw + 0.708rem), 3.75rem); /* 24px → 60px */
+--text-heading-3: clamp(1rem, calc(2.25vw + 0.473rem), 2.5rem);    /* 16px → 40px */
+--text-heading-4: clamp(0.75rem, calc(1.13vw + 0.486rem), 1.5rem); /* 12px → 24px */
+--text-heading-5: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);    /* 8px → 16px */
+--text-heading-6: clamp(0.25rem, calc(0.376vw + 0.162rem), 0.5rem);/* 4px → 8px */
+--text-heading-7: clamp(0.125rem, calc(0.188vw + 0.081rem), 0.25rem);/* 2px → 4px */
+```
 
-### Typography Scale
+### Normal Text Scale (2x for subheadings, 1.5x for body)
+```css
+--text-normal-1: clamp(1.5rem, calc(2.25vw + 0.972rem), 3rem);      /* 24px → 48px */
+--text-normal-2: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);         /* 16px → 32px */
+--text-normal-3: clamp(0.75rem, calc(1.13vw + 0.486rem), 1.5rem);   /* 12px → 24px */
+--text-normal-4: clamp(0.5rem, calc(0.376vw + 0.412rem), 0.75rem);  /* 8px → 12px */
+--text-normal-5: clamp(0.375rem, calc(0.282vw + 0.309rem), 0.5625rem);/* 6px → 9px */
+--text-normal-6: clamp(0.25rem, calc(0.188vw + 0.206rem), 0.375rem);/* 4px → 6px */
+--text-normal-7: clamp(0.125rem, calc(0.094vw + 0.103rem), 0.1875rem);/* 2px → 3px */
+```
 
-#### Heading Sizes
-Seven levels of fluid heading sizes using clamp for responsive scaling:
-- heading-1: Largest display text (3rem to 9rem)
-- heading-2: Major section headings (1.5rem to 4.5rem)
-- heading-3: Subsection titles (1rem to 3rem)
-- heading-4 through heading-7: Progressive smaller sizes
+### Typography Usage
+```html
+<!-- Headings -->
+<h1 class="font-playfair text-heading-1">Main headline</h1>
+<h2 class="font-playfair text-heading-2">Section title</h2>
 
-#### Normal Text Sizes
-Seven levels of body text sizes:
-- normal-1: Largest body text (1.5rem to 4.5rem)
-- normal-2: Standard large text (1rem to 3rem)
-- normal-3: Medium body text (0.75rem to 2.25rem)
-- normal-4: Standard readable text (0.5rem to 1.5rem)
-- normal-5 through normal-7: Progressive smaller sizes
+<!-- Body text -->
+<p class="font-lato text-normal-3">Description text</p>
+<span class="font-lato text-normal-4">Small text</span>
 
-### Typography Guidelines
-- Use Playfair Display exclusively for all headings and brand elements
-- Use Lato for all body content and descriptions
-- Never mix heading fonts within a section
-- Maintain fluid scaling across all viewport sizes
-- Ensure text remains readable at all breakpoints
+<!-- Section markers -->
+<header class="font-playfair text-heading-5 tracking-wider uppercase">
+  ■ SECTION TITLE
+</header>
+```
+
+---
 
 ## Spacing System
 
-### Uniform Spacing Scale
-Seven-level spacing system using clamp for fluid scaling:
-- uniform-1: Largest spacing (3rem to 9rem) - Major section gaps
-- uniform-2: Large spacing (2rem to 6rem) - Section internal spacing
-- uniform-3: Medium-large spacing (1.5rem to 4.5rem) - Component gaps
-- uniform-4: Medium spacing (1rem to 3rem) - Content separation
-- uniform-5: Small-medium spacing (0.75rem to 2.25rem) - Element gaps
-- uniform-6: Small spacing (0.5rem to 1.5rem) - Tight element spacing
-- uniform-7: Smallest spacing (0.25rem to 0.75rem) - Minimal gaps
+### Uniform Spacing Scale (2x multiplier)
+```css
+/* Viewport range: 375px - 1440px */
+--spacing-uniform-1: clamp(3rem, calc(4.51vw + 1.944rem), 6rem);    /* 48px → 96px */
+--spacing-uniform-2: clamp(2rem, calc(3vw + 1.296rem), 4rem);       /* 32px → 64px */
+--spacing-uniform-3: clamp(1.5rem, calc(2.25vw + 0.972rem), 3rem);  /* 24px → 48px */
+--spacing-uniform-4: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);     /* 16px → 32px */
+--spacing-uniform-5: clamp(0.75rem, calc(1.13vw + 0.486rem), 1.5rem);/* 12px → 24px */
+--spacing-uniform-6: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);  /* 8px → 16px */
+--spacing-uniform-7: clamp(0.25rem, calc(0.376vw + 0.162rem), 0.5rem);/* 4px → 8px */
+```
 
-### Spacing Usage Principles
-- Use consistent spacing tokens throughout the application
-- Prefer larger spacing between major sections
-- Use uniform-3 for standard padding in sections
-- Maintain vertical rhythm using the uniform scale
-- Never use arbitrary spacing values
+### Padding Tokens
+```css
+--padding-container: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);     /* 16px → 32px */
+--padding-section: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);    /* 8px → 16px */
+--padding-card: clamp(0.25rem, calc(0.376vw + 0.162rem), 0.5rem);   /* 4px → 8px */
+--padding-button-y: clamp(0.25rem, calc(0.376vw + 0.162rem), 0.5rem);/* 4px → 8px */
+--padding-button-x: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);   /* 8px → 16px */
+--padding-menubar-y: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);  /* 8px → 16px */
+--padding-menubar-x: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);     /* 16px → 32px */
+```
 
-### Padding Standards
-- Container padding: Fluid scaling (1rem to 3rem)
-- Section padding: Fluid scaling (0.5rem to 1.5rem)
-- Card padding: Fluid scaling (0.25rem to 0.75rem)
-- Button padding Y: Fluid scaling (0.25rem to 0.75rem)
-- Button padding X: Fluid scaling (0.5rem to 1.5rem)
-- Menubar padding Y: Fluid scaling (0.5rem to 1.5rem)
-- Menubar padding X: Fluid scaling (1rem to 3rem)
+### Usage
+```html
+<!-- Padding -->
+<section class="p-uniform-3">Sectio padding</section>
+<div class="px-uniform-5 py-uniform-4">Custom padding</div>
+
+<!-- Gap -->
+<div class="flex gap-uniform-4">Flexbox gap</div>
+<div class="grid gap-uniform-3">Grid gap</div>
+
+<!-- Margin -->
+<div class="mt-uniform-3 mb-uniform-4">Margins</div>
+```
+
+---
+
+## Icon System
+
+### Icon Sizes (2x multiplier)
+```css
+--icon-size-1: clamp(4rem, calc(6.01vw + 2.591rem), 8rem);    /* 64px → 128px */
+--icon-size-2: clamp(2rem, calc(3vw + 1.296rem), 4rem);       /* 32px → 64px */
+--icon-size-3: clamp(1.5rem, calc(2.25vw + 0.972rem), 3rem);  /* 24px → 48px */
+--icon-size-4: clamp(1.25rem, calc(1.88vw + 0.81rem), 2.5rem);/* 20px → 40px */
+--icon-size-5: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);     /* 16px → 32px */
+--icon-size-6: clamp(0.75rem, calc(1.13vw + 0.486rem), 1.5rem);/* 12px → 24px */
+--icon-size-7: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);  /* 8px → 16px */
+```
+
+### Usage
+```html
+<Icon name="solar:arrow-left-linear" class="text-icon-size-4" />
+<Icon name="solar:hamburger-menu-linear" class="text-icon-size-4 sm:text-icon-size-4" />
+```
+
+### Icon Set
+- **Primary**: Solar icon set (linear style)
+- Use via Nuxt Icon component
+- Consistent line weight throughout
+
+---
+
+## Transition Tokens
+
+```css
+--transition-fast: 150ms;
+--transition-normal: 300ms;
+--transition-slow: 500ms;
+```
+
+---
 
 ## Layout Standards
 
 ### Section Structure
-- Each major section should have a distinct background color
-- Alternate between charcoal and offwhite backgrounds
-- Use consistent padding (uniform-3) for all sections
-- Maintain consistent gap spacing (uniform-3) within sections
+Standard section pattern:
+```vue
+<div class="bg-offwhite">
+  <section
+    class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto"
+    id="section-id"
+    data-parallax
+  >
+    <header class="font-playfair text-charcoal text-heading-5 tracking-wider uppercase">
+      ■ SECTION TITLE
+    </header>
+    <div class="flex flex-col md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+      <!-- Content -->
+    </div>
+    <footer class="text-end text-charcoal text-normal-5">M✦ - 01</footer>
+  </section>
+</div>
+```
 
-### Content Organization
-- Use three-part structure: marker, content, identifier
-- Section markers use "■" symbol with descriptive text
-- Section identifiers use "M✦ - ##" format in bottom right
-- Content occupies the central area with appropriate spacing
+### Content Width Constraints
+```html
+<div class="xl:max-w-6xl xl:mx-auto">Container</div>
+<div class="md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">Content</div>
+```
 
 ### Aspect Ratios
-- Mobile hero images: 9:16 (portrait)
-- Desktop hero images: 16:9 (landscape)
-- Maintain responsive aspect ratio switching
+- Mobile hero: `aspect-9/16` (portrait)
+- Desktop hero: `aspect-video` (16:9)
+- Gallery cards: `aspect-3/4`
 
-### Responsive Behavior
-- Mobile-first approach
-- Fluid typography and spacing across all breakpoints
-- Components should stack vertically on mobile
-- Horizontal layouts emerge at larger breakpoints
+---
 
 ## Component Styling
 
-### Navigation (Menubar)
-- Fixed positioning at top of viewport
+### Navigation (AppHeader)
+- Fixed positioning at top
 - Mix-blend-difference for universal visibility
-- Playfair Display font at heading-2 size
-- White text color
-- High z-index for layering (999)
-- Hamburger menu icon for navigation
-- Popup menu pattern for navigation items
+- Z-index: 999
+- Mobile: UDrawer (bottom sheet)
+- Desktop: Horizontal nav links
 
 ### Buttons
+**Philosophy**: Text-based with animated underlines, no solid backgrounds.
 
-#### Button Philosophy
-- All buttons are text-based with animated underlines
-- No solid backgrounds or borders on buttons
-- Minimal, elegant interaction design
-- Focus on typography and subtle animation
+```html
+<!-- Standard button -->
+<button class="text-charcoal bg-transparent hover:bg-transparent active:text-gold min-w-11 min-h-11 flex items-center justify-center">
+  <Icon name="..." />
+</button>
 
-#### Standard Buttons
-- Use PrimeVue Button component with text variant
-- Large size as default
-- Icon support integrated
-- No background fills or heavy borders
+<!-- CTA button -->
+<AnimatedButton to="/link" classes="text-gold font-lato text-normal-4 py-uniform-6">
+  Button Text
+</AnimatedButton>
+```
 
-#### Animated Buttons (CTAs)
-- Custom AnimatedButton component for primary actions
-- Text-only presentation with bottom underline
-- Gold text color for emphasis
-- Lato font at normal-4 size
-- Appropriate padding for touch targets
-- Self-centering alignment
-- Used for primary conversion actions
+### Underline Animation
+```css
+.border-line-animate::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transition: width var(--transition-normal) ease-out;
+}
 
-#### Underline Animation
-- Thin bottom underline using normal-7 size
-- Gold color for the underline
-- Animated on hover with disappear-reappear effect
-- Animation duration: 0.6s ease-in-out
-- Smooth scaling transition from left to right, then reappears
-- Always present in default state, animates on interaction
+.border-line-animate:hover::after {
+  animation: borderDisappearReappear 0.6s ease-in-out;
+}
+```
 
-### Hero Section
-- Charcoal background for drama
-- Large aspect ratio image placeholder
-- White placeholder text (temporary)
-- Offwhite text for readings
-- Playfair Display for headline at heading-2
-- Lato for subheadline at normal-2
-- Centered CTA button with margin bottom
+---
 
-### Content Sections
-- Offwhite background for readability
-- Section marker in top left (Playfair Display)
-- Content area with adequate spacing
-- Section identifier in bottom right
-- Use mb-uniform-3 for content item separation
-
-### Philosophy/Service Points
-- Title in Playfair Display at heading-3
-- Description in Lato at normal-3 or normal-4
-- Consistent spacing between points (mb-uniform-3 or mb-uniform-6)
-- Clear visual hierarchy
-
-## Icon System
-
-### Icon Sizes
-Seven levels of fluid icon scaling:
-- icon-size-1: Largest (4rem to 12rem)
-- icon-size-2: Large (2rem to 6rem)
-- icon-size-3: Medium-large (1.5rem to 4.5rem)
-- icon-size-4: Medium (1.25rem to 3.75rem)
-- icon-size-5: Standard (1rem to 3rem)
-- icon-size-6: Small (0.75rem to 2.25rem)
-- icon-size-7: Smallest (0.5rem to 1.5rem)
-
-### Icon Usage
-- Use Nuxt Icon component for all icons
-- Solar icon set as primary icon family
-- Linear style for consistent line weight
-- Icons should scale with text size
-
-## PrimeVue Theme Integration
-
-### Theme Preset
-- Based on Aura preset
-- Yellow color palette for primary semantic colors
-- Dark mode selector: disabled
-- Theme customization via PrimeVue preset system
-
-### Component Theming
-- Leverage PrimeVue theme tokens
-- Don't override PrimeVue CSS directly
-- Extend through preset configuration
-- Maintain PrimeVue's semantic color system
-
-## Animation & Interaction Standards
-
-### Mix Blend Mode
-- Use mix-blend-difference for navigation elements over varying backgrounds
-- Ensures text visibility regardless of underlying content
-- Applied to fixed header elements
-
-### Hover States
-- Provide clear hover feedback on interactive elements
-- Maintain brand color palette in hover states
-- Smooth transitions for state changes
-
-### Transitions
-- Use subtle, purposeful animations
-- Maintain performance across devices
-- Avoid excessive motion
-
-## Underline System
-
-### Underline Purpose
-- Primary decorative element in the design system
-- Used for section separation and button emphasis
-- Creates visual continuity throughout the interface
-- Minimal, sophisticated accent
-
-### Underline Properties
-- **Thickness**: Thin lines using normal-7 size token
-- **Color**: Gold for interactive elements, varies for dividers
-- **Position**: Bottom-only (never top, left, or right)
-- **Style**: Solid, clean lines
-
-### Underline Usage
-
-#### Button Underlines
-- All buttons have bottom underlines
-- Gold color for emphasis
-- Animated on hover (disappear-reappear effect)
-- Present in default state
-- Never use border property, always use pseudo-elements
-
-#### Section Dividers
-- Thin bottom borders to separate major sections
-- Subtle visual breaks between content areas
-- Consistent thickness using normal-7 token
-- Color matches section context
-
-#### Link Underlines
-- Text links should follow button underline pattern
-- Gold color for consistency
-- Animated hover states
-- Maintains text-only aesthetic
-
-### Underline Guidelines
-- Use sparingly for maximum impact
-- Never stack multiple underlines
-- Maintain consistent thickness throughout
-- Always bottom-aligned, never centered or top
-- Prefer underlines over boxes or backgrounds for interactive elements
-
-## Visual Style Standards
+## Visual Style Rules
 
 ### No Rounded Corners
-- All components use sharp, clean edges
-- Use `rounded-none` on all interactive elements
-- No border-radius on any component
-- Maintains minimal, editorial aesthetic
+```html
+<!-- Always use -->
+<div class="rounded-none">
+
+<!-- Never use -->
+<div class="rounded-lg">
+```
+
+### No Shadows
+```html
+<!-- No box-shadow anywhere -->
+<button class="focus:shadow-none">
+```
 
 ### Transparent Backgrounds
-- All components inherit background from parent sections
-- Use `bg-transparent` for all interactive elements
-- No white boxes or background fills
-- Components blend seamlessly into sections
-- Only section-level backgrounds (charcoal/offwhite alternating)
+Components inherit from section backgrounds:
+```html
+<button class="bg-transparent hover:bg-transparent">
+<div class="bg-transparent">
+```
 
-### No Shadows or Elevation
-- No box-shadows on any elements
-- No elevation effects or depth
-- Flat, minimal design throughout
-- Use `focus:shadow-none` to remove focus shadows
-- Rely on underlines and typography for hierarchy
-
-## Design Principles
-
-### Visual Hierarchy
-- Large, bold headings in Playfair Display
-- Supporting text in readable Lato
-- Clear size differentiation between heading levels
-- Consistent spacing creates rhythm
-
-### Minimalism
-- Text-based interface design
-- No heavy borders or backgrounds on interactive elements
-- No rounded corners anywhere
-- No shadows or elevation effects
-- Underlines as primary decorative accent
-- Clean, uncluttered layouts
-- Let typography and spacing do the work
-
-### White Space
-- Generous spacing between sections
-- Adequate breathing room around content
-- Never cramped or cluttered
-- Premium feel through space
-
-### Contrast
-- High contrast between text and backgrounds
-- Dramatic contrast between sections (charcoal vs offwhite)
-- Gold accent provides visual interest
-- Accessibility-first contrast ratios
-
-### Consistency
-- Reuse spacing tokens throughout
-- Maintain typographic scale
-- Consistent component patterns
-- Predictable layout structure
-- Uniform underline treatment
-
-### Responsive Fluidity
-- All sizing uses clamp for smooth scaling
-- No abrupt breakpoint jumps
-- Graceful degradation on smaller screens
-- Enhanced layouts on larger screens
+---
 
 ## Content Guidelines
 
 ### Section Markers
-- Use "■" symbol prefix
-- All caps text
-- Descriptive, concise labels
-- Playfair Display font
+- Symbol: `■`
+- Text: ALL CAPS
+- Font: Playfair Display
+- Size: `text-heading-5`
+- Tracking: `tracking-wider`
 
 ### Section Identifiers
-- Format: "M✦ - ##" (two digits)
-- Right-aligned
+- Format: `M✦ - ##` (two digits)
+- Position: `text-end`
+- Size: `text-normal-5`
 - Sequential numbering
-- Subtle branding element
 
-### Messaging Tone
-- Lead with benefits and narrative
-- Emphasize storytelling over technical specs
-- Professional but warm language
-- Avoid generic marketing speak
+---
 
-## Accessibility Considerations
+## Accessibility
+
+### Focus States
+Gold outline for keyboard navigation:
+```css
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+```
+
+### Touch Targets
+Minimum 44x44px:
+```html
+<button class="min-w-11 min-h-11 flex items-center justify-center">
+```
 
 ### Color Contrast
-- Ensure WCAG AA compliance minimum
-- Test gold text on offwhite backgrounds
-- Verify white text on charcoal backgrounds
-- Never use color alone to convey information
+- Charcoal on offwhite: WCAG AA compliant
+- Gold on offwhite: Check for sufficient contrast
+- White on charcoal: High contrast
 
-### Typography Accessibility
-- Maintain readable font sizes at all viewports
-- Sufficient line height for readability
-- Clear heading hierarchy for screen readers
-- Proper semantic HTML structure
-
-### Interactive Elements
-- Clear focus indicators for keyboard navigation
-- Adequate touch target sizes on mobile
-- Descriptive labels for screen readers
-- Logical tab order
+---
 
 ## Best Practices
 
-### Do's
-- Use Playfair Display for all headings and brand elements
+### Do
+- Use Playfair Display for all headings
 - Use Lato for all body content
-- Maintain the charcoal/offwhite alternating pattern
+- Maintain offwhite backgrounds throughout
 - Use gold sparingly for CTAs and emphasis
-- Leverage the uniform spacing system
-- Keep section structure consistent
-- Use fluid sizing throughout
-- Maintain high contrast
-- Format all buttons as text with animated underlines
-- Use thin underlines (normal-7) for separation and emphasis
-- Keep interactive elements minimal and text-focused
+- Use the uniform spacing tokens
+- Keep sharp edges (rounded-none)
+- Use text-based buttons with underlines
+- Apply fluid sizing with clamp()
 
-### Don'ts
-- Don't mix serif fonts in body text
-- Don't use arbitrary spacing values
-- Don't override PrimeVue CSS directly
-- Don't use inline styles
-- Don't create custom components when PrimeVue has them
-- Don't ignore the fluid scaling system
-- Don't compromise accessibility for aesthetics
-- Don't use gold for large text blocks
-- Don't use solid button backgrounds or heavy borders
-- Don't use underlines on top, left, or right positions (bottom only)
-- Don't create thick or multiple underlines
-- Don't use box styles for interactive elements (use underlines instead)
-- Don't use rounded corners (always use rounded-none)
-- Don't add white backgrounds to components (use bg-transparent)
-- Don't use shadows or elevation effects on any elements
-
-## Testing Requirements
-
-### Visual Testing
-- Test across mobile, tablet, and desktop viewports
-- Verify fluid typography scales correctly
-- Check spacing consistency
-- Validate color contrast ratios
-
-### Brand Consistency
-- Ensure Playfair Display loads correctly
-- Verify Lato as fallback sans-serif
-- Check gold color rendering
-- Validate section marker and identifier placement
-
-### Responsive Behavior
-- Verify aspect ratio switching on hero images
-- Test navigation visibility with mix-blend-difference
-- Check button sizing and padding
-- Validate spacing at all breakpoints
-
-## Resources
-
-- [Playfair Display Font](https://fonts.google.com/specimen/Playfair+Display)
-- [Lato Font](https://fonts.google.com/specimen/Lato)
-- [PrimeVue Aura Theme](https://primevue.org/theming/aura)
-- [WCAG Contrast Guidelines](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
+### Don't
+- Use rounded corners
+- Use box shadows
+- Use solid button backgrounds
+- Use arbitrary spacing values
+- Mix fonts within sections
+- Override theme tokens directly
+- Ignore the 2x scaling system
+- Use inline styles
