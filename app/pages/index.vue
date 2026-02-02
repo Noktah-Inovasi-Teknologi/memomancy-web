@@ -91,18 +91,20 @@ useParallax();
 <template>
   <AppHeader />
 
-  <div class="bg-offwhite aspect-9/16 md:aspect-video overflow-hidden relative" id="hero" data-parallax-media>
-    <USkeleton v-if="!heroLoaded" class="absolute inset-0 w-full h-full rounded-none" />
-    <video
-      :src="getVideoUrl('Tia.mp4')"
-      class="w-full h-full object-cover"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      @loadeddata="heroLoaded = true"
-    />
+  <div class="bg-offwhite px-uniform-5 pb-uniform-5 pt-uniform-3 sm:px-uniform-4 sm:pb-uniform-4 sm:pt-uniform-2 md:px-uniform-3 md:pb-uniform-3 md:pt-uniform-2 lg:px-uniform-2 lg:pb-uniform-2 lg:pt-uniform-1" id="hero">
+    <div class="aspect-9/16 md:aspect-video overflow-hidden relative xl:max-w-6xl xl:mx-auto" data-parallax-media>
+      <USkeleton v-if="!heroLoaded" class="absolute inset-0 w-full h-full rounded-none" />
+      <video
+        :src="getVideoUrl('Tia.mp4')"
+        class="w-full h-full object-cover"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        @loadeddata="heroLoaded = true"
+      />
+    </div>
   </div>
 
   <div class="bg-offwhite">
