@@ -180,7 +180,6 @@ useParallax();
           </div>
         </div>
       </div>
-      <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-4 lg:text-normal-5 xl:text-normal-5">M✦ - 02</footer>
     </section>
   </div>
 
@@ -235,7 +234,6 @@ useParallax();
           View Full Gallery
         </AnimatedButton>
       </div>
-      <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-4 lg:text-normal-5 xl:text-normal-5">M✦ - 03</footer>
     </section>
   </div>
 
@@ -260,7 +258,6 @@ useParallax();
           Calculate Your Project
         </AnimatedButton>
       </div>
-      <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-4 lg:text-normal-5 xl:text-normal-5">M✦ - 04</footer>
     </section>
   </div>
 
@@ -299,7 +296,6 @@ useParallax();
           View All FAQs
         </AnimatedButton>
       </div>
-      <footer class="text-end text-charcoal text-normal-5 sm:text-normal-4 md:text-normal-4 lg:text-normal-5 xl:text-normal-5">M✦ - 05</footer>
     </section>
   </div>
 

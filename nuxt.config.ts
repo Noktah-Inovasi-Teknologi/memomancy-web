@@ -67,7 +67,6 @@ export default defineNuxtConfig({
       },
     },
     "/calculator": {
-      appMiddleware: ["auth-logged-in"],
       kinde: {
         public: true,
       },

@@ -102,3 +102,79 @@ export interface WhyUsItem {
   description: string;
   icons: string[];
 }
+
+// Pricing Calculator interfaces
+
+// Core service types
+export type CoreServiceType =
+  | "photography_only"
+  | "videography_only"
+  | "photo_videography";
+
+// Editing service types
+export type PhotoEditingType = "color_grading";
+export type VideoEditingType =
+  | "same_day_cut"
+  | "express_cut"
+  | "standard_cut"
+  | "digital_content_cut"
+  | "editorial_cut";
+
+// Add-on categories
+export type AddOnCategory = "gear" | "crew" | "scale_complexity" | "time_bound";
+
+// Base service interface
+export interface PricingService {
+  id: string;
+  name: string;
+  price: number;
+  unit?: string;
+  isPercentage?: boolean;
+}
+
+// Core services
+export interface CoreService extends PricingService {
+  type: CoreServiceType;
+}
+
+// Editing services
+export interface EditingService extends PricingService {
+  type: PhotoEditingType | VideoEditingType;
+  mediaType: "photo" | "video";
+}
+
+// Add-on services
+export interface AddOnService extends PricingService {
+  category: AddOnCategory;
+}
+
+// Package included item with category
+export interface PackageIncludedItem {
+  category: string;
+  service: string;
+  price: number;
+  isPercentage?: boolean;
+}
+
+// Package definition
+export interface PricingPackage {
+  id: string;
+  name: string;
+  description: string;
+  originalPrice: number;
+  discountPercentage: number;
+  discountedPrice: number;
+  includedItems: PackageIncludedItem[];
+  popular?: boolean;
+}
+
+// Add-on for calculator selection
+export interface PricingAddOn {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  unit?: string;
+  category: AddOnCategory;
+  isPercentage?: boolean;
+}
