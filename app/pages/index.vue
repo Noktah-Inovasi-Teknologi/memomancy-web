@@ -1,54 +1,50 @@
 <script lang="ts" setup>
-const philosophyItems = [
+const whyChooseItems = [
   {
-    label: "Narrative-First Approach",
-    content:
-      "We start with your story, not our equipment. Before a single shot, we understand your vision, your audience, and what makes this moment matter.",
+    title: "You don't need to explain anything",
+    problem: "With most photographers, you have to brief, remind, and hope they \"get it.\"",
+    solution: "With Memomancy, you choose a package and we handle it. No direction needed.",
   },
   {
-    label: "Flexible Services",
-    content:
-      "Premium doesn't mean rigid. Our pricing adapts to your needs, no hidden fees.",
+    title: "You know what you'll get",
+    problem: "Many services depend on who shows up. Results can vary.",
+    solution: "Memomancy follows a fixed system, so the output and delivery are predictable every time.",
   },
   {
-    label: "Excellence",
-    content:
-      "We are committed to delivering the highest quality in every aspect of our work, from technical execution to artistic expression.",
+    title: "It's fast and straightforward",
+    problem: "Booking is quick. Packages are clear. Delivery time is fixed.",
+    solution: "No back-and-forth. No waiting weeks without updates.",
+  },
+  {
+    title: "It's for people who just want it done properly",
+    problem: "Memomancy isn't for creative experiments or personal styles.",
+    solution: "It's for documenting important moments safely, so you don't regret not having them.",
   },
 ];
-const servicePoints = [
+const services = [
   {
     title: "Photography",
-    description:
-      "Capturing moments with precision and artistry, from portraits to events.",
-    isOpen: false,
+    description: "Professional shots with color grading included. Every moment captured, ready to share.",
+    icon: "solar:camera-linear",
   },
   {
     title: "Videography",
-    description:
-      "Bringing stories to life through dynamic and engaging video content.",
-    isOpen: false,
+    description: "From same-day highlights to cinematic films. Your story, moving.",
+    icon: "solar:clapperboard-open-play-linear",
   },
   {
-    title: "Professional Editing",
-    description:
-      "Enhancing your visuals with professional editing for a polished final product.",
-    isOpen: false,
+    title: "Edit",
+    description: "Professional post-production. Color grading, sound design, and polished delivery.",
+    icon: "solar:slider-horizontal-linear",
   },
 ];
-
-const openServiceIndex = ref<number | null>(null);
-
-const toggleService = (index: number) => {
-  openServiceIndex.value = openServiceIndex.value === index ? null : index;
-};
 
 const { getVideoUrl } = useMedia();
 
 const galleryItems = [
-  { type: "video", src: getVideoUrl("Tia.mp4"), label: "Featured Photography" },
-  { type: "video", src: getVideoUrl("Rizvi.mp4"), label: "Featured Videography" },
-  { type: "video", src: getVideoUrl("Tia.mp4"), label: "Recent Work" },
+  { type: "video", src: getVideoUrl("Tia.mp4"), label: "Tourism Coverage" },
+  { type: "video", src: getVideoUrl("Rizvi.mp4"), label: "Sport & Adventure" },
+  { type: "video", src: getVideoUrl("Tia.mp4"), label: "Family Moments" },
 ];
 
 const currentSlide = ref(0);
@@ -63,36 +59,31 @@ const prevSlide = () => {
 
 const faqItems = [
   {
-    question: "How far in advance should I book?",
-    answer: "We recommend booking 3-6 months in advance for optimal availability, especially for weddings and special events. However, we can often accommodate last-minute requests depending on our schedule."
+    label: "What's included in each package?",
+    content: "Every package includes a dedicated photographer or videographer, professional editing with color grading, and digital delivery. Specific inclusions vary by package type, from raw files to same-day highlights or cinematic edits."
   },
   {
-    question: "What's included in your packages?",
-    answer: "All packages include professional editing, high-resolution digital files, and online gallery access. Specific inclusions vary by package, use our pricing calculator to see what fits your needs."
+    label: "How long until I receive my photos and videos?",
+    content: "Standard delivery is 3 to 7 days depending on your package. Same-day highlights are available for events, and rush delivery can be arranged for an additional fee."
   },
   {
-    question: "Do you travel for shoots?",
-    answer: "Yes, we travel locally and internationally for projects. Travel fees vary by location and are calculated during the booking process."
+    label: "Do you cover events outside Yogyakarta?",
+    content: "Yes, we travel. For locations outside our standard coverage area, a transport fee applies. Contact us to know the exact cost for your location."
+  },
+  {
+    label: "What if I need to reschedule?",
+    content: "Life happens. Reschedule up to 7 days before your event at no charge. Within 7 days, we'll work with you to find a new date, subject to availability and a small rebooking fee."
   }
 ];
 
-const openFaqIndex = ref<number | null>(null);
-
-const toggleFaq = (index: number) => {
-  openFaqIndex.value = openFaqIndex.value === index ? null : index;
-};
-
 const heroLoaded = ref(false);
-
-// Initialize parallax effect
-useParallax();
 </script>
 
 <template>
   <AppHeader />
 
   <div class="bg-offwhite px-uniform-5 pb-uniform-5 pt-uniform-3 sm:px-uniform-4 sm:pb-uniform-4 sm:pt-uniform-2 md:px-uniform-3 md:pb-uniform-3 md:pt-uniform-2 lg:px-uniform-2 lg:pb-uniform-2 lg:pt-uniform-1" id="hero">
-    <div class="aspect-9/16 md:aspect-video overflow-hidden relative xl:max-w-6xl xl:mx-auto" data-parallax-media>
+    <div class="aspect-9/16 md:aspect-video overflow-hidden relative xl:max-w-6xl xl:mx-auto">
       <USkeleton v-if="!heroLoaded" class="absolute inset-0 w-full h-full rounded-none" />
       <video
         :src="getVideoUrl('Tia.mp4')"
@@ -108,19 +99,23 @@ useParallax();
   </div>
 
   <div class="bg-offwhite">
-    <section class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 xl:max-w-6xl xl:mx-auto" id="hero-cta" data-parallax>
+    <section class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 xl:max-w-6xl xl:mx-auto" id="hero-cta">
       <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3 text-charcoal md:max-w-3xl lg:max-w-4xl xl:max-w-4xl">
-        <h1 class="font-playfair text-heading-2 sm:text-heading-1 md:text-heading-1 lg:text-heading-1 xl:text-heading-1">Where moments become legacy.</h1>
+        <h1 class="font-playfair text-heading-3 sm:text-heading-2 md:text-heading-2 lg:text-heading-2 xl:text-heading-2">Get your moments documented. Without thinking about it.</h1>
         <p class="font-lato text-normal-3 sm:text-normal-2 md:text-normal-2 lg:text-normal-2 xl:text-normal-2">
-          Premium photography & videography for those who value narrative.
+          Choose a package. Show up. We handle the rest.<br />
+          Clean photos and videos, delivered fast and on time.
         </p>
       </div>
-      <AnimatedButton
-        to="/gallery"
-        classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 py-uniform-6"
+      <NuxtLink
+        to="/reservation"
+        class="group flex items-center gap-uniform-5 sm:gap-uniform-4 md:gap-uniform-4 self-center md:self-start border border-gold px-uniform-4 sm:px-uniform-3 md:px-uniform-3 py-uniform-5 sm:py-uniform-4 md:py-uniform-4 transition-colors hover:bg-gold/10"
       >
-        Explore Our Gallery
-      </AnimatedButton>
+        <span class="font-lato text-normal-3 sm:text-normal-2 md:text-normal-2 lg:text-normal-3 xl:text-normal-3 text-gold">
+          Make a Reservation
+        </span>
+        <Icon name="solar:arrow-right-linear" class="text-gold text-icon-size-5 sm:text-icon-size-4 md:text-icon-size-4 lg:text-icon-size-5 xl:text-icon-size-5 transition-transform group-hover:translate-x-1" />
+      </NuxtLink>
     </section>
   </div>
 
@@ -129,53 +124,21 @@ useParallax();
   <div class="bg-offwhite">
     <section
       class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto"
-      id="philosophy"
-      data-parallax
+      id="why-choose"
     >
-      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ OUR PHILOSOPHIES</header>
-      <div class="flex flex-col md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
-        <UAccordion
-          :items="philosophyItems"
-          type="single"
-          collapsible
-          :ui="{
-            item: 'border-b border-charcoal',
-            trigger: 'font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-charcoal bg-transparent rounded-none py-uniform-5 md:py-uniform-4 lg:py-uniform-3 xl:py-uniform-3 hover:bg-transparent focus:outline-none',
-            content: 'pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3',
-            body: 'text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 font-lato text-charcoal'
-          }"
-        />
-      </div>
-    </section>
-  </div>
-
-  <USeparator />
-
-  <div class="bg-offwhite">
-    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="service" data-parallax>
-      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ SERVICES</header>
-      <div class="flex flex-col md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
-        <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3">
-          <div
-            v-for="(item, index) in servicePoints"
-            :key="item.title"
-            class="border-b border-charcoal"
-          >
-            <button
-              @click="toggleService(index)"
-              class="w-full flex justify-between items-center font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-charcoal bg-transparent p-0 pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3 gap-uniform-5"
-            >
-              <span class="font-playfair text-left">{{ item.title }}</span>
-              <Icon
-                :name="openServiceIndex === index ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'"
-                class="text-charcoal text-icon-size-4 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-5 xl:text-icon-size-5 shrink-0"
-              />
-            </button>
-            <div
-              v-if="openServiceIndex === index"
-              class="pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3"
-            >
-              <p class="text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 font-lato">{{ item.description }}</p>
+      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ THE DIFFERENCE</header>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2">
+        <div
+          v-for="(item, index) in whyChooseItems"
+          :key="item.title"
+          class="group relative flex flex-col border-b md:border-b-0 md:border-l border-charcoal pb-uniform-5 md:pb-0 md:pl-uniform-4 lg:pl-uniform-3 xl:pl-uniform-3"
+        >
+          <span class="font-playfair text-heading-2 sm:text-heading-1 md:text-heading-2 lg:text-heading-2 xl:text-heading-2 text-taupe leading-none select-none">{{ String(index + 1).padStart(2, '0') }}</span>
+          <div class="flex flex-col gap-uniform-6 sm:gap-uniform-5 md:gap-uniform-5 lg:gap-uniform-4 xl:gap-uniform-4 mt-uniform-6 sm:mt-uniform-5 md:mt-uniform-5 lg:mt-uniform-4 xl:mt-uniform-4">
+            <h3 class="font-playfair text-heading-4 sm:text-heading-3 md:text-heading-4 lg:text-heading-4 xl:text-heading-4 text-charcoal">{{ item.title }}</h3>
+            <div class="flex flex-col gap-uniform-7 sm:gap-uniform-6 md:gap-uniform-6 lg:gap-uniform-5 xl:gap-uniform-5">
+              <p class="text-normal-4 sm:text-normal-3 md:text-normal-4 lg:text-normal-4 xl:text-normal-4 font-lato text-charcoal/70">{{ item.problem }}</p>
+              <p class="text-normal-4 sm:text-normal-3 md:text-normal-4 lg:text-normal-4 xl:text-normal-4 font-lato text-charcoal">{{ item.solution }}</p>
             </div>
           </div>
         </div>
@@ -183,8 +146,25 @@ useParallax();
     </section>
   </div>
 
+  <USeparator />
+
   <div class="bg-offwhite">
-    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="gallery-showcase" data-parallax>
+    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="service">
+      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ SERVICES</header>
+      <div class="flex flex-wrap items-center gap-uniform-5 sm:gap-uniform-4 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3">
+        <template v-for="(service, index) in services" :key="service.title">
+          <div class="flex items-center gap-uniform-6 sm:gap-uniform-5 md:gap-uniform-5 lg:gap-uniform-4 xl:gap-uniform-4">
+            <Icon :name="service.icon" class="text-icon-size-5 sm:text-icon-size-4 md:text-icon-size-4 lg:text-icon-size-3 xl:text-icon-size-3 text-taupe" />
+            <span class="font-playfair text-heading-3 sm:text-heading-2 md:text-heading-3 lg:text-heading-3 xl:text-heading-3 text-charcoal">{{ service.title }}</span>
+          </div>
+          <span v-if="index < services.length - 1" class="font-playfair text-heading-3 sm:text-heading-2 md:text-heading-3 lg:text-heading-3 xl:text-heading-3 text-taupe">/</span>
+        </template>
+      </div>
+    </section>
+  </div>
+
+  <div class="bg-offwhite">
+    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="gallery-showcase">
       <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ RECENT WORK</header>
       <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 md:max-w-4xl lg:max-w-5xl xl:max-w-full">
         <div class="relative">
@@ -240,62 +220,65 @@ useParallax();
   <USeparator />
 
   <div class="bg-offwhite">
-    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="pricing-cta" data-parallax>
+    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="pricing-cta">
       <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ TRANSPARENT PRICING</header>
-      <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
-        <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3">
+
+      <div class="flex flex-col md:flex-row md:items-center gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-2 lg:gap-uniform-1">
+        <div class="relative flex items-center justify-center md:justify-start shrink-0">
+          <span class="font-playfair text-taupe/30 text-[8rem] sm:text-[10rem] md:text-[12rem] lg:text-[14rem] xl:text-[16rem] leading-none select-none">
+            100%
+          </span>
+        </div>
+
+        <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3 md:max-w-xl lg:max-w-2xl">
           <h2 class="font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-charcoal">
-            No hidden fees. No surprises.
+            Know exactly what you're paying for.
           </h2>
           <p class="text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 font-lato text-charcoal">
-            Our interactive pricing calculator lets you build a custom package that fits your needs and budget. Get an instant estimate based on your project requirements.
+            Choose from our ready-made packages, add extras if you need them, and see your total instantly. The number you see is the number you pay.
           </p>
         </div>
-        <AnimatedButton
-          to="/calculator"
-          classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 py-uniform-6"
-        >
-          Calculate Your Project
-        </AnimatedButton>
       </div>
     </section>
   </div>
 
-  <div class="bg-offwhite">
-    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="faq" data-parallax>
-      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ COMMON QUESTIONS</header>
-      <div class="flex flex-col gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 md:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
-        <div class="flex flex-col gap-uniform-5 md:gap-uniform-4 lg:gap-uniform-3 xl:gap-uniform-3">
-          <div
-            v-for="(item, index) in faqItems"
-            :key="item.question"
-            class="border-b border-charcoal"
-          >
-            <button
-              @click="toggleFaq(index)"
-              class="w-full flex justify-between items-center font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-charcoal bg-transparent p-0 pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3 gap-uniform-5"
-            >
-              <span class="font-playfair text-left">{{ item.question }}</span>
-              <Icon
-                :name="openFaqIndex === index ? 'solar:minus-circle-linear' : 'solar:add-circle-linear'"
-                class="text-charcoal text-icon-size-4 sm:text-icon-size-4 md:text-icon-size-5 lg:text-icon-size-5 xl:text-icon-size-5 shrink-0"
-              />
-            </button>
-            <div
-              v-if="openFaqIndex === index"
-              class="pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3"
-            >
-              <p class="text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 font-lato">{{ item.answer }}</p>
-            </div>
-          </div>
-        </div>
-        <AnimatedButton
-          to="/"
-          classes="self-center md:self-start text-gold font-lato text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 py-uniform-6"
-        >
-          View All FAQs
-        </AnimatedButton>
+  <div class="bg-charcoal">
+    <section class="flex flex-col md:flex-row md:items-center md:justify-between p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="pricing-action">
+      <div class="flex flex-col gap-uniform-6 sm:gap-uniform-5 md:gap-uniform-5">
+        <p class="font-lato text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 text-offwhite/70">
+          Curious what it costs?
+        </p>
+        <h3 class="font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-offwhite">
+          Check it yourself.
+        </h3>
       </div>
+      <NuxtLink
+        to="/calculator"
+        class="group flex items-center gap-uniform-5 sm:gap-uniform-4 md:gap-uniform-4 self-start md:self-center border border-gold px-uniform-4 sm:px-uniform-3 md:px-uniform-3 py-uniform-5 sm:py-uniform-4 md:py-uniform-4 transition-colors hover:bg-gold/10"
+      >
+        <span class="font-lato text-normal-3 sm:text-normal-2 md:text-normal-2 lg:text-normal-3 xl:text-normal-3 text-gold">
+          See Pricing
+        </span>
+        <Icon name="solar:arrow-right-linear" class="text-gold text-icon-size-5 sm:text-icon-size-4 md:text-icon-size-4 lg:text-icon-size-5 xl:text-icon-size-5 transition-transform group-hover:translate-x-1" />
+      </NuxtLink>
+    </section>
+  </div>
+
+  <div class="bg-offwhite">
+    <section class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto" id="faq">
+      <header class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase">■ COMMON QUESTIONS</header>
+      <UAccordion
+        :items="faqItems"
+        type="single"
+        collapsible
+        class="md:max-w-2xl lg:max-w-3xl xl:max-w-4xl"
+        :ui="{
+          item: 'border-b border-charcoal',
+          trigger: 'font-playfair text-heading-4 sm:text-heading-3 md:text-heading-3 lg:text-heading-4 xl:text-heading-4 text-charcoal bg-transparent rounded-none py-uniform-5 md:py-uniform-4 lg:py-uniform-3 xl:py-uniform-3 hover:bg-transparent focus:outline-none gap-uniform-5',
+          content: 'pb-uniform-5 md:pb-uniform-4 lg:pb-uniform-3 xl:pb-uniform-3',
+          body: 'text-normal-4 sm:text-normal-3 md:text-normal-3 lg:text-normal-4 xl:text-normal-4 font-lato text-charcoal'
+        }"
+      />
     </section>
   </div>
 

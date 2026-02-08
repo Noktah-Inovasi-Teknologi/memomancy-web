@@ -15,8 +15,6 @@ const {
   hasSelection,
   getAddOnDisplayPrice,
 } = usePricingCalculator();
-
-useParallax();
 </script>
 
 <template>
@@ -45,9 +43,7 @@ useParallax();
     <!-- Packages Section -->
     <div class="bg-offwhite">
       <section
-        class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto"
-        data-parallax
-      >
+        class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto"      >
         <header
           class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase"
         >
@@ -72,9 +68,7 @@ useParallax();
     <!-- Add-ons Section -->
     <div class="bg-offwhite">
       <section
-        class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto"
-        data-parallax
-      >
+        class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto"      >
         <header
           class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase"
         >
@@ -128,9 +122,7 @@ useParallax();
     <!-- Note Section -->
     <div class="bg-offwhite">
       <section
-        class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto"
-        data-parallax
-      >
+        class="flex flex-col p-uniform-5 sm:p-uniform-4 md:p-uniform-3 lg:p-uniform-2 gap-uniform-4 sm:gap-uniform-3 md:gap-uniform-3 lg:gap-uniform-2 xl:gap-uniform-2 xl:max-w-6xl xl:mx-auto"      >
         <header
           class="font-playfair text-charcoal text-heading-5 sm:text-heading-4 md:text-heading-5 lg:text-heading-5 xl:text-heading-5 tracking-wider uppercase"
         >

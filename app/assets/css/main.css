@@ -130,13 +130,13 @@
   --text-normal-7: clamp(0.125rem, calc(0.094vw + 0.103rem), 0.1875rem);/* 0.125rem → 0.1875rem (1.5x) */
 
   /* Icons: 2x multiplier */
-  --icon-size-1: clamp(4rem, calc(6.01vw + 2.591rem), 8rem);           /* 4rem → 8rem (2x) */
-  --icon-size-2: clamp(2rem, calc(3vw + 1.296rem), 4rem);              /* 2rem → 4rem (2x) */
-  --icon-size-3: clamp(1.5rem, calc(2.25vw + 0.972rem), 3rem);         /* 1.5rem → 3rem (2x) */
-  --icon-size-4: clamp(1.25rem, calc(1.88vw + 0.81rem), 2.5rem);       /* 1.25rem → 2.5rem (2x) */
-  --icon-size-5: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);            /* 1rem → 2rem (2x) */
-  --icon-size-6: clamp(0.75rem, calc(1.13vw + 0.486rem), 1.5rem);      /* 0.75rem → 1.5rem (2x) */
-  --icon-size-7: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);         /* 0.5rem → 1rem (2x) */
+  --text-icon-size-1: clamp(4rem, calc(6.01vw + 2.591rem), 8rem);      /* 4rem → 8rem (2x) */
+  --text-icon-size-2: clamp(2rem, calc(3vw + 1.296rem), 4rem);         /* 2rem → 4rem (2x) */
+  --text-icon-size-3: clamp(1.5rem, calc(2.25vw + 0.972rem), 3rem);    /* 1.5rem → 3rem (2x) */
+  --text-icon-size-4: clamp(1.25rem, calc(1.88vw + 0.81rem), 2.5rem);  /* 1.25rem → 2.5rem (2x) */
+  --text-icon-size-5: clamp(1rem, calc(1.5vw + 0.648rem), 2rem);       /* 1rem → 2rem (2x) */
+  --text-icon-size-6: clamp(0.75rem, calc(1.13vw + 0.486rem), 1.5rem); /* 0.75rem → 1.5rem (2x) */
+  --text-icon-size-7: clamp(0.5rem, calc(0.75vw + 0.324rem), 1rem);    /* 0.5rem → 1rem (2x) */
 
   /* Spacing: 2x multiplier */
   --spacing-uniform-1: clamp(3rem, calc(4.51vw + 1.944rem), 6rem);     /* 3rem → 6rem (2x) */

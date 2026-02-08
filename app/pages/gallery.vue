@@ -33,8 +33,6 @@ const openModal = (project: Project) => {
   selectedProject.value = project;
   modalVisible.value = true;
 };
-
-useParallax();
 </script>
 
 <template>
