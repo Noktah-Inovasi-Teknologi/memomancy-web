@@ -10,8 +10,14 @@ const {
 const currentPage = ref(0);
 const modalVisible = ref(false);
 const selectedProject = ref<Project | null>(null);
+const hoveredProjectId = ref<string | null>(null);
 
 const currentPageProjects = computed(() => getProjectsForPage(currentPage.value));
+const isAnyHovered = computed(() => hoveredProjectId.value !== null);
+
+const handleHover = (projectId: string | null) => {
+  hoveredProjectId.value = projectId;
+};
 
 const nextPage = () => {
   if (currentPage.value < totalPages.value - 1) {
@@ -56,7 +62,10 @@ const openModal = (project: Project) => {
             :key="project.id"
             :project="project"
             :thumbnail-url="getThumbnailUrl(project.thumbnail)"
+            :is-any-hovered="isAnyHovered"
+            :is-hovered="hoveredProjectId === project.id"
             @click="openModal"
+            @hover="handleHover"
           />
         </div>
 

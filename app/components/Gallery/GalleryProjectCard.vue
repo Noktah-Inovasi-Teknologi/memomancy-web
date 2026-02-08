@@ -4,11 +4,17 @@ import type { Project } from "~/types";
 interface Props {
   project: Project;
   thumbnailUrl: string;
+  isAnyHovered?: boolean;
+  isHovered?: boolean;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  isAnyHovered: false,
+  isHovered: false,
+});
 const emit = defineEmits<{
   click: [project: Project];
+  hover: [projectId: string | null];
 }>();
 
 const { formatDate } = useGalleryProjects();
@@ -21,11 +27,15 @@ watch(() => props.thumbnailUrl, () => {
 const handleClick = () => {
   emit("click", props.project);
 };
+
+const shouldDarken = computed(() => props.isAnyHovered && !props.isHovered);
 </script>
 
 <template>
   <div
     @click="handleClick"
+    @mouseenter="emit('hover', project.id)"
+    @mouseleave="emit('hover', null)"
     class="flex flex-col gap-uniform-7 sm:gap-uniform-6 md:gap-uniform-5 lg:gap-uniform-4 xl:gap-uniform-4 cursor-pointer group"
   >
     <div class="relative overflow-hidden rounded-none aspect-3/4">
@@ -48,6 +58,10 @@ const handleClick = () => {
         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         loading="lazy"
         @load="loaded = true"
+      />
+      <div
+        class="absolute inset-0 bg-charcoal transition-opacity duration-300 pointer-events-none"
+        :style="{ opacity: shouldDarken ? 0.5 : 0 }"
       />
     </div>
     <div class="flex flex-col gap-uniform-7 sm:gap-uniform-6 md:gap-uniform-5 lg:gap-uniform-4 xl:gap-uniform-4">
