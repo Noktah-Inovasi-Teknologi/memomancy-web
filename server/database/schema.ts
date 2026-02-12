@@ -38,3 +38,4 @@ export const medias = sqliteTable("medias", {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
 });
+

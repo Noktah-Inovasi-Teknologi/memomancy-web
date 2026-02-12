@@ -178,3 +178,59 @@ export interface PricingAddOn {
   category: AddOnCategory;
   isPercentage?: boolean;
 }
+
+// Reservation System interfaces
+
+export type ReservationStepNumber = 1 | 2 | 3 | 4 | 5;
+export type VenueType = "indoor" | "outdoor" | "both";
+export type ReservationStatus = "pending" | "confirmed" | "cancelled";
+
+export interface ReservationEventDetails {
+  eventDate: Date | null;
+  eventType: string;
+  location: string;
+  region: string;
+  venueType: VenueType;
+  guestCount: number;
+  eventDuration: number;
+}
+
+export interface ReservationCustomerInfo {
+  name: string;
+  email: string;
+  phone: string;
+  notes: string;
+}
+
+export interface ReservationAddOn {
+  id: string;
+  name: string;
+  price: number;
+  isPercentage: boolean;
+  calculatedPrice: number;
+}
+
+export interface ReservationPayload {
+  eventDate: string;
+  eventType: string;
+  location: string;
+  region: string;
+  venueType: VenueType;
+  guestCount: number;
+  eventDuration: number;
+  packageId: string;
+  packageName: string;
+  packagePrice: number;
+  addOns: ReservationAddOn[];
+  addOnsTotal: number;
+  totalPrice: number;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  customerNotes: string;
+}
+
+export interface ReservationResponse {
+  success: boolean;
+  whatsappUrl: string;
+}
